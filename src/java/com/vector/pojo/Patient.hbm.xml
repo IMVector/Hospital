@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.Patient" table="patient" catalog="instalhms" optimistic-lock="version">
+        <id name="patientId" type="java.lang.Integer">
+            <column name="PatientId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="image" class="com.vector.pojo.Image" fetch="select">
+            <column name="Image" />
+        </many-to-one>
+        <property name="patientName" type="string">
+            <column name="PatientName" length="20" not-null="true" />
+        </property>
+        <property name="patientBirthday" type="string">
+            <column name="PatientBirthday" length="20" not-null="true" />
+        </property>
+        <property name="patientGender" type="string">
+            <column name="PatientGender" length="2" not-null="true" />
+        </property>
+        <property name="patientAge" type="int">
+            <column name="PatientAge" not-null="true" />
+        </property>
+        <property name="bloodType" type="string">
+            <column name="BloodType" length="20" />
+        </property>
+        <property name="patientPhone" type="string">
+            <column name="PatientPhone" length="11" not-null="true" />
+        </property>
+        <property name="patientAddress" type="string">
+            <column name="PatientAddress" length="50" not-null="true" />
+        </property>
+        <property name="patientMstatus" type="string">
+            <column name="PatientMStatus" length="2" not-null="true" />
+        </property>
+        <property name="patientEmail" type="string">
+            <column name="PatientEmail" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="patientPassword" type="string">
+            <column name="PatientPassword" not-null="true" />
+        </property>
+        <property name="idCard" type="string">
+            <column name="IdCard" length="18" not-null="true" unique="true" />
+        </property>
+        <set name="bills" table="bill" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PatientId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.Bill" />
+        </set>
+        <set name="precautionAdvices" table="precaution_advice" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PatientId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.PrecautionAdvice" />
+        </set>
+        <set name="dietAdvices" table="diet_advice" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PatientId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.DietAdvice" />
+        </set>
+        <set name="reservations" table="reservation" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PatientId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.Reservation" />
+        </set>
+        <set name="checkRecords" table="check_record" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PatientId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.CheckRecord" />
+        </set>
+        <set name="medicationHistories" table="medication_history" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PatientId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.MedicationHistory" />
+        </set>
+        <set name="medicalRecords" table="medical_record" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PatientId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.MedicalRecord" />
+        </set>
+        <set name="tasks" table="task" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Patient" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.Task" />
+        </set>
+    </class>
+</hibernate-mapping>

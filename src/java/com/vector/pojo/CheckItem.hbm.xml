@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.CheckItem" table="check_item" catalog="instalhms" optimistic-lock="version">
+        <id name="checkItemId" type="java.lang.Integer">
+            <column name="CheckItemId" />
+            <generator class="identity" />
+        </id>
+        <property name="checkItemName" type="string">
+            <column name="CheckItemName" length="20" not-null="true" />
+        </property>
+        <property name="checkItemPrice" type="float">
+            <column name="CheckItemPrice" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="checkItemDescription" type="string">
+            <column name="CheckItemDescription" length="50" not-null="true" />
+        </property>
+        <set name="checkRecords" table="check_record" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CheckItemId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.CheckRecord" />
+        </set>
+    </class>
+</hibernate-mapping>

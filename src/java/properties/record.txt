@@ -1,0 +1,53 @@
+
+在Department中staffs上加入jsonIgnore
+并修改Department.xml中image lazy=false
+
+在Image中
+    @JsonIgnore
+    private Set patients = new HashSet(0);
+    @JsonIgnore
+    private Set departments = new HashSet(0);
+    @JsonIgnore
+    private Set staffs = new HashSet(0);
+
+在Role中
+    @JsonIgnore
+    private Set staffs = new HashSet(0);
+
+在Title中
+     @JsonIgnore
+     private Set staffs = new HashSet(0);
+
+在Staff中
+    @JsonIgnore
+    private Set precautionAdvices = new HashSet(0);
+    @JsonIgnore
+    private Set medicalRecords = new HashSet(0);
+    @JsonIgnore
+    private Set dietAdvices = new HashSet(0);
+    @JsonIgnore
+    private Set checkRecords = new HashSet(0);
+    @JsonIgnore
+    private Set tasksForTaskSponsor = new HashSet(0);
+    @JsonIgnore
+    private Set tasksForTaskTarget = new HashSet(0);
+    @JsonIgnore
+    private Set leaves = new HashSet(0);
+    @JsonIgnore
+    private Set reservations = new HashSet(0);
+    @JsonIgnore
+    private Set workSchedules = new HashSet(0);
+
+在Staff.xml中
+        <many-to-one name="department" class="com.vector.pojo.Department" lazy="false" fetch="select">
+            <column name="DepartmentID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="image" class="com.vector.pojo.Image" lazy="false" fetch="select">
+            <column name="Image" />
+        </many-to-one>
+        <many-to-one name="role" class="com.vector.pojo.Role" lazy="false" fetch="select">
+            <column name="Role" not-null="true" />
+        </many-to-one>
+        <many-to-one name="title" class="com.vector.pojo.Title" lazy="false" fetch="select">
+            <column name="TitleId" not-null="true" />
+        </many-to-one>

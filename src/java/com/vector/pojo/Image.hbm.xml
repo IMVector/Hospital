@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.Image" table="image" catalog="instalhms" optimistic-lock="version">
+        <id name="imageId" type="java.lang.Integer">
+            <column name="ImageId" />
+            <generator class="identity" />
+        </id>
+        <property name="imagePath" type="string">
+            <column name="ImagePath" not-null="true" />
+        </property>
+        <property name="usePage" type="string">
+            <column name="UsePage" length="100" />
+        </property>
+        <set name="patients" table="patient" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Image" />
+            </key>
+            <one-to-many class="com.vector.pojo.Patient" />
+        </set>
+        <set name="departments" table="department" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DepartmentImage" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.Department" />
+        </set>
+        <set name="staffs" table="staff" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Image" />
+            </key>
+            <one-to-many class="com.vector.pojo.Staff" />
+        </set>
+    </class>
+</hibernate-mapping>

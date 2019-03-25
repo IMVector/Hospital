@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.WorkSchedule" table="work_schedule" catalog="instalhms" optimistic-lock="version">
+        <id name="workScheduleId" type="java.lang.Integer">
+            <column name="WorkScheduleId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="staff" class="com.vector.pojo.Staff" fetch="select">
+            <column name="StaffId" not-null="true" />
+        </many-to-one>
+        <property name="workSchedule" type="string">
+            <column name="WorkSchedule" length="100" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

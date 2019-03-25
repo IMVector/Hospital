@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.Medicine" table="medicine" catalog="instalhms" optimistic-lock="version">
+        <id name="medicationId" type="java.lang.Integer">
+            <column name="MedicationId" />
+            <generator class="identity" />
+        </id>
+        <property name="medicationName" type="string">
+            <column name="MedicationName" length="20" not-null="true" />
+        </property>
+        <property name="medicationInstructions" type="string">
+            <column name="MedicationInstructions" length="100" not-null="true" />
+        </property>
+        <property name="medicationDescription" type="string">
+            <column name="MedicationDescription" length="100" not-null="true" />
+        </property>
+        <set name="medicationHistories" table="medication_history" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="MedicationId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.MedicationHistory" />
+        </set>
+    </class>
+</hibernate-mapping>

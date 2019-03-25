@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.PrecautionAdvice" table="precaution_advice" catalog="instalhms" optimistic-lock="version">
+        <id name="precautionAdviceId" type="int">
+            <column name="PrecautionAdviceId" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="patient" class="com.vector.pojo.Patient" fetch="select">
+            <column name="PatientId" not-null="true" />
+        </many-to-one>
+        <many-to-one name="staff" class="com.vector.pojo.Staff" fetch="select">
+            <column name="StaffId" not-null="true" />
+        </many-to-one>
+        <property name="precautionAdviceContent" type="string">
+            <column name="PrecautionAdviceContent" length="100" not-null="true" />
+        </property>
+        <property name="dietAdviceTime" type="timestamp">
+            <column name="DietAdviceTime" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

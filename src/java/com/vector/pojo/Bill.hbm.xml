@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.Bill" table="bill" catalog="instalhms" optimistic-lock="version">
+        <id name="billId" type="java.lang.Integer">
+            <column name="BillId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="patient" class="com.vector.pojo.Patient" fetch="select">
+            <column name="PatientId" not-null="true" />
+        </many-to-one>
+        <property name="paymentStatus" type="string">
+            <column name="PaymentStatus" length="2" not-null="true" />
+        </property>
+        <property name="billDate" type="timestamp">
+            <column name="BillDate" length="19" not-null="true" />
+        </property>
+        <property name="totalAmount" type="float">
+            <column name="TotalAmount" precision="12" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

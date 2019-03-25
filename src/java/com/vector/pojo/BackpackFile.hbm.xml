@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.BackpackFile" table="backpack_file" catalog="instalhms" optimistic-lock="version">
+        <id name="backpackFileId" type="java.lang.Integer">
+            <column name="BackpackFileId" />
+            <generator class="identity" />
+        </id>
+        <property name="backpackFilePath" type="string">
+            <column name="BackpackFilePath" not-null="true" />
+        </property>
+        <property name="backpackTime" type="timestamp">
+            <column name="BackpackTime" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

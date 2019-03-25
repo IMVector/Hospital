@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.MedicalRecord" table="medical_record" catalog="instalhms" optimistic-lock="version">
+        <id name="medicalRecordId" type="java.lang.Integer">
+            <column name="MedicalRecordId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="patient" class="com.vector.pojo.Patient" fetch="select">
+            <column name="PatientId" not-null="true" />
+        </many-to-one>
+        <many-to-one name="staff" class="com.vector.pojo.Staff" fetch="select">
+            <column name="DiagnoseStaff" not-null="true" />
+        </many-to-one>
+        <property name="diagnosticDescription" type="string">
+            <column name="DiagnosticDescription" not-null="true" />
+        </property>
+        <property name="date" type="timestamp">
+            <column name="Date" length="19" not-null="true" />
+        </property>
+        <property name="symptom" type="string">
+            <column name="Symptom" />
+        </property>
+        <set name="prescriptions" table="prescription" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="MedicalRecordId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.Prescription" />
+        </set>
+    </class>
+</hibernate-mapping>

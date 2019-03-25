@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.Role" table="role" catalog="instalhms" optimistic-lock="version">
+        <id name="roleId" type="java.lang.Integer">
+            <column name="RoleId" />
+            <generator class="identity" />
+        </id>
+        <property name="roleName" type="string">
+            <column name="RoleName" length="20" not-null="true" />
+        </property>
+        <property name="roleDescription" type="string">
+            <column name="RoleDescription" />
+        </property>
+        <set name="staffs" table="staff" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Role" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.Staff" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.Task" table="task" catalog="instalhms" optimistic-lock="version">
+        <id name="taskId" type="java.lang.Integer">
+            <column name="TaskId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="patient" class="com.vector.pojo.Patient" fetch="select">
+            <column name="Patient" not-null="true" />
+        </many-to-one>
+        <many-to-one name="staffByTaskSponsor" class="com.vector.pojo.Staff" fetch="select">
+            <column name="TaskSponsor" not-null="true" />
+        </many-to-one>
+        <many-to-one name="staffByTaskTarget" class="com.vector.pojo.Staff" fetch="select">
+            <column name="TaskTarget" not-null="true" />
+        </many-to-one>
+        <property name="taskContent" type="string">
+            <column name="TaskContent" length="100" not-null="true" />
+        </property>
+        <property name="taskStatus" type="string">
+            <column name="TaskStatus" length="2" not-null="true" />
+        </property>
+        <property name="taskProgress" type="float">
+            <column name="TaskProgress" precision="12" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

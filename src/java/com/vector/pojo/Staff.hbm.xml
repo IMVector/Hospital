@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.vector.pojo.Staff" table="staff" catalog="instalhms" optimistic-lock="version">
+        <id name="staffId" type="java.lang.Integer">
+            <column name="StaffId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="department" class="com.vector.pojo.Department" lazy="false" fetch="select">
+            <column name="DepartmentID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="image" class="com.vector.pojo.Image" lazy="false" fetch="select">
+            <column name="Image" />
+        </many-to-one>
+        <many-to-one name="role" class="com.vector.pojo.Role" lazy="false" fetch="select">
+            <column name="Role" not-null="true" />
+        </many-to-one>
+        <many-to-one name="title" class="com.vector.pojo.Title" lazy="false" fetch="select">
+            <column name="TitleId" not-null="true" />
+        </many-to-one>
+        <property name="staffName" type="string">
+            <column name="StaffName" length="20" not-null="true" />
+        </property>
+        <property name="staffPassword" type="string">
+            <column name="StaffPassword" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="50" not-null="true" />
+        </property>
+        <property name="specialty" type="string">
+            <column name="Specialty" not-null="true" />
+        </property>
+        <property name="introduction" type="string">
+            <column name="Introduction" not-null="true" />
+        </property>
+        <set name="precautionAdvices" table="precaution_advice" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="StaffId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.PrecautionAdvice" />
+        </set>
+        <set name="medicalRecords" table="medical_record" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DiagnoseStaff" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.MedicalRecord" />
+        </set>
+        <set name="dietAdvices" table="diet_advice" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="StaffId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.DietAdvice" />
+        </set>
+        <set name="checkRecords" table="check_record" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CheckStaff" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.CheckRecord" />
+        </set>
+        <set name="tasksForTaskSponsor" table="task" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TaskSponsor" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.Task" />
+        </set>
+        <set name="tasksForTaskTarget" table="task" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TaskTarget" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.Task" />
+        </set>
+        <set name="leaves" table="leave" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="StaffId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.Leave" />
+        </set>
+        <set name="reservations" table="reservation" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="StaffId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.Reservation" />
+        </set>
+        <set name="workSchedules" table="work_schedule" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="StaffId" not-null="true" />
+            </key>
+            <one-to-many class="com.vector.pojo.WorkSchedule" />
+        </set>
+    </class>
+</hibernate-mapping>
