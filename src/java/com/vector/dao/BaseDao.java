@@ -16,4 +16,6 @@ public interface BaseDao<T> {
     List<T>getListPaginationByQuery(String hql,Serializable currentPage,Object... params);
     int getListSize(String hql,Object... params);
     
+    int batchDML(String hql,Object... params);
+    
 }

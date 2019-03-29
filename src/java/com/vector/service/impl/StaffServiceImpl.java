@@ -105,4 +105,9 @@ public class StaffServiceImpl implements StaffService {
         return staffDao.getStaffByRoleItemNum(roleName);
     }
 
+    @Override
+    public Staff getStaffById(Serializable id) {
+        return staffDao.getOneById(id);
+    }
+
 }

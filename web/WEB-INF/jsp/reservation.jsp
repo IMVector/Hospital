@@ -17,29 +17,73 @@
 
 
         <div class="ui fluid-container">
+
             <div class="ui centered grid">
 
                 <div class="twelve wide column">
                     <div class="row">
+                        <div class="ui header blue segment">
+                            医生信息
+                        </div>
                         <div class="ui grid">
                             <div class="four wide column">
                                 <img src="resources/image/狗子.jpeg" height="200px;" alt="">
                             </div>
-                            <div class="four wide column">
-                                <div>name</div>
-                                <div>title</div>
+                            <div class="five wide column">
+                                <div class="ui fluid segment">
+                                    <div class="ui relaxed divided list">
+                                        <div class="item">
+                                            <div class="content">
+
+                                                <div class="header"> 姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.staffName}
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="content">
+
+                                                <div class="header">职称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${staff.title.titleName}
+                                                </div>
+                                                <br>
+
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="content">
+
+                                                <div class="header"> 部门:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${staff.department.departmentName}</div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="content">
+                                                <div class="header"> 邮箱:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.email}</div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="content">
+                                                <div class="header"> 联系电话:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13969810992</div>
+                                                <br>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="eight wide column">
-                                <div class="ui right floated segment">
+                            <div class="seven wide column">
+                                <div class="ui fluid segment">
                                     <div class="ui pointing secondary menu">
                                         <div class="active item" data-tab="tab-name">医生简介</div>
                                         <div class="item" data-tab="tab-name2">医生擅长领域</div>
                                     </div>
                                     <div class="ui active tab" data-tab="tab-name" style="height: 150px;width: 300px;">
-                                        asdfsdaf
+                                        ${staff.introduction}
                                     </div>
                                     <div class="ui tab" data-tab="tab-name2" style="height: 150px;width: 300px;">
-                                        ffffffffffff
+                                        ${staff.specialty}
                                     </div>
                                 </div>
 
@@ -48,6 +92,9 @@
                         </div>
                     </div>
                     <div class="ui divider"></div>
+                    <div class="ui header blue segment">
+                        预约信息
+                    </div>
                     <table  id="mytable"  class="ui celled table">
                         <thead>
                             <tr>
@@ -94,25 +141,12 @@
                 </div>
             </div>
         </div>
-
-        <div class="wrap">
-            <div class="wrap-main">
-                <table style="text-align: right">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="button" name="previousweek" value="上一周" onclick="previousWeek();">&nbsp;
-                                <span id="showdate"></span>&nbsp;
-                                <input type="button" name="previousweek" value="下一周" onclick="nextWeek();">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <span id="showdate" style="display: none"></span>
     </body>
     <script>
         $('.ui.pointing.secondary.menu .item').tab();
+
+
 
         function getDayOfWeek(date) {
             var day = new Date(Date.parse(date));
@@ -177,115 +211,115 @@
             return days;
         }
 
-        //取得下一周的日期数(共七天)
-        function getNextWeekDatas(ndt) {
-            var days = new Array();
-            for (var i = 1; i <= 7; i++) {
-                var dt = new Date(ndt);
-                days[i - 1] = getNextWeek(dt, i);
-            }
-            return days;
-        }
+//        //取得下一周的日期数(共七天)
+//        function getNextWeekDatas(ndt) {
+//            var days = new Array();
+//            for (var i = 1; i <= 7; i++) {
+//                var dt = new Date(ndt);
+//                days[i - 1] = getNextWeek(dt, i);
+//            }
+//            return days;
+//        }
 
-        //指定日期的下一周(后七天)
-        function getNextWeek(dt, i) {
-            var today = dt;
-            today.setDate(today.getDate() + i);
-            return today;
-        }
+//        //指定日期的下一周(后七天)
+//        function getNextWeek(dt, i) {
+//            var today = dt;
+//            today.setDate(today.getDate() + i);
+//            return today;
+//        }
 
 
-        //取得上一周的日期数(共七天)
-        function getPreviousWeekDatas(ndt) {
-            var days = new Array();
-            for (var i = -7; i <= -1; i++) {
-                var dt = new Date(ndt);
-                days[7 + i] = getPreviousWeek(dt, i);
-            }
-            return days;
-        }
+//        //取得上一周的日期数(共七天)
+//        function getPreviousWeekDatas(ndt) {
+//            var days = new Array();
+//            for (var i = -7; i <= -1; i++) {
+//                var dt = new Date(ndt);
+//                days[7 + i] = getPreviousWeek(dt, i);
+//            }
+//            return days;
+//        }
 
-        //指定日期的上一周(前七天)
-        function getPreviousWeek(dt, i) {
-            var today = dt;
-            today.setDate(today.getDate() + i);
-            return today;
-        }
+//        //指定日期的上一周(前七天)
+//        function getPreviousWeek(dt, i) {
+//            var today = dt;
+//            today.setDate(today.getDate() + i);
+//            return today;
+//        }
 
-        //下一周
-        function nextWeek() {
-            setCurrDTAfter(); //重设时间
-            showdate.innerHTML = currDT.toLocaleDateString(); //显示日期
-
-            //在表格中显示一周的日期
-            var objTB = document.getElementById("mytable"); //取得表格对象
-            var dw = currDT.getDay(); //从Date对象返回一周中的某一天(0~6)
-            var tdDT; //日期
-            $(".newtime input").remove();
-            for (var i = 0; i < 7; i++) {
-                tdDT = getNextWeekDatas(lastDay)[i];
-
-                dw = tdDT.getDay(); //星期几
-                objTB.rows[0].cells[i].innerHTML = tdDT.getMonth() + 1 + "月" + tdDT.getDate() + "日 星期" + aryDay[dw]; //显示
-                var newtime = '<input type="text" value="' + year + "-" + (tdDT.getMonth() + 1) + "-" + tdDT.getDate() + '">';
-                $(".newtime").append(newtime);
-
-                if (tdDT.toLocaleDateString() === currDT.toLocaleDateString()) {
-                    objTB.rows[0].cells[i].style.color = "white"; //currDT突出显示
-                    objTB.rows[0].cells[i].style.backgroundColor = "#1e9be8"; //currDT突出显示
-                }
-            }
-            //重新赋值
-            firstDay = getNextWeekDatas(lastDay)[0]; //注意赋值顺序1
-            lastDay = getNextWeekDatas(lastDay)[6]; //注意赋值顺序2
-        }
-
-//上一周
-        function previousWeek() {
-            settCurrDTBefore();
-            showdate.innerHTML = currDT.toLocaleDateString(); //显示日期
-
-            //在表格中显示一周的日期
-            var objTB = document.getElementById("mytable"); //取得表格对象
-            var dw = currDT.getDay(); //从Date对象返回一周中的某一天(0~6)
-            var tdDT; //日期
-            $(".newtime input").remove();
-            for (var i = 0; i < 7; i++) {
-                tdDT = getPreviousWeekDatas(firstDay)[i];
-
-                dw = tdDT.getDay(); //星期几
-                objTB.rows[0].cells[i].innerHTML = tdDT.getMonth() + 1 + "月" + tdDT.getDate() + "日 星期" + aryDay[dw]; //显示
-                var newtime = '<input type="text" value="' + year + "-" + (tdDT.getMonth() + 1) + "-" + tdDT.getDate() + '">';
-                $(".newtime").append(newtime);
-
-                if (tdDT.toLocaleDateString() === currDT.toLocaleDateString()) {
-                    objTB.rows[0].cells[i].style.color = "white"; //currDT突出显示
-                    objTB.rows[0].cells[i].style.backgroundColor = "#1e9be8"; //currDT突出显示
-                }
-            }
-            //重新赋值
-            lastDay = getPreviousWeekDatas(firstDay)[6]; //注意赋值顺序1
-            firstDay = getPreviousWeekDatas(firstDay)[0]; //注意赋值顺序2
-        }
-
-        //当前日期后第七天
-        function setCurrDTAfter() {
-            currDT.setDate(currDT.getDate() + 7);
-        }
-
-        //当前日期前第七天
-        function settCurrDTBefore() {
-            currDT.setDate(currDT.getDate() - 7);
-        }
+//        //下一周
+//        function nextWeek() {
+//            setCurrDTAfter(); //重设时间
+//            showdate.innerHTML = currDT.toLocaleDateString(); //显示日期
+//
+//            //在表格中显示一周的日期
+//            var objTB = document.getElementById("mytable"); //取得表格对象
+//            var dw = currDT.getDay(); //从Date对象返回一周中的某一天(0~6)
+//            var tdDT; //日期
+//            $(".newtime input").remove();
+//            for (var i = 0; i < 7; i++) {
+//                tdDT = getNextWeekDatas(lastDay)[i];
+//
+//                dw = tdDT.getDay(); //星期几
+//                objTB.rows[0].cells[i].innerHTML = tdDT.getMonth() + 1 + "月" + tdDT.getDate() + "日 星期" + aryDay[dw]; //显示
+//                var newtime = '<input type="text" value="' + year + "-" + (tdDT.getMonth() + 1) + "-" + tdDT.getDate() + '">';
+//                $(".newtime").append(newtime);
+//
+//                if (tdDT.toLocaleDateString() === currDT.toLocaleDateString()) {
+//                    objTB.rows[0].cells[i].style.color = "white"; //currDT突出显示
+//                    objTB.rows[0].cells[i].style.backgroundColor = "#1e9be8"; //currDT突出显示
+//                }
+//            }
+//            //重新赋值
+//            firstDay = getNextWeekDatas(lastDay)[0]; //注意赋值顺序1
+//            lastDay = getNextWeekDatas(lastDay)[6]; //注意赋值顺序2
+//        }
+//
+//        //上一周
+//        function previousWeek() {
+//            settCurrDTBefore();
+//            showdate.innerHTML = currDT.toLocaleDateString(); //显示日期
+//
+//            //在表格中显示一周的日期
+//            var objTB = document.getElementById("mytable"); //取得表格对象
+//            var dw = currDT.getDay(); //从Date对象返回一周中的某一天(0~6)
+//            var tdDT; //日期
+//            $(".newtime input").remove();
+//            for (var i = 0; i < 7; i++) {
+//                tdDT = getPreviousWeekDatas(firstDay)[i];
+//
+//                dw = tdDT.getDay(); //星期几
+//                objTB.rows[0].cells[i].innerHTML = tdDT.getMonth() + 1 + "月" + tdDT.getDate() + "日 星期" + aryDay[dw]; //显示
+//                var newtime = '<input type="text" value="' + year + "-" + (tdDT.getMonth() + 1) + "-" + tdDT.getDate() + '">';
+//                $(".newtime").append(newtime);
+//
+//                if (tdDT.toLocaleDateString() === currDT.toLocaleDateString()) {
+//                    objTB.rows[0].cells[i].style.color = "white"; //currDT突出显示
+//                    objTB.rows[0].cells[i].style.backgroundColor = "#1e9be8"; //currDT突出显示
+//                }
+//            }
+//            //重新赋值
+//            lastDay = getPreviousWeekDatas(firstDay)[6]; //注意赋值顺序1
+//            firstDay = getPreviousWeekDatas(firstDay)[0]; //注意赋值顺序2
+//        }
+//
+//        //当前日期后第七天
+//        function setCurrDTAfter() {
+//            currDT.setDate(currDT.getDate() + 7);
+//        }
+//
+//        //当前日期前第七天
+//        function settCurrDTBefore() {
+//            currDT.setDate(currDT.getDate() - 7);
+//        }
 
         /**********************************************************************/
-        $("#mytable tr td").click(function () {
-            $("#mytable tr td").removeAttr("class");
-            $(this).attr("class", "active");
-            //        alert($(this).index())
-            var num = $(this).index();
-            //        alert(num)
-            //        alert($(".newtime").find("input").eq(num).val())
-        });
+//        $("#mytable tr td").click(function () {
+//            $("#mytable tr td").removeAttr("class");
+//            $(this).attr("class", "active");
+//            //        alert($(this).index())
+//            var num = $(this).index();
+//            //        alert(num)
+//            //        alert($(".newtime").find("input").eq(num).val())
+//        });
     </script>
 </html>

@@ -7,15 +7,18 @@ package com.vector.controller;
 
 import com.vector.pojo.Department;
 import com.vector.pojo.Role;
+import com.vector.pojo.ScheduleTable;
 import com.vector.pojo.Staff;
 import com.vector.pojo.Title;
 import com.vector.service.DepartmentService;
 import com.vector.service.RoleService;
 import com.vector.service.StaffService;
 import com.vector.service.TitleService;
+import com.vector.service.WorkScheduleService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +43,9 @@ public class StaffController {
 
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    WorkScheduleService scheduleService;
 
 //////////////////////////////////////////////////////部门管理//////////////////////////////////////////////////
     @RequestMapping(value = "/departmentList/{currentPage}", method = RequestMethod.POST)
@@ -206,5 +212,70 @@ public class StaffController {
     public List<Staff> getStaffByName(@PathVariable String name) {
         return staffService.getStaffByName(name);
     }
-    
+
+    @RequestMapping(value = "/getStaffByTitle/{titleId}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Staff> getStaffByTitle(@PathVariable Integer titleId, @PathVariable int currentPage) {
+        return staffService.getStaffByTitle(titleId, currentPage);
+    }
+
+    @RequestMapping(value = "/getStaffBytitleItemNum/{titleId}", method = RequestMethod.POST)
+    @ResponseBody
+    public int showStaffListByTitleItemNumber(@PathVariable Integer titleId) {
+        return staffService.getStaffByTitleItemNum(titleId);
+    }
+
+    @RequestMapping(value = "/getStaffByRole/{roleId}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Staff> getStaffByRole(@PathVariable Integer roleId, @PathVariable int currentPage) {
+        return staffService.getStaffByRole(roleId, currentPage);
+    }
+
+    @RequestMapping(value = "/getStaffByRoleItemNum/{roleId}", method = RequestMethod.POST)
+    @ResponseBody
+    public int showStaffListByRoleItemNumber(@PathVariable Integer roleId) {
+        return staffService.getStaffByRoleItemNum(roleId);
+    }
+
+    @RequestMapping(value = "/getStaffByDepartment/{departmentId}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Staff> getStaffByDepartment(@PathVariable Integer departmentId, @PathVariable int currentPage) {
+        return staffService.getStaffByDepartmentName(departmentId, currentPage);
+    }
+
+    @RequestMapping(value = "/getStaffBydepartmentItemNum/{departmentName}", method = RequestMethod.POST)
+    @ResponseBody
+    public int showStaffListByDepartmentItemNumber(@PathVariable Integer departmentId) {
+        return staffService.getStaffByDepartmentNameItemNum(departmentId);
+    }
+
+    @RequestMapping(value = "/goToStaffDetails/{id}", method = RequestMethod.GET)
+    public String goToStaffDetails(@PathVariable Integer id, ModelMap map) {
+        map.addAttribute("staff", staffService.getStaffById(id));
+        map.addAttribute("schedule", scheduleService.getScheduleByStaffId(id));
+        return "staffDetail";
+    }
+
+//    @RequestMapping(value = "/getStaffDetailsById/{id}", method = RequestMethod.POST)
+//    @ResponseBody
+//    public Staff getStaffdetails(@PathVariable Integer id) {
+//    }
+    //////////////////////////////////////////////////////出勤管理//////////////////////////////////////////////////
+    @RequestMapping(value = "/updateSchedule", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean updateSchedule(ScheduleTable table) {
+        return scheduleService.UpdateSchedule(table);
+    }
+
+    @RequestMapping(value = "/getStaffSchedule/{staffId}", method = RequestMethod.POST)
+    @ResponseBody
+    public ScheduleTable getStaffSchedule(@PathVariable Integer staffId) {
+        return scheduleService.getScheduleByStaffId(staffId);
+    }
+
+    @RequestMapping(value = "/deleteSchedule/{staffId}", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean deleteScheduleByStaffId(@PathVariable Integer staffId) {
+        return scheduleService.deleteSchedule(staffId);
+    }
 }

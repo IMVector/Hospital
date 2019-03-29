@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -87,4 +88,14 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         query.setMaxResults(EVERY_PAGE_NUMBER);
         return query.list(); //执行查询,返回结果列表
     }
+
+    @Override
+    public int batchDML(String hql, Object... params) {
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        for (int i = 0; i < params.length; i++) {
+            query.setParameter(i, params[i]);
+        }
+        return query.executeUpdate();
+    }
+
 }

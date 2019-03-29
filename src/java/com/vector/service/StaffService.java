@@ -28,4 +28,6 @@ public interface StaffService extends CUDService<Staff>, PaginationBaseService<S
     public List<Staff> getStaffByRole(Serializable roleName, Serializable currentPage);
 
     public Integer getStaffByRoleItemNum(Serializable roleName);
+
+    public Staff getStaffById(Serializable id);
 }

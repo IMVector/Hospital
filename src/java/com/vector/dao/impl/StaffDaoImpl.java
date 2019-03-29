@@ -32,46 +32,47 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
 
 
     @Override
-    public List<Staff> getStaffByDepartmentName(Serializable departmentName, Serializable currentPage) {
-        String hql = "from Staff where department.departmentName=?";
-        return getListPaginationByQuery(hql, currentPage, departmentName);
+    public List<Staff> getStaffByDepartmentName(Serializable departmentId, Serializable currentPage) {
+        String hql = "from Staff where department.departmentId=?";
+        return getListPaginationByQuery(hql, currentPage, departmentId);
     }
 
     @Override
-    public int getStaffByDepartmentNameItemNum(Serializable departmentName) {
-        String hql = "select count(*) from Staff where department.departmentName=?";
-        return getListSize(hql, departmentName);
+    public int getStaffByDepartmentNameItemNum(Serializable departmentId) {
+        String hql = "select count(*) from Staff where department.departmentId=?";
+        return getListSize(hql, departmentId);
     }
 
     @Override
-    public List<Staff> getStaffByTitle(Serializable title, Serializable currentPage) {
-        String hql = "from Staff where title.titleName=?";
+    public List<Staff> getStaffByTitle(Serializable titleId, Serializable currentPage) {
+        String hql = "from Staff where title.titleId=?";
 
-        return getListPaginationByQuery(hql, currentPage, title);
+        return getListPaginationByQuery(hql, currentPage, titleId);
     }
 
     @Override
-    public Integer getStaffByTitleItemNum(Serializable titleName) {
-        String hql = "select count(*) from Staff where title.titleName=?";
-        return getListSize(hql, titleName);
+    public Integer getStaffByTitleItemNum(Serializable titleId) {
+        String hql = "select count(*) from Staff where title.titleId=?";
+        return getListSize(hql, titleId);
     }
 
     @Override
     public List<Staff> getStaffByName(Serializable name) {
 
-        String hql = "from Staff where staffName=?";
-        return getListPaginationByQuery(hql, name);
+        String hql = "from Staff where staffName like ?";
+        name="%"+name+"%";
+        return getListByQuery(hql, name);
     }
 
     @Override
-    public List<Staff> getStaffByRole(Serializable roleName, Serializable currentPage) {
-        String hql = "from Staff where role.roleName=?";
-        return getListPaginationByQuery(hql, currentPage, roleName);
+    public List<Staff> getStaffByRole(Serializable roleId, Serializable currentPage) {
+        String hql = "from Staff where role.roleId=?";
+        return getListPaginationByQuery(hql, currentPage, roleId);
     }
 
     @Override
-    public Integer getStaffByRoleItemNum(Serializable roleName) {
-        String hql = "select count(*) from Staff where role.roleName=?";
-        return getListSize(hql, roleName);
+    public Integer getStaffByRoleItemNum(Serializable roleId) {
+        String hql = "select count(*) from Staff where role.roleId=?";
+        return getListSize(hql, roleId);
     }
 }

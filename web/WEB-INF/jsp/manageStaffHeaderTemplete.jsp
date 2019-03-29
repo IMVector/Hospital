@@ -21,20 +21,20 @@
                 <a href="staff/staffIndex" class="item">                            
                     医院管理主页
                 </a>
+                <!--                <div class="ui dropdown item">
+                                    人员管理
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <a class="item" href="staff/goToManageStaff">员工管理</a>
+                                        <a class="item">员工出勤管理</a>
+                                    </div>
+                                </div>-->
+                <a class="item" href="staff/goToManageStaff">员工管理</a>
                 <a href="staff/goToDepartmentManage" class="item">部门管理</a>
-                <!--<a href="personalCenter2" class="item">人员管理</a>-->
-                <div class="ui dropdown item">
-                    人员管理
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <a class="item" href="staff/goToManageStaff">员工管理</a>
-                        <a class="item" href="staff/goToRoleManage">员工角色管理</a>
-                        <a class="item" href="staff/goToTitleManage">员工职称管理</a>
-                        <a class="item">员工出勤管理</a>
-                        <a class="item">员工岗位管理</a>
-                    </div>
-                </div>
-                <a href="personalCenter3" class="item">岗位管理</a>
+                <a class="item" href="staff/goToTitleManage">职称管理</a>
+                <a class="item" href="staff/goToRoleManage">角色管理</a>
+
+                <!--<a href="personalCenter3" class="item">岗位管理</a>-->
                 <a href="personalCenter4" class="item">检查项目管理</a>
                 <a href="personalCenter5" class="item">血库信息管理 </a>
             </div>
