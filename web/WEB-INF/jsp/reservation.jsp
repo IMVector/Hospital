@@ -4,6 +4,7 @@
     Author     : Vector
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,6 +12,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>预约医生</title>
         <jsp:include page="resourcesTemplete.jsp" />
+        <style>
+            #mytable td{
+                text-align: center;
+                vertical-align:middle;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="patientHeaderTemplete.jsp" />
@@ -64,7 +71,7 @@
                                         </div>
                                         <div class="item">
                                             <div class="content">
-                                                <div class="header"> 联系电话:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13969810992</div>
+                                                <div class="header"> 性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.gender}</div>
                                                 <br>
                                             </div>
                                         </div>
@@ -98,6 +105,7 @@
                     <table  id="mytable"  class="ui celled table">
                         <thead>
                             <tr>
+                                <th>时间</th>
                                 <th>周一</th>
                                 <th>周二</th>
                                 <th>周三</th>
@@ -109,31 +117,80 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td data-label="Name">James</td>
-                                <td data-label="Age">24</td>
-                                <td data-label="Job">Engineer</td>
-                                <td data-label="Age">24</td>
-                                <td data-label="Job"><a href="patient/goToReservation">Engineer</a></td>
-                                <td data-label="Job">Designer</td>
-                                <td data-label="Age">24</td>
+                                <td>上午&nbsp;&nbsp;8:00-11:30</td>
+                                <td id="1_1">
+                                    <c:if test="${schedule.scheduleList[0]=='true'}">
+                                        <a href="patient/reservation/${staff.staffId}/1_1">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="2_1">
+                                    <c:if test="${'true'==schedule.scheduleList[2]}">
+                                        <a href="patient/reservation/${staff.staffId}/2_1">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="3_1">
+                                    <c:if test="${'true'==schedule.scheduleList[4]}">
+                                        <a href="patient/reservation/${staff.staffId}/3_1">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="4_1">
+                                    <c:if test="${'true'==schedule.scheduleList[6]}">
+                                        <a href="patient/reservation/${staff.staffId}/4_1">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="5_1">
+                                    <c:if test="${'true'==schedule.scheduleList[8]}">
+                                        <a href="patient/reservation/${staff.staffId}/5_1">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="6_1">
+                                    <c:if test="${'true'==schedule.scheduleList[10]}">
+                                        <a href="patient/reservation/${staff.staffId}/6_1">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="7_1">
+                                    <c:if test="${'true'==schedule.scheduleList[12]}">
+                                        <a href="patient/reservation/${staff.staffId}/7_1">预约</a>
+                                    </c:if>
+                                </td>
                             </tr>
                             <tr>
-                                <td data-label="Name">Jill</td>
-                                <td data-label="Age">26</td>
-                                <td data-label="Job">Engineer</td>
-                                <td data-label="Age">24</td>
-                                <td data-label="Job">Designer</td>
-                                <td data-label="Age">24</td>
-                                <td data-label="Job">Engineer</td>
-                            </tr>
-                            <tr>
-                                <td data-label="Name">Elyse</td>
-                                <td data-label="Age">24</td>
-                                <td data-label="Job">Designer</td>
-                                <td data-label="Age">24</td>
-                                <td data-label="Job">Engineer</td>
-                                <td data-label="Job">Designer</td>
-                                <td data-label="Job">Engineer</td>
+                                <td>下午&nbsp;&nbsp;1:30-6：00</td>
+                                <td id="1_2">
+                                    <c:if test="${'true'==schedule.scheduleList[1]}">
+                                        <a href="patient/reservation/${staff.staffId}/1_2">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="2_2">
+                                    <c:if test="${'true'==schedule.scheduleList[3]}">
+                                        <a href="patient/reservation/${staff.staffId}/2_2">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="3_2">
+                                    <c:if test="${'true'==schedule.scheduleList[5]}">
+                                        <a href="patient/reservation/${staff.staffId}/3_2">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="4_2">
+                                    <c:if test="${'true'==schedule.scheduleList[7]}">
+                                        <a href="patient/reservation/${staff.staffId}/4_2">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="5_2">
+                                    <c:if test="${'true'==schedule.scheduleList[9]}">
+                                        <a href="patient/reservation/${staff.staffId}/5_2">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="6_2">
+                                    <c:if test="${'true'==schedule.scheduleList[11]}">
+                                        <a href="patient/reservation/${staff.staffId}/6_2">预约</a>
+                                    </c:if>
+                                </td>
+                                <td id="7_2">
+                                    <c:if test="${'true'==schedule.scheduleList[13]}">
+                                        <a href="patient/reservation/${staff.staffId}/7_2">预约</a>
+                                    </c:if>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -146,17 +203,8 @@
     <script>
         $('.ui.pointing.secondary.menu .item').tab();
 
-
-
-        function getDayOfWeek(date) {
-            var day = new Date(Date.parse(date));
-            var today = new Array('星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六');
-            var week = today[day.getDay()];
-            return week;
-        }
-
         window.onload = function () {
-            initDate();
+            initDate("mytable");
         };
 
         /*******************************/
@@ -167,25 +215,25 @@
         var date = new Date; //获取完整日期
         var year = date.getFullYear(); //获取当前年份
         //初始化日期加载
-        function initDate() {
+        function initDate(tableId) {
             currDT = new Date();
             showdate.innerHTML = currDT.toLocaleDateString(); //显示日期
             var dw = currDT.getDay(); //从Date对象返回一周中的某一天(0~6)
             var tdDT; //日期
 
             //在表格中显示一周的日期
-            var objTB = document.getElementById("mytable"); //取得表格对象
+            var objTB = document.getElementById(tableId); //取得表格对象
             for (var i = 0; i < 7; i++) {
                 tdDT = getDays()[i];
 
                 dw = tdDT.getDay(); //星期几
-                objTB.rows[0].cells[i].innerHTML = tdDT.getMonth() + 1 + "月" + tdDT.getDate() + "日 星期" + aryDay[dw]; //显示
+                objTB.rows[0].cells[i + 1].innerHTML = tdDT.getMonth() + 1 + "月" + tdDT.getDate() + "日 星期" + aryDay[dw]; //显示
                 var newtime = '<input type="text" value="' + year + "-" + (tdDT.getMonth() + 1) + "-" + tdDT.getDate() + '">';
                 $(".newtime").append(newtime);
 
                 if (tdDT.toLocaleDateString() === currDT.toLocaleDateString()) {
-                    objTB.rows[0].cells[i].style.color = "white"; //currDT突出显示
-                    objTB.rows[0].cells[i].style.backgroundColor = "#1e9be8"; //currDT突出显示
+                    objTB.rows[0].cells[i + 1].style.color = "white"; //currDT突出显示
+                    objTB.rows[0].cells[i + 1].style.backgroundColor = "#1e9be8"; //currDT突出显示
                 }
             }
             //重新赋值
@@ -210,116 +258,5 @@
             }
             return days;
         }
-
-//        //取得下一周的日期数(共七天)
-//        function getNextWeekDatas(ndt) {
-//            var days = new Array();
-//            for (var i = 1; i <= 7; i++) {
-//                var dt = new Date(ndt);
-//                days[i - 1] = getNextWeek(dt, i);
-//            }
-//            return days;
-//        }
-
-//        //指定日期的下一周(后七天)
-//        function getNextWeek(dt, i) {
-//            var today = dt;
-//            today.setDate(today.getDate() + i);
-//            return today;
-//        }
-
-
-//        //取得上一周的日期数(共七天)
-//        function getPreviousWeekDatas(ndt) {
-//            var days = new Array();
-//            for (var i = -7; i <= -1; i++) {
-//                var dt = new Date(ndt);
-//                days[7 + i] = getPreviousWeek(dt, i);
-//            }
-//            return days;
-//        }
-
-//        //指定日期的上一周(前七天)
-//        function getPreviousWeek(dt, i) {
-//            var today = dt;
-//            today.setDate(today.getDate() + i);
-//            return today;
-//        }
-
-//        //下一周
-//        function nextWeek() {
-//            setCurrDTAfter(); //重设时间
-//            showdate.innerHTML = currDT.toLocaleDateString(); //显示日期
-//
-//            //在表格中显示一周的日期
-//            var objTB = document.getElementById("mytable"); //取得表格对象
-//            var dw = currDT.getDay(); //从Date对象返回一周中的某一天(0~6)
-//            var tdDT; //日期
-//            $(".newtime input").remove();
-//            for (var i = 0; i < 7; i++) {
-//                tdDT = getNextWeekDatas(lastDay)[i];
-//
-//                dw = tdDT.getDay(); //星期几
-//                objTB.rows[0].cells[i].innerHTML = tdDT.getMonth() + 1 + "月" + tdDT.getDate() + "日 星期" + aryDay[dw]; //显示
-//                var newtime = '<input type="text" value="' + year + "-" + (tdDT.getMonth() + 1) + "-" + tdDT.getDate() + '">';
-//                $(".newtime").append(newtime);
-//
-//                if (tdDT.toLocaleDateString() === currDT.toLocaleDateString()) {
-//                    objTB.rows[0].cells[i].style.color = "white"; //currDT突出显示
-//                    objTB.rows[0].cells[i].style.backgroundColor = "#1e9be8"; //currDT突出显示
-//                }
-//            }
-//            //重新赋值
-//            firstDay = getNextWeekDatas(lastDay)[0]; //注意赋值顺序1
-//            lastDay = getNextWeekDatas(lastDay)[6]; //注意赋值顺序2
-//        }
-//
-//        //上一周
-//        function previousWeek() {
-//            settCurrDTBefore();
-//            showdate.innerHTML = currDT.toLocaleDateString(); //显示日期
-//
-//            //在表格中显示一周的日期
-//            var objTB = document.getElementById("mytable"); //取得表格对象
-//            var dw = currDT.getDay(); //从Date对象返回一周中的某一天(0~6)
-//            var tdDT; //日期
-//            $(".newtime input").remove();
-//            for (var i = 0; i < 7; i++) {
-//                tdDT = getPreviousWeekDatas(firstDay)[i];
-//
-//                dw = tdDT.getDay(); //星期几
-//                objTB.rows[0].cells[i].innerHTML = tdDT.getMonth() + 1 + "月" + tdDT.getDate() + "日 星期" + aryDay[dw]; //显示
-//                var newtime = '<input type="text" value="' + year + "-" + (tdDT.getMonth() + 1) + "-" + tdDT.getDate() + '">';
-//                $(".newtime").append(newtime);
-//
-//                if (tdDT.toLocaleDateString() === currDT.toLocaleDateString()) {
-//                    objTB.rows[0].cells[i].style.color = "white"; //currDT突出显示
-//                    objTB.rows[0].cells[i].style.backgroundColor = "#1e9be8"; //currDT突出显示
-//                }
-//            }
-//            //重新赋值
-//            lastDay = getPreviousWeekDatas(firstDay)[6]; //注意赋值顺序1
-//            firstDay = getPreviousWeekDatas(firstDay)[0]; //注意赋值顺序2
-//        }
-//
-//        //当前日期后第七天
-//        function setCurrDTAfter() {
-//            currDT.setDate(currDT.getDate() + 7);
-//        }
-//
-//        //当前日期前第七天
-//        function settCurrDTBefore() {
-//            currDT.setDate(currDT.getDate() - 7);
-//        }
-
-        /**********************************************************************/
-//        $("#mytable tr td").click(function () {
-//            $("#mytable tr td").removeAttr("class");
-//            $(this).attr("class", "active");
-//            //        alert($(this).index())
-//            var num = $(this).index();
-//            //        alert(num)
-//            //        alert($(".newtime").find("input").eq(num).val())
-//        });
     </script>
 </html>

@@ -46,11 +46,11 @@ function pagination(pageContainerId, pageShowElementId, pageNum, currentPage, re
         totalPages: parseInt(pageNum),
         visiblePages: 5,
         currentPage: parseInt(currentPage),
-        first: '  <button class="ui button">首页</button>',
-        prev: '   <button  class="ui button">上一页</button>',
-        next: '  <button  class="ui button">下一页</button>',
-        last: ' <button  class="ui button">尾页</button>',
-        page: ' <button class="ui basic button btn">{{page}}</button>',
+        first: '<button class="ui button">首页</button>',
+        prev: '<button  class="ui button">上一页</button>',
+        next: '<button  class="ui button">下一页</button>',
+        last: '<button  class="ui button">尾页</button>',
+        page: '<button class="ui basic button btn">{{page}}</button>',
         activeClass: 'blue',
         onPageChange: function (num) {
             $('#' + pageShowElementId).html('当前第' + num + '页');

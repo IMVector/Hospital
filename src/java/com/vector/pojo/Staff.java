@@ -20,6 +20,7 @@ public class Staff implements java.io.Serializable {
     private String email;
     private String specialty;
     private String introduction;
+    private String gender;
     @JsonIgnore
     private Set precautionAdvices = new HashSet(0);
     @JsonIgnore
@@ -42,7 +43,7 @@ public class Staff implements java.io.Serializable {
     public Staff() {
     }
 
-    public Staff(Department department, Role role, Title title, String staffName, String staffPassword, String email, String specialty, String introduction) {
+    public Staff(Department department, Role role, Title title, String staffName, String staffPassword, String email, String specialty, String introduction, String gender) {
         this.department = department;
         this.role = role;
         this.title = title;
@@ -51,9 +52,10 @@ public class Staff implements java.io.Serializable {
         this.email = email;
         this.specialty = specialty;
         this.introduction = introduction;
+        this.gender = gender;
     }
 
-    public Staff(Department department, Image image, Role role, Title title, String staffName, String staffPassword, String email, String specialty, String introduction, Set precautionAdvices, Set medicalRecords, Set dietAdvices, Set checkRecords, Set tasksForTaskSponsor, Set tasksForTaskTarget, Set leaves, Set reservations, Set workSchedules) {
+    public Staff(Department department, Image image, Role role, Title title, String staffName, String staffPassword, String email, String specialty, String introduction, String gender, Set precautionAdvices, Set medicalRecords, Set dietAdvices, Set checkRecords, Set tasksForTaskSponsor, Set tasksForTaskTarget, Set leaves, Set reservations, Set workSchedules) {
         this.department = department;
         this.image = image;
         this.role = role;
@@ -63,6 +65,7 @@ public class Staff implements java.io.Serializable {
         this.email = email;
         this.specialty = specialty;
         this.introduction = introduction;
+        this.gender = gender;
         this.precautionAdvices = precautionAdvices;
         this.medicalRecords = medicalRecords;
         this.dietAdvices = dietAdvices;
@@ -152,6 +155,14 @@ public class Staff implements java.io.Serializable {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public String getGender() {
+        return this.gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public Set getPrecautionAdvices() {

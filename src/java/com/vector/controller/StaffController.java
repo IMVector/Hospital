@@ -5,20 +5,29 @@
  */
 package com.vector.controller;
 
+import com.vector.pojo.CheckItem;
 import com.vector.pojo.Department;
+import com.vector.pojo.Medicine;
 import com.vector.pojo.Role;
 import com.vector.pojo.ScheduleTable;
 import com.vector.pojo.Staff;
 import com.vector.pojo.Title;
+import com.vector.service.CheckItemService;
 import com.vector.service.DepartmentService;
+import com.vector.service.MedicineService;
 import com.vector.service.RoleService;
 import com.vector.service.StaffService;
 import com.vector.service.TitleService;
 import com.vector.service.WorkScheduleService;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,7 +56,22 @@ public class StaffController {
     @Autowired
     WorkScheduleService scheduleService;
 
+    @Autowired
+    CheckItemService checkItemService;
+
+    @Autowired
+    MedicineService medicineService;
+    
+    
+    
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));//第二个参数是控制是否支持传入的值是空，这个值很关键，如果指定为false，那么如果前台没有传值的话就会报错
+    }
 //////////////////////////////////////////////////////部门管理//////////////////////////////////////////////////
+
     @RequestMapping(value = "/departmentList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
     public List<Department> getDepartmentList(@PathVariable int currentPage) {
@@ -256,10 +280,6 @@ public class StaffController {
         return "staffDetail";
     }
 
-//    @RequestMapping(value = "/getStaffDetailsById/{id}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Staff getStaffdetails(@PathVariable Integer id) {
-//    }
     //////////////////////////////////////////////////////出勤管理//////////////////////////////////////////////////
     @RequestMapping(value = "/updateSchedule", method = RequestMethod.POST)
     @ResponseBody
@@ -277,5 +297,91 @@ public class StaffController {
     @ResponseBody
     public boolean deleteScheduleByStaffId(@PathVariable Integer staffId) {
         return scheduleService.deleteSchedule(staffId);
+    }
+    //////////////////////////////////////////////////////检查项目管理//////////////////////////////////////////////////
+
+    @RequestMapping(value = "/getCheckItemList", method = RequestMethod.POST)
+    @ResponseBody
+    public List<CheckItem> getCheckItemList() {
+        return checkItemService.getCheckItemList();
+    }
+
+    @RequestMapping(value = "/checkItemList/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<CheckItem> getCheckItemList(@PathVariable int currentPage) {
+        return checkItemService.getList(currentPage);
+    }
+
+    @RequestMapping(value = "/checkItemListItemNum", method = RequestMethod.POST)
+    @ResponseBody
+    public int showCheckItemListItemNumber() {
+        return checkItemService.getListItemNumber();
+    }
+
+    @RequestMapping(value = "/addCheckItem", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean addCheckItem(CheckItem checkItem) {
+        return checkItemService.insert(checkItem);
+    }
+
+    @RequestMapping(value = "/updateCheckItem", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean updateCheckItem(CheckItem checkItem) {
+        return checkItemService.update(checkItem);
+    }
+
+    @RequestMapping(value = "/deleteCheckItem/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean deleteCheckItem(@PathVariable Integer id) {
+        return checkItemService.delete(id);
+    }
+
+    @RequestMapping(value = "/getCheckItemByName/{name}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<CheckItem> getCheckItemByName(@PathVariable String name) {
+        return checkItemService.getCheckItemByName(name);
+    }
+
+    //////////////////////////////////////////////////////药品管理//////////////////////////////////////////////////
+    @RequestMapping(value = "/getMedicineList", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Medicine> getMedicineList() {
+        return medicineService.getMedicineList();
+    }
+
+    @RequestMapping(value = "/medicineList/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Medicine> getMedicineList(@PathVariable int currentPage) {
+        return medicineService.getList(currentPage);
+    }
+
+    @RequestMapping(value = "/medicineListItemNum", method = RequestMethod.POST)
+    @ResponseBody
+    public int showMedicineListItemNumber() {
+        return medicineService.getListItemNumber();
+    }
+
+    @RequestMapping(value = "/addMedicine", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean addMedicine(Medicine medicine) {
+        return medicineService.insert(medicine);
+    }
+
+    @RequestMapping(value = "/updateMedicine", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean updateMedicine(Medicine medicine) {
+        return medicineService.update(medicine);
+    }
+
+    @RequestMapping(value = "/deleteMedicine/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean deleteMedicine(@PathVariable Integer id) {
+        return medicineService.delete(id);
+    }
+
+    @RequestMapping(value = "/getMedicineByName/{name}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Medicine> getMedicineByName(@PathVariable String name) {
+        return medicineService.getMedicineByName(name);
     }
 }

@@ -35,8 +35,9 @@
                 <a class="item" href="staff/goToRoleManage">角色管理</a>
 
                 <!--<a href="personalCenter3" class="item">岗位管理</a>-->
-                <a href="personalCenter4" class="item">检查项目管理</a>
-                <a href="personalCenter5" class="item">血库信息管理 </a>
+                <a href="staff/goToCheckItemManage" class="item">检查项目管理</a>
+                <a href="staff/goToBloodBank" class="item">血库信息管理 </a>
+                <a href="staff/goToMedicineManage" class="item">药品信息管理 </a>
             </div>
 
             <div class="item right">

@@ -51,3 +51,31 @@
         <many-to-one name="title" class="com.vector.pojo.Title" lazy="false" fetch="select">
             <column name="TitleId" not-null="true" />
         </many-to-one>
+
+修改workschedule implements Comparable<WorkSchedule>
+   @Override
+    public int compareTo(WorkSchedule schedule) {
+        String thisArray[] = workSchedule.split("_");
+        String scheduleArray[] = schedule.getWorkSchedule().split("_");
+        if (Integer.parseInt(scheduleArray[0]) > Integer.parseInt(thisArray[0])) {
+            return -1;
+        } else if (scheduleArray[0].equals(thisArray[0]) && Integer.parseInt(scheduleArray[1]) > Integer.parseInt(thisArray[1])) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+添加ScheduleTable
+   private Staff staff;
+    private List <String> scheduleList;
+
+在CheckItem中
+
+     @JsonIgnore
+     private Set checkRecords = new HashSet(0);
+
+
+在Medicine中
+     @JsonIgnore
+     private Set medicationHistories = new HashSet(0);

@@ -71,7 +71,7 @@
                                         </div>
                                         <div class="item">
                                             <div class="content">
-                                                <div class="header"> 联系电话:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13969810992</div>
+                                                <div class="header"> 性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.gender}</div>
                                                 <br>
                                             </div>
                                         </div>

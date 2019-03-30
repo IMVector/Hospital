@@ -49,11 +49,6 @@ public class NextPage {
         return "attendanceToPatient";
     }
 
-    @RequestMapping(value = "patient/goToReservation")
-    public String goToReservation() {
-        return "reservation";
-    }
-
     @RequestMapping(value = "patient/goToHealthGraphy")
     public String goToHealthGraphy() {
         return "healthGraphy";
@@ -95,5 +90,13 @@ public class NextPage {
     @RequestMapping(value = "staff/goToRoleManage")
     public String goToRoleManage() {
         return "roleManage";
+    }
+    @RequestMapping(value = "staff/goToCheckItemManage")
+    public String goToCheckItemManage() {
+        return "checkItemManage";
+    }
+    @RequestMapping(value = "staff/goToMedicineManage")
+    public String goToMedicineManage() {
+        return "medicineManage";
     }
 }

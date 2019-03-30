@@ -1,7 +1,9 @@
 package com.vector.pojo;
-// Generated 2019-3-22 22:17:21 by Hibernate Tools 4.3.1
+// Generated 2019-3-29 20:04:25 by Hibernate Tools 4.3.1
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,55 +13,96 @@ import java.util.Set;
 public class Medicine  implements java.io.Serializable {
 
 
-     private Integer medicationId;
-     private String medicationName;
-     private String medicationInstructions;
-     private String medicationDescription;
+     private Integer medicineId;
+     private String medicineName;
+     private String medicineInstructions;
+     private String medicineDescription;
+     private long medicinePrice;
+     private int medicineNumber;
+     private String validityPeriod;
+     private Date productionDate;
+     @JsonIgnore
      private Set medicationHistories = new HashSet(0);
 
     public Medicine() {
     }
 
 	
-    public Medicine(String medicationName, String medicationInstructions, String medicationDescription) {
-        this.medicationName = medicationName;
-        this.medicationInstructions = medicationInstructions;
-        this.medicationDescription = medicationDescription;
+    public Medicine(String medicineName, String medicineInstructions, String medicineDescription, long medicinePrice, int medicineNumber, String validityPeriod, Date productionDate) {
+        this.medicineName = medicineName;
+        this.medicineInstructions = medicineInstructions;
+        this.medicineDescription = medicineDescription;
+        this.medicinePrice = medicinePrice;
+        this.medicineNumber = medicineNumber;
+        this.validityPeriod = validityPeriod;
+        this.productionDate = productionDate;
     }
-    public Medicine(String medicationName, String medicationInstructions, String medicationDescription, Set medicationHistories) {
-       this.medicationName = medicationName;
-       this.medicationInstructions = medicationInstructions;
-       this.medicationDescription = medicationDescription;
+    public Medicine(String medicineName, String medicineInstructions, String medicineDescription, long medicinePrice, int medicineNumber, String validityPeriod, Date productionDate, Set medicationHistories) {
+       this.medicineName = medicineName;
+       this.medicineInstructions = medicineInstructions;
+       this.medicineDescription = medicineDescription;
+       this.medicinePrice = medicinePrice;
+       this.medicineNumber = medicineNumber;
+       this.validityPeriod = validityPeriod;
+       this.productionDate = productionDate;
        this.medicationHistories = medicationHistories;
     }
    
-    public Integer getMedicationId() {
-        return this.medicationId;
+    public Integer getMedicineId() {
+        return this.medicineId;
     }
     
-    public void setMedicationId(Integer medicationId) {
-        this.medicationId = medicationId;
+    public void setMedicineId(Integer medicineId) {
+        this.medicineId = medicineId;
     }
-    public String getMedicationName() {
-        return this.medicationName;
-    }
-    
-    public void setMedicationName(String medicationName) {
-        this.medicationName = medicationName;
-    }
-    public String getMedicationInstructions() {
-        return this.medicationInstructions;
+    public String getMedicineName() {
+        return this.medicineName;
     }
     
-    public void setMedicationInstructions(String medicationInstructions) {
-        this.medicationInstructions = medicationInstructions;
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
     }
-    public String getMedicationDescription() {
-        return this.medicationDescription;
+    public String getMedicineInstructions() {
+        return this.medicineInstructions;
     }
     
-    public void setMedicationDescription(String medicationDescription) {
-        this.medicationDescription = medicationDescription;
+    public void setMedicineInstructions(String medicineInstructions) {
+        this.medicineInstructions = medicineInstructions;
+    }
+    public String getMedicineDescription() {
+        return this.medicineDescription;
+    }
+    
+    public void setMedicineDescription(String medicineDescription) {
+        this.medicineDescription = medicineDescription;
+    }
+    public long getMedicinePrice() {
+        return this.medicinePrice;
+    }
+    
+    public void setMedicinePrice(long medicinePrice) {
+        this.medicinePrice = medicinePrice;
+    }
+    public int getMedicineNumber() {
+        return this.medicineNumber;
+    }
+    
+    public void setMedicineNumber(int medicineNumber) {
+        this.medicineNumber = medicineNumber;
+    }
+    public String getValidityPeriod() {
+        return this.validityPeriod;
+    }
+    
+    public void setValidityPeriod(String validityPeriod) {
+        this.validityPeriod = validityPeriod;
+    }
+    public Date getProductionDate() {
+        return this.productionDate;
+    }
+    
+    public void setProductionDate(Date productionDate) {
+        this.productionDate = productionDate;
     }
     public Set getMedicationHistories() {
         return this.medicationHistories;

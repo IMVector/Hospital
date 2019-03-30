@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<!-- Generated 2019-3-30 11:03:06 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.vector.pojo.Reservation" table="reservation" catalog="instalhms" optimistic-lock="version">
         <id name="reservationId" type="java.lang.Integer">
@@ -14,8 +14,8 @@
         <many-to-one name="staff" class="com.vector.pojo.Staff" fetch="select">
             <column name="StaffId" not-null="true" />
         </many-to-one>
-        <property name="reservationTime" type="timestamp">
-            <column name="ReservationTime" length="19" not-null="true" />
+        <property name="reservationTime" type="string">
+            <column name="ReservationTime" length="0" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

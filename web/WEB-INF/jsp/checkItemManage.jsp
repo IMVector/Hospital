@@ -6,7 +6,7 @@
 
     <head>
         <jsp:include page="resourcesTemplete.jsp" />
-        <title>部门管理</title>
+        <title>检查项目管理</title>
         <script src="resources/js/cropper.js"></script><!-- Cropper.js is required -->
         <link  href="resources/css/cropper.css" rel="stylesheet">
         <script src="resources/js/jquery-cropper.js"></script>
@@ -25,32 +25,32 @@
         <div class="ui container">
             <div class="ui segment">
                 <div class="ui header blue segment">
-                    部门管理
+                    检查项目管理
                 </div>
                 <table>
                     <tr>
 
                         <td>
                             <div class="ui input focus">
-                                <input id="departmentName" placeholder="部门名称" type="text">
+                                <input id="checkItemName" placeholder="检查项目名称" type="text">
                             </div>
                         </td>
                         <td> 
-                            <button id="getByName" class="ui basic button blue">查询指定部门信息</button>
+                            <button id="getByName" class="ui basic fluid button blue">查询指定检查项目信息</button>
                         </td>
                         <td>
-                            <button id="getAllBtn" class="ui basic button blue">查询所有部门信息</button>
+                            <button id="getAllBtn" class="ui basic fluid button blue">查询所有检查项目信息</button>
                         </td>
                         <td>
-                            <button id="add" class="ui basic button blue">添加部门</button>
+                            <button id="add" class="ui basic fluid button blue">添加检查项目</button>
                         </td>
-                        <td>
-                            <a href="javascript:window.open('staff/goToManageStaff')"class="ui basic button blue">管理员工</a>
-                        </td>
+                        <!--                        <td>
+                                                    <a href="javascript:window.open('staff/goToManageStaff')"class="ui basic button blue">管理员工</a>
+                                                </td>-->
                     </tr>
                 </table>
                 <div class="container-admin-inner">
-                    <table id="departmentTable" class="ui table blue" >
+                    <table id="checkItemTable" class="ui table blue" >
                     </table>
                 </div>
 
@@ -80,52 +80,33 @@
             </div>
 
             <div id="modeltest" class="ui inverted modal ">
-                <div class="header">添加部门信息</div>
+                <div class="header">添加检查项目信息</div>
                 <div class="content">
-                    <div class="ui header blue segment">部门信息</div>
+                    <div class="ui header blue segment">检查项目信息</div>
                     <form id="myForm" class="ui form">
                         <div class="field">
-                            <label>部门名称：</label>
+                            <label>检查项目名称：</label>
                             <div class="ui input ">
-                                <input id="medicationName" name="departmentName" placeholder="部门名称" type="text">
+                                <input name="checkItemName" placeholder="请输入检查项目名称" type="text">
                             </div>
                         </div>
                         <br/>
                         <div class="field">
-                            <label>部门说明：</label>
+                            <label>检查项目说明：</label>
                             <div class="ui input ">
-                                <input id="medicationInstructions" name="departmentDescription" placeholder="部门说明" type="text">
+                                <textarea name="checkItemDescription" placeholder="请输入检查项目说明" type="text"></textarea>
                             </div>
                         </div>
 
                         <div class="field">
-                            <label>部门图片</label>
-                            <div style="height:200px;width: 85%">
-                                <img id="mySelect" height="200px" src="resources/image/image.png">
+                            <label>检查项目价格</label>
+                            <div class="ui input">
+                                <input type="text" name="checkItemPrice" placeholder="请输入检查项目价格">
                             </div>
-                            <br>
-                            <button id="uploadButton" type="button" class="ui primary button">上传</button>
-                            <input id="imagePath" type="text" style="display: none" name="imagePath">
                         </div>
                         <button id="resetButton" type="reset" style="display:none;"></button> 
                     </form>
-
                     <br>
-                    <div id="hiddenCropper" class="hidden-block">
-                        <div style="height:200px;display:inline-block;width: 85%">
-                            <img id="image" height="300px" src="resources/image/image.png">
-                        </div>
-                        <div style="height:120px;margin-left: 10px;display:inline-block;">
-                            <div class="small" style="height:100px;width:100px;overflow: hidden;"></div>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <button id="getCroppedCanvas" class="ui button">裁切头像</button>
-                        </div>
-                    </div>
-
-
                 </div>
                 <div class="actions">
                     <div class="ui black deny button">放弃</div>
@@ -149,124 +130,24 @@
 
         $('select.dropdown').dropdown();
 
-
-        var $inputImage = $('#inputImage');
-        var $image = $('#image');
-        var formData;
-        var file;
-        $(document).on("click", "#mySelect", function () {
-            $("#inputImage").click();
-        });
-        $(document).on("click", "#cancleButton", function () {
-            $('.ui.modal').modal('refresh');
-            $('.ui.modal').modal('hide');
-        });
-        $("#getCroppedCanvas").on("click", function () {
-            console.log($('#image').cropper('getCroppedCanvas'));
-            var cas = $('#image').cropper('getCroppedCanvas', {width: 200, height: 200});
-            var base64url = cas.toDataURL('image/jpeg');
-            cas.toBlob(function (e) {
-                //console.log(e);  //生成Blob的图片格式= 
-                formData = new FormData();
-                formData.append("file", e, file.name);
-                //-------------图片回显-------------
-                var url = URL.createObjectURL(e);
-                $('#mySelect').attr('src', url);
-            });
-
-            $("#hiddenCropper").addClass("hidden-block");
-            //console.log(base64url); //生成base64图片的格式
-            //$('.cavans').html(cas);  //在body显示出canvas元素
-            //var formData = new FormData();
-            //注意：此处第3个参数最好传入一个带后缀名的文件名，否则很有可能被后台认为不是有效的图片文件
-            //formData.append("file", blob, file.name);
-        });
-        $(document).on("click", "#uploadButton", function () {
-            $.ajax({
-                url: "upload/uploadImage/uploadPatientImage",
-                type: 'POST',
-                cache: false,
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    if (data === "Error") {
-                        toastError("上传失败");
-                    } else {
-                        toastSuccess("上传成功");
-                        $('#avatar').attr('src', data);
-                        $("#imagePath").val(data);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    toastError("请求失败，请重试！" + errorThrown);
-                }
-            });
-        });
-        $inputImage.change(function () {
-            $("#hiddenCropper").removeClass("hidden-block");
-
-            var files = this.files;
-            //var file;
-            if (files && files.length) {
-                file = files[0];
-            }
-            var console = window.console || {log: function () {}};
-            var URL = window.URL || window.webkitURL;
-            var originalImageURL = $image.attr('src');
-            var uploadedImageName = 'cropped.jpg';
-            var uploadedImageType = 'image/jpeg';
-            var uploadedImageURL;
-            if (URL) {
-                if (/^image\/\w+$/.test(file.type)) {
-                    uploadedImageName = file.name;
-                    uploadedImageType = file.type;
-
-                    if (uploadedImageURL) {
-                        URL.revokeObjectURL(uploadedImageURL);
-                    }
-
-                    uploadedImageURL = URL.createObjectURL(file);
-                    //$image.attr('src', uploadedImageURL)
-                    $image.cropper('destroy').attr('src', uploadedImageURL);
-                    //.cropper(options);
-                    $inputImage.val('');
-
-                    $('#image').cropper({
-                        aspectRatio: 1 / 1,
-                        viewMode: 1,
-                        dragMode: 'none',
-                        preview: ".small",
-                        responsive: false,
-                        restore: false});
-                } else {
-                    window.alert('Please choose an image file.');
-                }
-            } else {
-                $inputImage.prop('disabled', true).parent().addClass('disabled');
-            }
-        });
-
-
-
         $(document).ready(function () {
 
             $("#getByName").on("click", function () {
-                var name = $("#departmentName").val();
-                var url = "staff/getDepartmentByName/" + name;
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, departmentTableInfo, function () {
+                var name = $("#checkItemName").val();
+                var url = "staff/getCheckItemByName/" + name;
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, checkItemTableInfo, function () {
                     return 1;
                 });
             });
 
             $("#getAllBtn").click(function () {
-                var url = 'staff/departmentList/page_key_word';
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, departmentTableInfo, getDepartmentItemNumber);
+                var url = 'staff/checkItemList/page_key_word';
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, checkItemTableInfo, getMedicationItemNumber);
             });
 
             $("#pageSelecter").on("change", function () {
-                var url = 'staff/departmentList/page_key_word';
-                goToThPage("PageButtons", "pageText", "pageSelecter", url, departmentTableInfo, getDepartmentItemNumber);
+                var url = 'staff/checkItemList/page_key_word';
+                goToThPage("PageButtons", "pageText", "pageSelecter", url, checkItemTableInfo, getMedicationItemNumber);
             });
 
             //全部更新
@@ -295,9 +176,9 @@
                                 }
                             });
                             $.ajax({
-                                url: "staff/updateDepartment",
+                                url: "staff/updateCheckItem",
                                 type: 'POST',
-                                data: {"departmentId": id, "departmentName": name, "departmentDescription": description},
+                                data: {"checkItemId": id, "checkItemName": name, "checkItemDescription": description},
                                 success: function (data, textStatus, jqXHR) {
                                     if (data) {
                                         $("#" + id).find(".mylabel").each(function (index, element) {
@@ -352,7 +233,7 @@
                     onApprove: function () {
                         if ($(".ui.form").form('validate form')) {
                             $.ajax({
-                                url: 'staff/addDepartment',
+                                url: 'staff/addCheckItem',
                                 type: 'POST',
                                 async: false,
                                 data: $("#myForm").serialize(), //将表单的数据编码成一个字符串提交给服务器
@@ -418,9 +299,9 @@
                         }
                     });
                     $.ajax({
-                        url: "staff/updateDepartment",
+                        url: "staff/updateCheckItem",
                         type: 'POST',
-                        data: {"departmentId": id, "departmentName": name, "departmentDescription": description},
+                        data: {"checkItemId": id, "checkItemName": name, "checkItemDescription": description},
                         success: function (data, textStatus, jqXHR) {
                             if (data) {
                                 $("#" + id).find(".mylabel").each(function (index, element) {
@@ -472,7 +353,7 @@
             $(document).on('click', ".deleteBtn", function () {
                 var id = $(this).closest("tr").attr("id");
                 $.ajax({
-                    url: "staff/deleteDepartment/" + id,
+                    url: "staff/deleteCheckItem/" + id,
                     type: 'POST',
                     success: function (data, textStatus, jqXHR) {
                         if (data) {
@@ -505,45 +386,51 @@
             });
         });
 
-        //ajax回调函数，显示部门信息
-        function departmentTableInfo(data) {
-            $("#departmentTable").empty();
-            $("#departmentTable").append("<thead><tr><th>选择</th><th  style='width: 100px;'>部门编号</th><th>部门名称</th><th  style='width:400px;'>部门描述</th><th style='padding-left: 10%;width:100px' colspan='2'>操作</th></tr></thead>");
-            $.each(data, function (index, department) {
+        //ajax回调函数，显示检查项目信息
+        function checkItemTableInfo(data) {
+            $("#checkItemTable").empty();
+            $("#checkItemTable").append("<thead><tr><th>选择</th><th>编号</th><th>检查项目名称</th><th>检查项目描述</th><th>检查项目价格</th><th style='padding-left: 10%;width:100px' colspan='2'>操作</th></tr></thead>");
+            $.each(data, function (index, checkItem) {
                 var str = " \n\
-                <tr id=" + department.departmentId + ">\n\
+                <tr id=" + checkItem.checkItemId + ">\n\
                     <td style='width:100px;'>\n\
                         <div class='ui toggle checkbox'>\n\
                             <input name='public' type='checkbox'>\n\
                             <label></label>\n\
                         </div>\n\
                     </td>\n\
-                    <td>\n\
-                        <label class='mylabel table-label' >" + department.departmentId + "</label>\n\
+                    <td style='width: 100px;'>\n\
+                        <label class='mylabel table-label' >" + checkItem.checkItemId + "</label>\n\
                         <div class='nonevisiual' >\n\
-                            <input value=" + department.departmentId + " class='myInput' style='width: 50%;' readonly type='text'>\n\
+                            <input value=" + checkItem.checkItemId + " class='myInput' style='width: 50%;' readonly type='text'>\n\
                         </div>\n\
                     </td>\n\
                     <td>\n\
-                        <label class='mylabel table-label' data-content='" + department.departmentName + "' data-position='top left'>" + department.departmentName + "</label>\n\
+                        <label class='mylabel table-label' data-content='" + checkItem.checkItemName + "' data-position='top left'>" + checkItem.checkItemName + "</label>\n\
                         <div class='nonevisiual'>\n\
-                            <input value=" + department.departmentName + " class='myInput'  style='width: 80%;' type='text'>\n\
+                            <input value=" + checkItem.checkItemName + " class='myInput'  style='width: 80%;' type='text'>\n\
                         </div>\n\
                     </td>\n\
-                    <td  style='width:300px; max-width: 400px;'>\n\
-                        <label class='mylabel table-label' data-content='" + department.departmentDescription + "' data-position='top left'>" + department.departmentDescription + "</label>\n\
+                    <td  style='max-width: 300px;'>\n\
+                        <label class='mylabel table-label' data-content='" + checkItem.checkItemDescription + "' data-position='top left'>" + checkItem.checkItemDescription + "</label>\n\
                         <div class='nonevisiual'>\n\
-                            <input value=" + department.departmentDescription + " class='myInput'  style='width: 80%;' type='text'>\n\
+                            <input value=" + checkItem.checkItemDescription + " class='myInput'  style='width: 80%;' type='text'>\n\
                         </div>\n\
                     </td>\n\
-                    <td colspan='2' style='width:100px'>\n\
+                    <td  style='width:100px;'>\n\
+                        <label class='mylabel table-label' data-content='" + checkItem.checkItemPrice + "元' data-position='top left'>" + checkItem.checkItemPrice + "元</label>\n\
+                        <div class='nonevisiual'>\n\
+                            <input value=" + checkItem.checkItemPrice + " class='myInput'  style='width: 80%;' type='text'>\n\
+                        </div>\n\
+                    </td>\n\
+                    <td colspan='2' style='width:100px;text-align:center'>\n\
                         <button  class='ui button blue updatebtn' >修改</button>\n\
                         <button class='ui button blue deleteBtn'>删除</button>\n\
                     </td>\n\
                 </tr>";
 
 
-                $("#departmentTable").append(str);
+                $("#checkItemTable").append(str);
             });
         }
 
@@ -551,10 +438,10 @@
             $(this).popup("show");
         });
         //获取数据库中的总数量
-        function getDepartmentItemNumber() {
+        function getMedicationItemNumber() {
             var itemNum = 0;
             $.ajax({
-                url: "staff/departmentListItemNum",
+                url: "staff/checkItemListItemNum",
                 type: 'POST',
                 async: false,
                 data: {},
@@ -571,21 +458,34 @@
         //表单验证
         $('.ui.form').form({
             fields: {
-                departmentName: {
-                    identifier: 'departmentName', //form的field
+                checkItemName: {
+                    identifier: 'checkItemName', //form的field
                     rules: [
                         {
                             type: 'empty', //验证类型
-                            prompt: '请输入部门名称'//提示信息
+                            prompt: '请输入检查项目名称'//提示信息
                         }
                     ]
                 },
-                departmentDescription: {
-                    identifier: 'departmentDescription', //form的field
+                checkItemDescription: {
+                    identifier: 'checkItemDescription', //form的field
                     rules: [
                         {
                             type: 'empty', //验证类型
-                            prompt: '请输入部门信息'//提示信息
+                            prompt: '请输入检查项目信息'//提示信息
+                        }
+                    ]
+                },
+                checkItemPrice: {
+                    identifier: 'checkItemPrice', //form的field
+                    rules: [
+                        {
+                            type: 'empty', //验证类型
+                            prompt: '请输入检查项目价格'//提示信息
+                        },
+                        {
+                            type: 'number', //验证类型
+                            prompt: '请输入检查项目价格'//提示信息
                         }
                     ]
                 }

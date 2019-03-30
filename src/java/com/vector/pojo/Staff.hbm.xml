@@ -35,6 +35,9 @@
         <property name="introduction" type="string">
             <column name="Introduction" not-null="true" />
         </property>
+        <property name="gender" type="string">
+            <column name="Gender" length="4" not-null="true" />
+        </property>
         <set name="precautionAdvices" table="precaution_advice" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="StaffId" not-null="true" />

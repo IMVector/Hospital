@@ -6,6 +6,7 @@
 package com.vector.service;
 
 import com.vector.pojo.Patient;
+import java.io.Serializable;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -19,4 +20,6 @@ public interface PatientService {
     public String validateEmail(String email);
 
     public String login(Patient patient, String validateCode, HttpSession session);
+
+    public boolean reservation(Patient patient, Serializable staffId, Serializable schedule);
 }

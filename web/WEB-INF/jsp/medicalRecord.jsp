@@ -65,7 +65,7 @@
                     <td><label class=\"mylabel\" data-content=\"" + formatDatebox(medicalRecord.inDate) + "\" data-position=\"right center\">" + formatDatebox(medicalRecord.inDate) + "</label></td>\n\
                     <td><label class=\"mylabel\" data-content=\"" + medicalRecord.inDiagnosis + "\" data-position=\"right center\">" + medicalRecord.inDiagnosis + "</label></td>\n\
                     <td>" + medicalRecord.doctorName + "</td>\n\
-                    <td> <a  class='ui button small blue' href='medicalRecordDetails/" + medicalRecord.medicalRecordId + "'>查看</a> </td>\n\</tr>"
+                    <td> <a  class='ui button small blue' href='medicalRecordDetails/" + medicalRecord.medicalRecordId + "'>查看</a> </td>\n\</tr>";
 
                 $("#medicalRecordTable").append(str);
             });

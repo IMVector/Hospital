@@ -6,14 +6,18 @@
 package com.vector.service.impl;
 
 import com.vector.dao.PatientDao;
+import com.vector.dao.ReservationDao;
 import com.vector.pojo.Image;
 import com.vector.pojo.Patient;
+import com.vector.pojo.Reservation;
+import com.vector.pojo.Staff;
 import com.vector.service.ImageService;
 import com.vector.service.PatientService;
 import com.vector.utils.Email;
 import com.vector.utils.EmailValideCodeGain;
 import com.vector.utils.IdCardUtils;
 import com.vector.utils.MD5Utils;
+import java.io.Serializable;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +34,15 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     PatientDao patientDao;
-    
+
     @Autowired
     ImageService imageService;
 
+    @Autowired
+    ReservationDao resservationDao;
+
     @Override
-    public String register(Patient patient,String imagePath) {
+    public String register(Patient patient, String imagePath) {
         Patient patientData = patientDao.getPatientByIdCard(patient.getIdCard());
         if (null != patientData) {
             return "该用户已存在，请核对身份证号码后重试！";
@@ -98,6 +105,23 @@ public class PatientServiceImpl implements PatientService {
         } else {
             return "该用户不存在！";
         }
+
+    }
+
+    @Override
+    public boolean reservation(Patient patient, Serializable staffId, Serializable schedule) {
+        Staff staff = new Staff();
+        staff.setStaffId(Integer.parseInt(staffId.toString()));
+        Reservation resrevation = new Reservation(patient, staff, schedule.toString());
+        try {
+            resservationDao.insert(resrevation);
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+
     }
 
 }
