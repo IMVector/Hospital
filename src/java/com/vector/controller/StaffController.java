@@ -74,13 +74,13 @@ public class StaffController {
 
     @RequestMapping(value = "/departmentList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Department> getDepartmentList(@PathVariable int currentPage) {
+    public List<Department> getDepartmentList(@PathVariable Integer currentPage) {
         return departmentService.getList(currentPage);
     }
 
     @RequestMapping(value = "/departmentListItemNum", method = RequestMethod.POST)
     @ResponseBody
-    public int showDepartmentListItemNumber() {
+    public Integer showDepartmentListItemNumber() {
         return departmentService.getListItemNumber();
     }
 
@@ -123,13 +123,13 @@ public class StaffController {
 
     @RequestMapping(value = "/titleList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Title> getTitleList(@PathVariable int currentPage) {
+    public List<Title> getTitleList(@PathVariable Integer currentPage) {
         return titleService.getList(currentPage);
     }
 
     @RequestMapping(value = "/titleListItemNum", method = RequestMethod.POST)
     @ResponseBody
-    public int showTitleListItemNumber() {
+    public Integer showTitleListItemNumber() {
         return titleService.getListItemNumber();
     }
 
@@ -166,13 +166,13 @@ public class StaffController {
 
     @RequestMapping(value = "/roleList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Role> getRoleList(@PathVariable int currentPage) {
+    public List<Role> getRoleList(@PathVariable Integer currentPage) {
         return roleService.getList(currentPage);
     }
 
     @RequestMapping(value = "/roleListItemNum", method = RequestMethod.POST)
     @ResponseBody
-    public int showRoleListItemNumber() {
+    public Integer showRoleListItemNumber() {
         return roleService.getListItemNumber();
     }
 
@@ -203,13 +203,13 @@ public class StaffController {
     //////////////////////////////////////////////////////员工管理//////////////////////////////////////////////////
     @RequestMapping(value = "/staffList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Staff> getStaffList(@PathVariable int currentPage) {
+    public List<Staff> getStaffList(@PathVariable Integer currentPage) {
         return staffService.getList(currentPage);
     }
 
     @RequestMapping(value = "/staffListItemNum", method = RequestMethod.POST)
     @ResponseBody
-    public int showStaffListItemNumber() {
+    public Integer showStaffListItemNumber() {
         return staffService.getListItemNumber();
     }
 
@@ -239,37 +239,37 @@ public class StaffController {
 
     @RequestMapping(value = "/getStaffByTitle/{titleId}/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Staff> getStaffByTitle(@PathVariable Integer titleId, @PathVariable int currentPage) {
+    public List<Staff> getStaffByTitle(@PathVariable Integer titleId, @PathVariable Integer currentPage) {
         return staffService.getStaffByTitle(titleId, currentPage);
     }
 
     @RequestMapping(value = "/getStaffBytitleItemNum/{titleId}", method = RequestMethod.POST)
     @ResponseBody
-    public int showStaffListByTitleItemNumber(@PathVariable Integer titleId) {
+    public Integer showStaffListByTitleItemNumber(@PathVariable Integer titleId) {
         return staffService.getStaffByTitleItemNum(titleId);
     }
 
     @RequestMapping(value = "/getStaffByRole/{roleId}/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Staff> getStaffByRole(@PathVariable Integer roleId, @PathVariable int currentPage) {
+    public List<Staff> getStaffByRole(@PathVariable Integer roleId, @PathVariable Integer currentPage) {
         return staffService.getStaffByRole(roleId, currentPage);
     }
 
     @RequestMapping(value = "/getStaffByRoleItemNum/{roleId}", method = RequestMethod.POST)
     @ResponseBody
-    public int showStaffListByRoleItemNumber(@PathVariable Integer roleId) {
+    public Integer showStaffListByRoleItemNumber(@PathVariable Integer roleId) {
         return staffService.getStaffByRoleItemNum(roleId);
     }
 
     @RequestMapping(value = "/getStaffByDepartment/{departmentId}/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Staff> getStaffByDepartment(@PathVariable Integer departmentId, @PathVariable int currentPage) {
+    public List<Staff> getStaffByDepartment(@PathVariable Integer departmentId, @PathVariable Integer currentPage) {
         return staffService.getStaffByDepartmentName(departmentId, currentPage);
     }
 
     @RequestMapping(value = "/getStaffBydepartmentItemNum/{departmentName}", method = RequestMethod.POST)
     @ResponseBody
-    public int showStaffListByDepartmentItemNumber(@PathVariable Integer departmentId) {
+    public Integer showStaffListByDepartmentItemNumber(@PathVariable Integer departmentId) {
         return staffService.getStaffByDepartmentNameItemNum(departmentId);
     }
 
@@ -308,13 +308,13 @@ public class StaffController {
 
     @RequestMapping(value = "/checkItemList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<CheckItem> getCheckItemList(@PathVariable int currentPage) {
+    public List<CheckItem> getCheckItemList(@PathVariable Integer currentPage) {
         return checkItemService.getList(currentPage);
     }
 
     @RequestMapping(value = "/checkItemListItemNum", method = RequestMethod.POST)
     @ResponseBody
-    public int showCheckItemListItemNumber() {
+    public Integer showCheckItemListItemNumber() {
         return checkItemService.getListItemNumber();
     }
 
@@ -351,13 +351,13 @@ public class StaffController {
 
     @RequestMapping(value = "/medicineList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Medicine> getMedicineList(@PathVariable int currentPage) {
+    public List<Medicine> getMedicineList(@PathVariable Integer currentPage) {
         return medicineService.getList(currentPage);
     }
 
     @RequestMapping(value = "/medicineListItemNum", method = RequestMethod.POST)
     @ResponseBody
-    public int showMedicineListItemNumber() {
+    public Integer showMedicineListItemNumber() {
         return medicineService.getListItemNumber();
     }
 

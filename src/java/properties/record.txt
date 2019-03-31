@@ -79,3 +79,22 @@
 在Medicine中
      @JsonIgnore
      private Set medicationHistories = new HashSet(0);
+
+
+在Patient中
+    @JsonIgnore
+    private Set bills = new HashSet(0);
+    @JsonIgnore
+    private Set precautionAdvices = new HashSet(0);
+    @JsonIgnore
+    private Set dietAdvices = new HashSet(0);
+    @JsonIgnore
+    private Set reservations = new HashSet(0);
+    @JsonIgnore
+    private Set checkRecords = new HashSet(0);
+    @JsonIgnore
+    private Set medicationHistories = new HashSet(0);
+    @JsonIgnore
+    private Set medicalRecords = new HashSet(0);
+    @JsonIgnore
+    private Set tasks = new HashSet(0);

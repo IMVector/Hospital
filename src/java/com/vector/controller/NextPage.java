@@ -5,6 +5,7 @@
  */
 package com.vector.controller;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -83,20 +84,25 @@ public class NextPage {
     public String goToDepartmentManage() {
         return "departmentManage";
     }
+
     @RequestMapping(value = "staff/goToTitleManage")
     public String goToTitleManage() {
         return "titleManage";
     }
+
     @RequestMapping(value = "staff/goToRoleManage")
     public String goToRoleManage() {
         return "roleManage";
     }
+
     @RequestMapping(value = "staff/goToCheckItemManage")
     public String goToCheckItemManage() {
         return "checkItemManage";
     }
+
     @RequestMapping(value = "staff/goToMedicineManage")
     public String goToMedicineManage() {
         return "medicineManage";
     }
+
 }

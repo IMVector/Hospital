@@ -120,37 +120,37 @@
                                 <td>上午&nbsp;&nbsp;8:00-11:30</td>
                                 <td id="1_1">
                                     <c:if test="${schedule.scheduleList[0]=='true'}">
-                                        <a href="patient/reservation/${staff.staffId}/1_1">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/1_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="2_1">
                                     <c:if test="${'true'==schedule.scheduleList[2]}">
-                                        <a href="patient/reservation/${staff.staffId}/2_1">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/2_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="3_1">
                                     <c:if test="${'true'==schedule.scheduleList[4]}">
-                                        <a href="patient/reservation/${staff.staffId}/3_1">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/3_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="4_1">
                                     <c:if test="${'true'==schedule.scheduleList[6]}">
-                                        <a href="patient/reservation/${staff.staffId}/4_1">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/4_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="5_1">
                                     <c:if test="${'true'==schedule.scheduleList[8]}">
-                                        <a href="patient/reservation/${staff.staffId}/5_1">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/5_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="6_1">
                                     <c:if test="${'true'==schedule.scheduleList[10]}">
-                                        <a href="patient/reservation/${staff.staffId}/6_1">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/6_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="7_1">
                                     <c:if test="${'true'==schedule.scheduleList[12]}">
-                                        <a href="patient/reservation/${staff.staffId}/7_1">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/7_1')">预约</a>
                                     </c:if>
                                 </td>
                             </tr>
@@ -158,47 +158,52 @@
                                 <td>下午&nbsp;&nbsp;1:30-6：00</td>
                                 <td id="1_2">
                                     <c:if test="${'true'==schedule.scheduleList[1]}">
-                                        <a href="patient/reservation/${staff.staffId}/1_2">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/1_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="2_2">
                                     <c:if test="${'true'==schedule.scheduleList[3]}">
-                                        <a href="patient/reservation/${staff.staffId}/2_2">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/2_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="3_2">
                                     <c:if test="${'true'==schedule.scheduleList[5]}">
-                                        <a href="patient/reservation/${staff.staffId}/3_2">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/3_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="4_2">
                                     <c:if test="${'true'==schedule.scheduleList[7]}">
-                                        <a href="patient/reservation/${staff.staffId}/4_2">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/4_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="5_2">
                                     <c:if test="${'true'==schedule.scheduleList[9]}">
-                                        <a href="patient/reservation/${staff.staffId}/5_2">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/5_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="6_2">
                                     <c:if test="${'true'==schedule.scheduleList[11]}">
-                                        <a href="patient/reservation/${staff.staffId}/6_2">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/6_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="7_2">
                                     <c:if test="${'true'==schedule.scheduleList[13]}">
-                                        <a href="patient/reservation/${staff.staffId}/7_2">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/7_2')">预约</a>
                                     </c:if>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
 
+                    <div id="message" class="ui hidden message">
+                        <div class="header">
+                            <a class="ui button" href="patient/goToReservationList">查看预约信息</a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-        <span id="showdate" style="display: none"></span>
     </body>
     <script>
         $('.ui.pointing.secondary.menu .item').tab();
@@ -217,7 +222,6 @@
         //初始化日期加载
         function initDate(tableId) {
             currDT = new Date();
-            showdate.innerHTML = currDT.toLocaleDateString(); //显示日期
             var dw = currDT.getDay(); //从Date对象返回一周中的某一天(0~6)
             var tdDT; //日期
 
@@ -227,10 +231,10 @@
                 tdDT = getDays()[i];
 
                 dw = tdDT.getDay(); //星期几
-                objTB.rows[0].cells[i + 1].innerHTML = tdDT.getMonth() + 1 + "月" + tdDT.getDate() + "日 星期" + aryDay[dw]; //显示
-                var newtime = '<input type="text" value="' + year + "-" + (tdDT.getMonth() + 1) + "-" + tdDT.getDate() + '">';
-                $(".newtime").append(newtime);
 
+                objTB.rows[0].cells[i + 1].innerHTML = tdDT.getMonth() + 1 + "月" + tdDT.getDate() + "日 星期" + aryDay[dw]; //显示
+                objTB.rows[1].cells[i + 1].innerHTML = objTB.rows[1].cells[i + 1].innerHTML + "<input type='text' style='display:none' value='" + formatDatebox(tdDT) + "'>";
+                objTB.rows[2].cells[i + 1].innerHTML = objTB.rows[2].cells[i + 1].innerHTML + "<input type='text' style='display:none' value='" + formatDatebox(tdDT) + "'>";
                 if (tdDT.toLocaleDateString() === currDT.toLocaleDateString()) {
                     objTB.rows[0].cells[i + 1].style.color = "white"; //currDT突出显示
                     objTB.rows[0].cells[i + 1].style.backgroundColor = "#1e9be8"; //currDT突出显示
@@ -257,6 +261,28 @@
                 days[i - 1] = getWeek(i);
             }
             return days;
+        }
+
+
+        function reservation(url) {
+            var id_ = url.slice(-3);//截取url后三位
+            var reservationDate = $("#" + id_ + "").children("input").val();//预约那天的日期
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {"reservationDate": reservationDate},
+                success: function (data) {
+                    if (data) {
+                        toastSuccess("预约成功");
+                        $("#message").removeClass("hidden");
+                    } else {
+                        toastError("预约失败");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！");
+                }
+            });
         }
     </script>
 </html>

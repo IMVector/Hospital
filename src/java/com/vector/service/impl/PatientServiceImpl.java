@@ -38,8 +38,6 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     ImageService imageService;
 
-    @Autowired
-    ReservationDao resservationDao;
 
     @Override
     public String register(Patient patient, String imagePath) {
@@ -108,20 +106,5 @@ public class PatientServiceImpl implements PatientService {
 
     }
 
-    @Override
-    public boolean reservation(Patient patient, Serializable staffId, Serializable schedule) {
-        Staff staff = new Staff();
-        staff.setStaffId(Integer.parseInt(staffId.toString()));
-        Reservation resrevation = new Reservation(patient, staff, schedule.toString());
-        try {
-            resservationDao.insert(resrevation);
-            return true;
-
-        } catch (Exception e) {
-            System.out.println(e);
-            return false;
-        }
-
-    }
 
 }
