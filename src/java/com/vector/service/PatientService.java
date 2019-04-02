@@ -20,4 +20,6 @@ public interface PatientService {
     public String validateEmail(String email);
 
     public String login(Patient patient, String validateCode, HttpSession session);
+    
+    public boolean validatePatientByIdCard(String IdCard);
 }

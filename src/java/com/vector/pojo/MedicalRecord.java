@@ -2,6 +2,7 @@ package com.vector.pojo;
 // Generated 2019-3-22 22:17:21 by Hibernate Tools 4.3.1
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +19,7 @@ public class MedicalRecord  implements java.io.Serializable {
      private String diagnosticDescription;
      private Date date;
      private String symptom;
+     @JsonIgnore
      private Set prescriptions = new HashSet(0);
 
     public MedicalRecord() {

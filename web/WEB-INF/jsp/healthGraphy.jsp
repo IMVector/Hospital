@@ -53,27 +53,27 @@
         $("#showMedicalTimesChart").click(function () {
 
             var year = $("#yearSelecter_1").val();
-            var url = "graphy_times/${patient.patientId}/" + year;
+            var url = "patient/graphy_times/${patient.patientId}/" + year;
             getSomethingByAjax(url, changeMedicalTimesChart);
         });
 
         $("#showFeeChart").click(function () {
             var year = $("#yearSelecter_2").val();
-            var url = "graphy_fee/${patient.patientId}/" + year;
+            var url = "patient/graphy_fee/${patient.patientId}/" + year;
             getSomethingByAjax(url, showFeechart);
         });
 
         $("#showIllness").click(function () {
 
             var year = $("#yearSelecter_3").val();
-            var url = "illnessInfo/${patient.patientId}/" + year;
+            var url = "patient/illnessInfo/${patient.patientId}/" + year;
             getSomethingByAjax(url, illnessMedicalChart);
 
         });
 
 
         $(document).ready(function () {
-            var url = "medicalRecordYearSet/${patient.patientId}/";
+            var url = "patient/medicalRecordYearSet/${patient.patientId}/";
             getSomethingByAjax(url, getYearSet);
 
         });
@@ -97,7 +97,8 @@
 
         function changeMedicalTimesChart(data) {
 
-            var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+//            var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var MONTHS = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
             var config = {
                 type: 'line',
                 data: {

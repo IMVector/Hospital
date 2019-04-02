@@ -98,3 +98,6 @@
     private Set medicalRecords = new HashSet(0);
     @JsonIgnore
     private Set tasks = new HashSet(0);
+在MedicalRecord中
+ @JsonIgnore
+     private Set prescriptions = new HashSet(0);

@@ -5,8 +5,11 @@
  */
 package com.vector.controller;
 
+import com.vector.pojo.MedicalRecord;
 import com.vector.pojo.Patient;
 import com.vector.pojo.Reservation;
+import com.vector.service.ChartService;
+import com.vector.service.MedicalRecordService;
 import com.vector.service.PatientService;
 import com.vector.service.ReservationService;
 import com.vector.service.StaffService;
@@ -15,15 +18,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -45,6 +52,12 @@ public class PatientController {
 
     @Autowired
     ReservationService reservationService;
+
+    @Autowired
+    MedicalRecordService medicalRecordService;
+
+    @Autowired
+    ChartService chartService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -102,4 +115,99 @@ public class PatientController {
         return reservationService.getUnExpiryReservationByPatientIdListNum(patientId);
     }
 
+    @RequestMapping(value = "isIdCardexist/{idCard}")
+    @ResponseBody
+    public boolean isIdCardExist(@PathVariable String idCard) {
+        return patientService.validatePatientByIdCard(idCard);
+    }
+
+    //////////////////////////////////////////病例报告//////////////////////////////////////////////
+    @RequestMapping(value = "/medicalRecordDetails/{MdeicalRecordId}", method = RequestMethod.GET)
+    public String showMdeicalRecordDetails(@PathVariable Integer MdeicalRecordId, Model model) {
+        MedicalRecord medicalRecord = medicalRecordService.getMedicalRecordById(MdeicalRecordId);
+        model.addAttribute("medicalRecord", medicalRecord);
+        return "medicalRecordDetails";
+    }
+
+    @RequestMapping(value = "/medicalRecordList/{patientId}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List showMdeicalRecordList(@PathVariable Integer patientId, @PathVariable Integer currentPage) {
+        List<MedicalRecord> list = medicalRecordService.getAllListOfSomeone(patientId, currentPage);
+
+        return list;
+    }
+
+    @RequestMapping(value = "/medicalRecordListItemNumber/{patientId}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer showMdeicalRecordListItemNumber(@PathVariable Integer patientId) {
+        return medicalRecordService.getListItemNumberOfSomeone(patientId);
+    }
+
+    //////////////////////////////////健康内容可视化//////////////////////////////////////////////////////
+    @RequestMapping(value = "/graphy_times/{patientId}/{year}", method = RequestMethod.POST)
+    @ResponseBody
+    public int[] getMedicalOfPatientByYear(@PathVariable Integer patientId, @PathVariable Integer year, Model model) {
+        return chartService.getMedicalVisitsNum(patientId, year);
+
+    }
+
+    @RequestMapping(value = "/graphy_fee/{patientId}/{year}", method = RequestMethod.POST)
+    @ResponseBody
+    public double[] getMedicalFeeOfPatientByYear(@PathVariable Integer patientId, @PathVariable Integer year, Model model) {
+        return chartService.getMedicalVisitsFee(patientId, year);
+
+    }
+
+    @RequestMapping(value = "/medicalRecordYearSet/{patientId}", method = RequestMethod.POST)
+    @ResponseBody
+    public Set getMedicalRecordYearSetOfSomeone(@PathVariable Integer patientId) {
+        return chartService.getMedicalYear(patientId);
+    }
+
+    @RequestMapping(value = "/illnessInfo/{patientId}/{year}", method = RequestMethod.POST)
+    @ResponseBody
+    public Map getIllnessInfo(@PathVariable Integer patientId, @PathVariable Integer year) {
+        return chartService.getIllnessInfo(patientId, year);
+    }
+
+    /////////////////////////////////////检查记录以及检查结果报告///////////////////////////////////////////////////
+//    @RequestMapping(value = "/checkRecordList/{patientId}/{currentPage}", method = RequestMethod.POST)
+//    @ResponseBody
+//    public List showCheckRecordList(@PathVariable String patientId, @PathVariable Integer currentPage) {
+//        List<CheckRecord> list = checkRecordService.getAllListOfSomeone(patientId, currentPage);
+//        return list;
+//    }
+//
+//    @RequestMapping(value = "/checkRecordListItemNumber/{patientId}", method = RequestMethod.POST)
+//    @ResponseBody
+//    public Integer showCheckRecordListItemNumber(@PathVariable String patientId) {
+//        return checkRecordService.getListItemNumber(patientId);
+//    }
+//
+//    @RequestMapping(value = "/checkRecordDetails/{checkRecordId}", method = RequestMethod.GET)
+//    public String showCheckRecordDetails(@PathVariable Integer checkRecordId, Model model) {
+//        CheckRecord checkRecord = checkRecordService.getOneById(checkRecordId);
+//        model.addAttribute("checkRecord", checkRecord);
+//        return "checkRecordDetails";
+//    }
+    ///////////////////////////////////////处方报告/////////////////////////////////////////////////
+//    @RequestMapping(value = "/prescriptionList/{patientId}/{currentPage}", method = RequestMethod.POST)
+//    @ResponseBody
+//    public List showPrescriptionList(@PathVariable String patientId, @PathVariable Integer currentPage) {
+//        List<Prescription> list = prescriptionService.getAllListOfSomeone(patientId, currentPage);
+//        return list;
+//    }
+//
+//    @RequestMapping(value = "/prescriptionListItemNumber/{patientId}", method = RequestMethod.POST)
+//    @ResponseBody
+//    public Integer showPrescriptionListItemNumber(@PathVariable String patientId) {
+//        return prescriptionService.getListItemNumber(patientId);
+//    }
+//
+//    @RequestMapping(value = "/prescriptionDetails/{prescriptionId}", method = RequestMethod.GET)
+//    public String showPrescriptionDetails(@PathVariable Integer prescriptionId, Model model) {
+//        Prescription prescription = prescriptionService.getOneById(prescriptionId);
+//        model.addAttribute("prescription", prescription);
+//        return "prescriptionDetails";
+//    }
 }

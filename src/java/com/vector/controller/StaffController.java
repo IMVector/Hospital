@@ -7,6 +7,7 @@ package com.vector.controller;
 
 import com.vector.pojo.CheckItem;
 import com.vector.pojo.Department;
+import com.vector.pojo.MedicalRecord;
 import com.vector.pojo.Medicine;
 import com.vector.pojo.Role;
 import com.vector.pojo.ScheduleTable;
@@ -14,6 +15,7 @@ import com.vector.pojo.Staff;
 import com.vector.pojo.Title;
 import com.vector.service.CheckItemService;
 import com.vector.service.DepartmentService;
+import com.vector.service.MedicalRecordService;
 import com.vector.service.MedicineService;
 import com.vector.service.RoleService;
 import com.vector.service.StaffService;
@@ -22,6 +24,7 @@ import com.vector.service.WorkScheduleService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -61,6 +64,9 @@ public class StaffController {
 
     @Autowired
     MedicineService medicineService;
+    
+    @Autowired
+    MedicalRecordService medicalRecordService;
     
     
     
@@ -384,4 +390,11 @@ public class StaffController {
     public List<Medicine> getMedicineByName(@PathVariable String name) {
         return medicineService.getMedicineByName(name);
     }
+    ///////////////////////////////////////////diagnosis///////////////////////////////////////////////////
+    @RequestMapping(value="/addMedicalRecord",method=RequestMethod.POST)
+    @ResponseBody
+    public boolean dianpsis(MedicalRecord medicalRecord,String IdCard,HttpSession session){
+        return medicalRecordService.insert(medicalRecord,IdCard,session);
+    }
+    
 }

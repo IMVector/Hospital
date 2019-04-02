@@ -38,7 +38,6 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     ImageService imageService;
 
-
     @Override
     public String register(Patient patient, String imagePath) {
         Patient patientData = patientDao.getPatientByIdCard(patient.getIdCard());
@@ -106,5 +105,10 @@ public class PatientServiceImpl implements PatientService {
 
     }
 
+    @Override
+    public boolean validatePatientByIdCard(String IdCard) {
+        Patient p = patientDao.getPatientByIdCard(IdCard);
+        return null != p;
+    }
 
 }
