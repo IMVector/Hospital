@@ -200,12 +200,12 @@
             $("#getByDepartment").on("click", function () {
                 var title = $("#staffDepartment_").val();
                 var url = "staff/getStaffByDepartment/" + title + "/page_key_word";
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, staffTableInfo, staffByTitleItemNum);
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, staffTableInfo, staffByDepartmentItemNum);
             });
             $("#getByRole").on("click", function () {
                 var title = $("#staffRole_").val();
                 var url = "staff/getStaffByRole/" + title + "/page_key_word";
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, staffTableInfo, staffByTitleItemNum);
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, staffTableInfo, staffByRoleItemNum);
             });
 
             $("#getAllBtn").click(function () {
@@ -380,7 +380,45 @@
 
             var title = $("#staffTitle_").val();
             $.ajax({
-                url: "staff/getStaffBytitleItemNum/" + title,
+                url: "staff/getStaffByTitleItemNum/" + title,
+                type: 'POST',
+                async: false,
+                data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！");
+                }
+            });
+            return itemNum;
+        }
+        function staffByDepartmentItemNum() {
+            var itemNum = 0;
+
+            var departmentId = $("#staffDepartment_").val();
+            $.ajax({
+                url: "staff/getStaffByDepartmentItemNum/" + departmentId,
+                type: 'POST',
+                async: false,
+                data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！");
+                }
+            });
+            return itemNum;
+        }
+        function staffByRoleItemNum() {
+            var itemNum = 0;
+
+            var roleId = $("#staffRole_").val();
+            $.ajax({
+                url: "staff/getStaffByRoleItemNum/" + roleId,
                 type: 'POST',
                 async: false,
                 data: {},

@@ -65,7 +65,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
     </body>
     <script>
         $('.ui.styled.accordion').accordion({
@@ -74,8 +76,13 @@
             }
         });
         $(document).ready(function () {
-            var url = 'staff/staffList/page_key_word';
-            fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, staffTableInfo, staffItemNum);
+            if (${departmentId} === -1) {
+                var url = 'staff/staffList/page_key_word';
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, staffTableInfo, staffItemNum);
+            } else {
+                var url = "staff/getStaffByDepartment/${departmentId}/page_key_word";
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, staffTableInfo, staffByDepartmentItemNum);
+            }
 
             var url = 'staff/departmentList/page_key_word';
             fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, departmentTableInfo, getDepartmentItemNumber);
@@ -162,6 +169,24 @@
                     toastError("请求失败,请重试！");
                 }
             });
+        }
+        function staffByDepartmentItemNum() {
+            var itemNum = 0;
+            var departmentId =${departmentId};
+            $.ajax({
+                url: "staff/getStaffByDepartmentItemNum/" + departmentId,
+                type: 'POST',
+                async: false,
+                data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！");
+                }
+            });
+            return itemNum;
         }
     </script>
 </html>

@@ -5,11 +5,10 @@
  */
 package com.vector.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class NextPage {
 
     @RequestMapping({"/index", "/"})
-    public String index() {
+    public String index(HttpServletRequest request,HttpSession session) {
         return "mainIndex";
     }
 
@@ -36,17 +35,6 @@ public class NextPage {
     @RequestMapping("patient/goToLogin")
     public String goToPatientLogin() {
         return "patientLogin";
-    }
-
-    @RequestMapping(value = "patient/goToDepartmentInfo/{departmentName}", method = RequestMethod.GET)
-    public String goToDepartmentInfo(@PathVariable String departmentName, Model model) {
-        model.addAttribute("departmentName", departmentName);
-        return "departmentInfo";
-    }
-
-    @RequestMapping(value = "patient/goToAttendanceToPatient")
-    public String goToAttendanceToPatient() {
-        return "attendanceToPatient";
     }
 
     @RequestMapping(value = "patient/goToHealthGraphy")

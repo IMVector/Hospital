@@ -41,15 +41,19 @@
                     </div>
                     <div class="content">
                         <div class="fields">
-                            <div class="twelve wide field">
+                            <div class="six wide field">
                                 <label for="">检查项目：</label>
                                 <div class="ui input ">
-                                    <select id="roleId" name="role.roleId" class="ui fluid dropdown"></select>
+                                    <select id="checkItemId" name="checkItemId" class="ui fluid dropdown"></select>
                                 </div>
+                            </div>
+                            <div class="six wide field">
+                                <label for="">检查重点(疑似症状)：</label>
+                                <input type="text" name="taskContent">
                             </div>
                             <div class="four wide field">
                                 <label for="">去检查选中项目：</label>
-                                <button class="ui fluid button">检查</button>
+                                <button id="startTask" type="button" class="ui fluid button">检查</button>
                             </div>
 
                         </div>
@@ -144,95 +148,41 @@
                 </div>
             </div>
 
-            <div class="ui modal">
-                <form class="ui form">
-                    <div class="fields">
-                        <div class="twelve wide field">
-                            <label>邮箱</label>
-                            <input id="email" type="text" name="patientEmail" placeholder="请输入邮箱">
-                        </div>
-                        <div class="four wide field">
-                            <label>发送验证码</label>
-                            <button type="button" id="validateEmailButton" class="ui button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发送&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>密码</label>
-                        <input type="password" name="patientPassword" placeholder="请输入密码">
-                    </div>
-                    <div class="field">
-                        <label>重复密码</label>
-                        <input type="password" name="repeatPassword"  placeholder="请重复输入密码">
-                    </div>
-                    <div class="field">
-                        <label>姓名</label>
-                        <input type="text" name="patientName" placeholder="请输入姓名">
-                    </div>
-                    <div class="field">
-                        <label>手机号码</label>
-                        <input type="text" name="patientPhone" placeholder="请输入手机号码">
-                    </div>
-                    <div class="field">
-                        <label>家庭住址</label>
-                        <input type="text" name="patientAddress" placeholder="请输入家庭住址">
-                    </div>
-                    <div class="field">
-                        <label>身份证号</label>
-                        <input type="text" name="IdCard" placeholder="请输入身份证号">
-                    </div>
-                    <div class="ui placeholder segment">
-                        <div class="ui center aligned icon header">
-                            <img id="avatar" class="ui centered circular image" src="resources/image/avatar.png">
-                        </div>
-                        <center>
-                            <div  id="mySelect" class="ui primary button">头像</div>
-                            <input id="imagePath" type="text" style="display:none" name="imagePath">
-                        </center>
-
-                    </div>
-                    <div class="field">
-                        <label>婚姻状况</label>
-                        <div class="ui selection dropdown">
-                            <input type="hidden" name="patientMstatus">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">婚姻状况</div>
-                            <div class="menu">
-                                <div class="item" data-value="未婚">未婚</div>
-                                <div class="item" data-value="已婚">已婚</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>血型</label>
-                        <div class="ui selection dropdown">
-                            <input type="hidden" name="bloodType">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">血型</div>
-                            <div class="menu">
-                                <div class="item" data-value="A型">A型</div>
-                                <div class="item" data-value="B型">B型</div>
-                                <div class="item" data-value="O型">O型</div>
-                                <div class="item" data-value="AB型">AB型</div>
-                                <div class="item" data-value="未知">未知</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>邮箱验证码</label>
-                        <input id="validationCode" type="text" name="validationCode" placeholder="请输入邮箱验证码">
-                    </div>
-                    <button type="button" id="submitButton" class="fluid ui primary button">注册</button>
-                    <br>
-                    <button type="button" id="goToLoginButton" class="fluid ui button">去登录</button>
-
-                </form>
-            </div>
         </div>
+
     </body>
     <script>
 //        $('.message .close').on('click', function () {
 //            $(this).closest('.message').transition('fade');
 //        });
+        window.onbeforeunload = function (event) {
+            return "是否清除已填写并未提交数据？";
+        };
+//        window.addEventListener("beforeunload", function (event) {
+//            alert("是否清除已填写并未提交数据？");
+//            console.log("是否清除已填写并未提交数据？");
+//        });
+        $(document).on("click", "#startTask", function () {
+            //需要提交的内容:病人的IdCard，checkItemId,taskSponsor(从session中获取)
+            //
+        });
+        requestCheckItmeList("#checkItemId");
+        function requestCheckItmeList(id) {
+            $.ajax({
+                url: "staff/getCheckItemList",
+                type: 'POST',
+                success: function (data, textStatus, jqXHR) {
+                    $(id).empty();
+                    $.each(data, function (index, checkItem) {
+                        var str = "<option value=" + checkItem.checkItemId + ">" + checkItem.checkItemName + "</option>";
+                        $(id).append(str);
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！");
+                }
+            });
+        }
 
         $('.ui.styled.accordion').accordion({
             selector: {
@@ -261,20 +211,58 @@
             });
         });
 
+        $("#patientModal").modal("show");
+
         $("#medicalRecordBtn").click(function () {
-            $.ajax({
-                url: "staff/addMedicalRecord",
-                type: 'POST',
-                data:$("#medicalRecordForm").serialize(),
-                success: function (data, textStatus, jqXHR) {
-                    if (data === false) {
-                        $('.ui.basic.modal').modal('show');
+            if ($('medicalRecordForm').form('is valid')) {
+                $.ajax({
+                    url: "staff/addMedicalRecord",
+                    type: 'POST',
+                    data: $("#medicalRecordForm").serialize(),
+                    success: function (data, textStatus, jqXHR) {
+                        if (data === false) {
+                            $('.ui.basic.modal').modal('show');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        toastError("请求失败");
                     }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    toastError("请求失败");
-                }
-            });
+                });
+            }
+
         });
+
+        $('#medicalRecordForm').form({
+            fields: {
+                IdCard: {
+                    identifier: 'IdCard',
+                    rules: [
+                        {
+                            type: 'regExp[^(\\d{6})(\\d{4})(\\d{2})(\\d{2})(\\d{3})([0-9]|X)$]',
+                            prompt: '请输入正确格式的身份证号'
+                        }
+                    ]
+                },
+                symptom: {
+                    identifier: 'symptom',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: '请输入病人描述症状'
+                        }
+                    ]
+                },
+                diagnosticDescription: {
+                    identifier: 'diagnosticDescription',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: '请输入诊断描述'
+                        }
+                    ]
+                }
+            }
+        });
+
     </script>
 </html>

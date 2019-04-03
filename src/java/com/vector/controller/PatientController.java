@@ -9,6 +9,7 @@ import com.vector.pojo.MedicalRecord;
 import com.vector.pojo.Patient;
 import com.vector.pojo.Reservation;
 import com.vector.service.ChartService;
+import com.vector.service.DepartmentService;
 import com.vector.service.MedicalRecordService;
 import com.vector.service.PatientService;
 import com.vector.service.ReservationService;
@@ -58,6 +59,9 @@ public class PatientController {
 
     @Autowired
     ChartService chartService;
+
+    @Autowired
+    DepartmentService departmentService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -121,6 +125,13 @@ public class PatientController {
         return patientService.validatePatientByIdCard(idCard);
     }
 
+    @RequestMapping(value = "/goToDepartmentInfo/{departmentId}", method = RequestMethod.GET)
+    public String goToDepartmentInfo(@PathVariable Integer departmentId, Model model) {
+
+        model.addAttribute("department", departmentService.getDaprtmentById(departmentId));
+        return "departmentInfo";
+    }
+
     //////////////////////////////////////////病例报告//////////////////////////////////////////////
     @RequestMapping(value = "/medicalRecordDetails/{MdeicalRecordId}", method = RequestMethod.GET)
     public String showMdeicalRecordDetails(@PathVariable Integer MdeicalRecordId, Model model) {
@@ -170,6 +181,17 @@ public class PatientController {
         return chartService.getIllnessInfo(patientId, year);
     }
 
+    @RequestMapping(value = "/toToAttendance/{departmentId}", method = RequestMethod.GET)
+    public String goToAttendance(@PathVariable Integer departmentId, ModelMap map) {
+        map.addAttribute("departmentId", departmentId);
+        return "attendance";
+    }
+
+    @RequestMapping(value = "/goToAttendanceToPatient/{departmentId}")
+    public String goToAttendanceToPatient(@PathVariable Integer departmentId, ModelMap map) {
+        map.addAttribute("departmentId", departmentId);
+        return "attendanceToPatient";
+    }
     /////////////////////////////////////检查记录以及检查结果报告///////////////////////////////////////////////////
 //    @RequestMapping(value = "/checkRecordList/{patientId}/{currentPage}", method = RequestMethod.POST)
 //    @ResponseBody

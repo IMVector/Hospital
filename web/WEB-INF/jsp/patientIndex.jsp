@@ -140,7 +140,7 @@
                                             </svg>
 
                                             <div id="set_text"> 
-                                                <a href="patient/goToAttendanceToPatient">         
+                                                <a href="patient/goToAttendanceToPatient/-1">         
                                                     挂号
                                                 </a> 
                                             </div>
@@ -278,8 +278,8 @@
                 <div class="ui grid">
                     <div class="sixteen wide column">
                         <div class="ui fluid action input">
-                            <input type="text" placeholder="搜索科室">
-                            <button class="ui icon button">
+                            <input id="departmentByName" type="text" placeholder="搜索科室">
+                            <button id="departmentByNameBtn" type="button" class="ui icon button">
                                 <i class="search icon"></i>
                             </button>
                         </div>
@@ -289,54 +289,11 @@
                         <img src="resources/image/backgroundImage/88.jpg" alt="">
                     </div>
                     <div class="ten wide column">
-                        <div class="ui grid">
-                            <div class="four wide column">  <a class="ui primary button" href="patient/goToDepartmentInfo/test">test</a></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
-                            <div class="four wide column">  <div class="ui primary button">test</div></div>
+                        <div id="department" class="ui grid">
 
-
-
-
-
+                            <!--<div class="four wide column">  <a class="ui primary button" href="patient/goToDepartmentInfo/test">test</a></div>-->
                         </div>
-                        <!--                        <a class="ui big tag label">New</a>
-                                                <a class="ui big red tag label">Upcoming</a>
-                                                <a class="ui big teal tag label">Featured</a>
-                                                <a class="ui big tag label">New</a>
-                                                <a class="ui big red tag label">Upcoming</a>
-                                                <a class="ui big teal tag label">Featured</a>
-                                                <a class="ui big tag label">New</a>
-                                                <a class="ui big red tag label">Upcoming</a>
-                                                <a class="ui big teal tag label">Featured</a>
-                                                <a class="ui big tag label">New</a>
-                                                <a class="ui big red tag label">Upcoming</a>
-                                                <a class="ui big teal tag label">Featured</a>
-                                                <a class="ui big tag label">New</a>
-                                                <a class="ui big red tag label">Upcoming</a>
-                                                <a class="ui big teal tag label">Featured</a>-->
                     </div>
-
                 </div>
 
 
@@ -354,8 +311,44 @@
     $(".four.wide.column.div-overflow").mouseenter(function () {
         $(this).transition({animation: 'pulse', duration: 600});
     });
-//        $(".image-text").mouseenter(function () {
-//        $(this).transition({animation: 'pulse', duration: 300});
-//    });
+
+    $("#department").empty();
+    requestDepartmentList("#department");
+    function requestDepartmentList(id) {
+        $.ajax({
+            url: "staff/getDepartmentList",
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                $.each(data, function (index, department) {
+                    if (index < 32) {
+                        var str = "<div class=\"four wide column\">  <a class=\"ui primary button\" href=\"patient/goToDepartmentInfo/" + department.departmentId + "\">" + department.departmentName + "</a></div>";
+                        $(id).append(str);
+                    }
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                toastError("请求失败,请重试！");
+            }
+        });
+    }
+    $(document).on("click", "#departmentByNameBtn", function () {
+        $("#department").empty();
+        var name = $("#departmentByName").val();
+        $.ajax({
+            url: "staff/getDepartmentByName/" + name,
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                $.each(data, function (index, department) {
+                    if (index < 32) {
+                        var str = "<div class=\"four wide column\">  <a class=\"ui primary button\" href=\"patient/goToDepartmentInfo/" + department.departmentId + "\">" + department.departmentName + "</a></div>";
+                        $("#department").append(str);
+                    }
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                toastError("请求失败,请重试！");
+            }
+        });
+    });
 </script>
 </html>

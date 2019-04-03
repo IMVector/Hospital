@@ -7,8 +7,10 @@ package com.vector.dao.impl;
 
 import com.vector.dao.RoleDao;
 import com.vector.pojo.Role;
+import com.vector.pojo.Staff;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -42,5 +44,18 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
         name = "%" + name + "%";
         return getListByQuery(hql, name);
     }
+
+//    @Override
+//    public Role getRoleByCheckImemId(Serializable checkItemId) {
+//        String hql = "from Role where role.roleWork=?";
+//        List<Role> list = getListByQuery(hql, checkItemId);
+//        if (!list.isEmpty()) {
+//            Random random = new Random();
+//            int index = random.nextInt(list.size());
+//            return list.get(index);
+//        } else {
+//            return null;
+//        }
+//    }
 
 }

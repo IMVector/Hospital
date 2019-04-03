@@ -6,11 +6,13 @@
 package com.vector.service.impl;
 
 import com.vector.dao.StaffDao;
+import com.vector.pojo.Image;
 import com.vector.pojo.Staff;
 import com.vector.service.StaffService;
 import com.vector.utils.MD5Utils;
 import java.io.Serializable;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +30,10 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public boolean insert(Staff t, Object... params) {
-        t.setStaffPassword(MD5Utils.md5("123456"));
+        //        params[0] imagePath     
+        Image image = new Image();
+        image.setImageId(4);
+        t.setImage(image);
         try {
             staffDao.insert(t);
             return true;
@@ -108,6 +113,11 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public Staff getStaffById(Serializable id) {
         return staffDao.getOneById(id);
+    }
+
+    @Override
+    public Staff getStaffByRoleWork(Serializable roleWork) {
+        return staffDao.getStaffByRoleWork(roleWork);
     }
 
 }

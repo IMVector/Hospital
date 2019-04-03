@@ -10,6 +10,6 @@ package com.vector.utils;
  * @author Vector
  */
 public class CommonUtils {
-    public static final int EVERY_PAGE_NUMBER=5;
+    public static final int EVERY_PAGE_NUMBER=10;
     
 }

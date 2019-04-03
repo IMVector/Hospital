@@ -249,7 +249,7 @@ public class StaffController {
         return staffService.getStaffByTitle(titleId, currentPage);
     }
 
-    @RequestMapping(value = "/getStaffBytitleItemNum/{titleId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/getStaffByTitleItemNum/{titleId}", method = RequestMethod.POST)
     @ResponseBody
     public Integer showStaffListByTitleItemNumber(@PathVariable Integer titleId) {
         return staffService.getStaffByTitleItemNum(titleId);
@@ -273,7 +273,7 @@ public class StaffController {
         return staffService.getStaffByDepartmentName(departmentId, currentPage);
     }
 
-    @RequestMapping(value = "/getStaffBydepartmentItemNum/{departmentName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/getStaffByDepartmentItemNum/{departmentId}", method = RequestMethod.POST)
     @ResponseBody
     public Integer showStaffListByDepartmentItemNumber(@PathVariable Integer departmentId) {
         return staffService.getStaffByDepartmentNameItemNum(departmentId);

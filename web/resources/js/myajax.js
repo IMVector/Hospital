@@ -71,10 +71,10 @@ function calPageNum(itemNum) {
 
     itemNum = parseInt(itemNum);
     var pageNum = 0;
-    if (itemNum % 5 === 0) {
-        pageNum = itemNum / 5;
+    if (itemNum % 10 === 0) {
+        pageNum = itemNum / 10;
     } else {
-        pageNum = itemNum / 5 + 1;
+        pageNum = itemNum / 10 + 1;
     }
     if (pageNum === 0 || isNaN(pageNum)) {
         pageNum = 1;

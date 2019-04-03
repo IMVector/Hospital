@@ -18,4 +18,6 @@ public interface RoleDao extends BaseDao<Role>, PaginationBaseDao<Role> {
     public List<Role> getRoleList();
 
     public List<Role> getRoleByName(Serializable name);
+
+//    public Role getRoleByCheckImemId(Serializable checkItemId);
 }

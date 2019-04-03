@@ -9,6 +9,7 @@ import com.vector.dao.StaffDao;
 import com.vector.pojo.Staff;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -29,7 +30,6 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
         String hql = "from Staff";
         return getListPaginationByQuery(hql, currentPage);
     }
-
 
     @Override
     public List<Staff> getStaffByDepartmentName(Serializable departmentId, Serializable currentPage) {
@@ -60,7 +60,7 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
     public List<Staff> getStaffByName(Serializable name) {
 
         String hql = "from Staff where staffName like ?";
-        name="%"+name+"%";
+        name = "%" + name + "%";
         return getListByQuery(hql, name);
     }
 
@@ -74,5 +74,18 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
     public Integer getStaffByRoleItemNum(Serializable roleId) {
         String hql = "select count(*) from Staff where role.roleId=?";
         return getListSize(hql, roleId);
+    }
+
+    @Override
+    public Staff getStaffByRoleWork(Serializable roleWork) {
+        String hql = "from Staff where role.roleWork=?";
+        List<Staff> list = getListByQuery(hql, roleWork);
+        if (!list.isEmpty()) {
+            Random random = new Random();
+            int index = random.nextInt(list.size());
+            return list.get(index);
+        } else {
+            return null;
+        }
     }
 }
