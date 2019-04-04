@@ -128,6 +128,16 @@
                             </div>
                         </div>
                         <div class="field">
+                            <label for="">员工性别：</label>
+                            <div class="ui input ">
+                                <select id="staffGender" name="gender" class="ui fluid dropdown">
+                                    <option value="">性别</option>
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
                             <label for="">职工职称：</label>
                             <div class="ui input ">
                                 <select id="staffTitleInfo"  name="title.titleId" class="ui fluid dropdown" ></select>
@@ -440,6 +450,7 @@
                 success: function (data, textStatus, jqXHR) {
                     isAjaxFinished();
                     $(id).empty();
+                    $(id).append("<option value=''>职称</option>");
                     $.each(data, function (index, title) {
                         var str = "<option value=" + title.titleId + ">" + title.titleName + "</option>";
                         $(id).append(str);
@@ -458,6 +469,7 @@
                 success: function (data, textStatus, jqXHR) {
                     isAjaxFinished();
                     $(id).empty();
+                    $(id).append("<option value=''>部门</option>");
                     $.each(data, function (index, department) {
                         var str = "<option value=" + department.departmentId + ">" + department.departmentName + "</option>";
                         $(id).append(str);
@@ -475,6 +487,7 @@
                 success: function (data, textStatus, jqXHR) {
                     isAjaxFinished();
                     $(id).empty();
+                    $(id).append("<option value=''>角色</option>");
                     $.each(data, function (index, role) {
                         var str = "<option value=" + role.roleId + ">" + role.roleName + "</option>";
                         $(id).append(str);
@@ -548,6 +561,15 @@
                         {
                             type: 'empty',
                             prompt: '请输入员工简介'
+                        }
+                    ]
+                },
+                gender: {
+                    identifier: 'gender',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: '请选择员工性别'
                         }
                     ]
                 }

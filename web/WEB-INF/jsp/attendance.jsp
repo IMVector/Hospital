@@ -169,6 +169,7 @@
             }
         });
 
+        getDepartmentAttendance();
         var url = 'staff/departmentList/page_key_word';
         fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, departmentTableInfo, getDepartmentItemNumber);
         requestDepartmentList("#departmentList_");
@@ -180,7 +181,33 @@
                 $("#departmentList").append(str);
             });
         }
-//获取数据库中的总数量
+
+        function getDepartmentAttendance() {
+            $.ajax({
+                url: "patient/departmentAttendance/${departmentId}",
+                type: 'POST',
+                success: function (data) {
+                    $.each(data, function (index, scheduleTable) {
+                        console.log(scheduleTable.staff.staffName);
+                        $.each(scheduleTable.scheduleList, function (index, flag) {
+                            var index_ = (parseInt(index / 2) + 1) + "_" + (index % 2 + 1);
+                            if (flag === "true") {
+                                $("#" + index_).append("<p>"+scheduleTable.staff.staffName+"</p>");
+                            }
+
+                            console.log(index_, flag);
+                        });
+
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                }
+            });
+
+        }
+
+        //获取数据库中的总数量
         function getDepartmentItemNumber() {
             var itemNum = 0;
             $.ajax({
@@ -272,6 +299,23 @@
                     } else {
                         toastError("预约失败");
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！");
+                }
+            });
+        }
+
+        function requestDepartmentList(id) {
+            $.ajax({
+                url: "staff/getDepartmentList",
+                type: 'POST',
+                success: function (data, textStatus, jqXHR) {
+                    $(id).empty();
+                    $.each(data, function (index, department) {
+                        var str = "<div class='two wide column'><a class='ui button'>" + department.departmentName + "</a></div>";
+                        $(id).append(str);
+                    });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     toastError("请求失败,请重试！");

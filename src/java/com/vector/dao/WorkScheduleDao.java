@@ -17,6 +17,8 @@ public interface WorkScheduleDao extends BaseDao<WorkSchedule> {
 
     public List<WorkSchedule> getScheduleByStaffId(Serializable staffId);
 
+    public List<WorkSchedule> getScheduleByDepartmentId(Serializable departmentId);
+
     public void deleteScheduleByStaffId(Serializable staffId);
 
 }

@@ -133,7 +133,7 @@
                                         值班
                                     </c:if>
                                 </td>
-                            <td id="4_1">
+                                <td id="4_1">
                                     <c:if test="${'true'==schedule.scheduleList[6]}">
                                         值班
                                     </c:if>
@@ -214,6 +214,17 @@
                             <label for="">员工姓名：</label>
                             <div class="ui input ">
                                 <input id="staffName" name="staffName" placeholder="请输入员工姓名" value="${staff.staffName}" type="text">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="">员工性别：</label>
+                            <div class="ui input ">
+                                <select id="staffGender" name="gender" class="ui fluid dropdown" value="${staff.gender}">
+                                    <option value="">性别</option>
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+
                             </div>
                         </div>
                         <div class="field">
@@ -393,6 +404,9 @@
     </body>
     <script>
         $('.ui.pointing.secondary.menu .item').tab();
+
+        $("#staffGender").val("${staff.gender}");
+
         var ajaxCount = 3;
         function isAjaxFinished() {
             ajaxCount--;
@@ -481,10 +495,12 @@
                 type: 'POST',
                 success: function (data, textStatus, jqXHR) {
                     isAjaxFinished();
+                    $(id).append("<option value=''>职称</option>");
                     $.each(data, function (index, title) {
                         var str = "<option value=" + title.titleId + ">" + title.titleName + "</option>";
                         $(id).append(str);
                     });
+                    $("#staffTitleInfo").val(${staff.title.titleId});
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     toastError("请求失败,请重试！");
@@ -498,10 +514,13 @@
                 type: 'POST',
                 success: function (data, textStatus, jqXHR) {
                     isAjaxFinished();
+                    $(id).append("<option value=''>部门</option>");
                     $.each(data, function (index, department) {
                         var str = "<option value=" + department.departmentId + ">" + department.departmentName + "</option>";
                         $(id).append(str);
                     });
+                    $("#departmentId").val(${staff.department.departmentId});
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     toastError("请求失败,请重试！");
@@ -514,10 +533,12 @@
                 type: 'POST',
                 success: function (data, textStatus, jqXHR) {
                     isAjaxFinished();
+                    $(id).append("<option value=''>角色</option>");
                     $.each(data, function (index, role) {
                         var str = "<option value=" + role.roleId + ">" + role.roleName + "</option>";
                         $(id).append(str);
                     });
+                    $("#roleId").val(${staff.role.roleId});
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     toastError("请求失败,请重试！");
@@ -783,6 +804,15 @@
                         {
                             type: 'empty',
                             prompt: '请输入员工简介'
+                        }
+                    ]
+                },
+                gender: {
+                    identifier: 'gender',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: '请选择员工性别'
                         }
                     ]
                 }

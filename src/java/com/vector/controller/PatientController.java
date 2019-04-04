@@ -8,6 +8,8 @@ package com.vector.controller;
 import com.vector.pojo.MedicalRecord;
 import com.vector.pojo.Patient;
 import com.vector.pojo.Reservation;
+import com.vector.pojo.ScheduleTable;
+import com.vector.service.AttendanceService;
 import com.vector.service.ChartService;
 import com.vector.service.DepartmentService;
 import com.vector.service.MedicalRecordService;
@@ -62,6 +64,9 @@ public class PatientController {
 
     @Autowired
     DepartmentService departmentService;
+
+    @Autowired
+    AttendanceService attendanceServicce;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -127,7 +132,6 @@ public class PatientController {
 
     @RequestMapping(value = "/goToDepartmentInfo/{departmentId}", method = RequestMethod.GET)
     public String goToDepartmentInfo(@PathVariable Integer departmentId, Model model) {
-
         model.addAttribute("department", departmentService.getDaprtmentById(departmentId));
         return "departmentInfo";
     }
@@ -185,6 +189,12 @@ public class PatientController {
     public String goToAttendance(@PathVariable Integer departmentId, ModelMap map) {
         map.addAttribute("departmentId", departmentId);
         return "attendance";
+    }
+
+    @RequestMapping(value = "/departmentAttendance/{departmentId}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<ScheduleTable> getAttendanceTableByDepartmentId(@PathVariable Integer departmentId) {
+        return attendanceServicce.getScheduleTableByDepartmentId(departmentId);
     }
 
     @RequestMapping(value = "/goToAttendanceToPatient/{departmentId}")

@@ -222,6 +222,8 @@ public class StaffController {
     @RequestMapping(value = "/addStaff", method = RequestMethod.POST)
     @ResponseBody
     public boolean addStaff(Staff staff, String imagePath) {
+        
+        System.out.println(staff.getGender());
         return staffService.insert(staff, imagePath);
     }
 

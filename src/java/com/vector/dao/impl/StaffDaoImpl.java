@@ -88,4 +88,10 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
             return null;
         }
     }
+
+    @Override
+    public List<Staff> getStaffByDepartmentId(Serializable departmentId) {
+        String hql = "from Staff where department.departmentId=?";
+        return getListByQuery(hql, departmentId);
+    }
 }

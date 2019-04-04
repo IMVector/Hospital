@@ -30,4 +30,10 @@ public class WorkScheduleDaoImpl extends BaseDaoImpl<WorkSchedule> implements Wo
         batchDML(hql, staffId);
     }
 
+    @Override
+    public List<WorkSchedule> getScheduleByDepartmentId(Serializable departmentId) {
+        String hql = "from WorkSchedule where staff.department.departmentId=?";
+        return getListByQuery(hql, departmentId);
+    }
+
 }

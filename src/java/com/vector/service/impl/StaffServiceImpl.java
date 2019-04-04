@@ -34,6 +34,7 @@ public class StaffServiceImpl implements StaffService {
         Image image = new Image();
         image.setImageId(4);
         t.setImage(image);
+        t.setStaffPassword(MD5Utils.md5("123456"));
         try {
             staffDao.insert(t);
             return true;
