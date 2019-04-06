@@ -94,4 +94,15 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
         String hql = "from Staff where department.departmentId=?";
         return getListByQuery(hql, departmentId);
     }
+
+    @Override
+    public Staff getStaffByEmail(Serializable email) {
+        String hql = "from Staff where email= ?";
+        List<Staff> list=getListByQuery(hql, email);
+        if(!list.isEmpty()){
+            return list.get(0);
+        }else{
+            return null;
+        }
+    }
 }

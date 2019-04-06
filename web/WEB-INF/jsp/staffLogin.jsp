@@ -9,9 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>登录</title>
+        <title>医务人员登录</title>
         <jsp:include page="resourcesTemplete.jsp" />
-        <!--<script type="text/javascript" src="resources/js/md5.min.js"></script>-->
         <style type="text/css">
             body {
                 background-color: #DADADA;
@@ -34,7 +33,7 @@
                 <h2 class="ui teal image header">
                     <!--<img src="assets/images/logo.png" class="image">-->
                     <div class="content">
-                        登录
+                        医务人员登录
                     </div>
                 </h2>
                 <form class="ui large form">
@@ -42,20 +41,20 @@
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="patientEmail" placeholder="请输入邮箱">
+                                <input type="text" name="email" placeholder="请输入邮箱">
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="lock icon"></i>
-                                <input type="password" name="patientPassword" placeholder="请输入密码">
+                                <input type="password" name="staffPassword" placeholder="请输入密码">
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
                                 <!--<i class="lock icon"></i>-->
                                 <i class="image outline icon"></i>
-                                <input id="validateCode" type="text" name="validateCode" placeholder="请输入验证码">
+                                <input type="text" name="validateCode" placeholder="请输入验证码">
                                 <img src="checkCode" alt="" width="100" height="32" class="passcode" style="height:43px;cursor:pointer;" onclick="this.src = this.src + '?'">
                             </div>
                         </div>
@@ -66,9 +65,9 @@
 
                 </form>
 
-                <div class="ui message">
+<!--                <div class="ui message">
                     没有账号? <a href="javascript:window.open('patient/goToRegister','_self')">注册</a>
-                </div>
+                </div>-->
             </div>
         </div>
     </body>
@@ -78,7 +77,6 @@
 
             //验证并提交表单
             $(document).on("click", "#loginButton", function () {
-
                 $('.ui.form').form('validate form');
                 if ($('.ui.form').form('is valid')) {
                     $.ajax({
@@ -86,12 +84,12 @@
                         type: "POST", //方法类型
                         dataType: "text", //预期服务器返回的数据类型
                         contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                        url: "patient/login", //url
+                        url: "staff/staffLogin", //url
                         data: $('.ui.large.form').serialize(),
                         success: function (data) {
                             console.log(data);
                             if (data === "true") {
-                                window.open("patientIndex", "_self");
+                                window.open("staff/goToStaffIndex", "_self");
                             } else {
                                 toastError(data);
                             }
@@ -143,9 +141,7 @@
                         ]
                     }
                 }
-            })
-                    ;
-        })
-                ;
+            });
+        });
     </script>
 </html>

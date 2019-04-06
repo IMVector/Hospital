@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 2019-3-22 22:17:22 by Hibernate Tools 4.3.1 -->
+<!-- Generated 2019-4-4 15:57:03 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.vector.pojo.Role" table="role" catalog="instalhms" optimistic-lock="version">
         <id name="roleId" type="java.lang.Integer">
@@ -13,6 +13,12 @@
         </property>
         <property name="roleDescription" type="string">
             <column name="RoleDescription" />
+        </property>
+        <property name="roleWork" type="java.lang.Integer">
+            <column name="RoleWork">
+                <comment>
+                &#189;&#199;&#201;&#171;&#181;&#196;&#185;&#164;&#215;&#247;&#163;&#172;&#211;&#235;checkItem&#181;&#196;checkItemId&#207;&#224;&#185;&#216;&#193;&#170;&#163;&#172;&#191;&#201;&#210;&#212;&#206;&#170;&#191;&#213;</comment>
+            </column>
         </property>
         <set name="staffs" table="staff" inverse="true" lazy="true" fetch="select">
             <key>

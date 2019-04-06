@@ -6,19 +6,23 @@
 package com.vector.controller;
 
 import com.vector.pojo.CheckItem;
+import com.vector.pojo.CheckRecord;
 import com.vector.pojo.Department;
 import com.vector.pojo.MedicalRecord;
 import com.vector.pojo.Medicine;
 import com.vector.pojo.Role;
 import com.vector.pojo.ScheduleTable;
 import com.vector.pojo.Staff;
+import com.vector.pojo.Task;
 import com.vector.pojo.Title;
 import com.vector.service.CheckItemService;
+import com.vector.service.CheckRecordService;
 import com.vector.service.DepartmentService;
 import com.vector.service.MedicalRecordService;
 import com.vector.service.MedicineService;
 import com.vector.service.RoleService;
 import com.vector.service.StaffService;
+import com.vector.service.TaskService;
 import com.vector.service.TitleService;
 import com.vector.service.WorkScheduleService;
 import java.text.SimpleDateFormat;
@@ -64,20 +68,31 @@ public class StaffController {
 
     @Autowired
     MedicineService medicineService;
-    
+
     @Autowired
     MedicalRecordService medicalRecordService;
-    
-    
-    
+
+    @Autowired
+    TaskService taskService;
+
+    @Autowired
+    CheckRecordService checkRecordService;
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));//第二个参数是控制是否支持传入的值是空，这个值很关键，如果指定为false，那么如果前台没有传值的话就会报错
     }
-//////////////////////////////////////////////////////部门管理//////////////////////////////////////////////////
 
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    @RequestMapping(value = "/staffLogin", method = RequestMethod.POST, produces = {"text/html;charset=utf-8"})
+    @ResponseBody
+    public String staffLogin(Staff staff, String validateCode, HttpSession session) {
+        return staffService.login(staff, validateCode, session);
+    }
+
+//////////////////////////////////////////////////////部门管理//////////////////////////////////////////////////
     @RequestMapping(value = "/departmentList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
     public List<Department> getDepartmentList(@PathVariable Integer currentPage) {
@@ -222,7 +237,7 @@ public class StaffController {
     @RequestMapping(value = "/addStaff", method = RequestMethod.POST)
     @ResponseBody
     public boolean addStaff(Staff staff, String imagePath) {
-        
+
         System.out.println(staff.getGender());
         return staffService.insert(staff, imagePath);
     }
@@ -392,11 +407,56 @@ public class StaffController {
     public List<Medicine> getMedicineByName(@PathVariable String name) {
         return medicineService.getMedicineByName(name);
     }
+
     ///////////////////////////////////////////diagnosis///////////////////////////////////////////////////
-    @RequestMapping(value="/addMedicalRecord",method=RequestMethod.POST)
+    @RequestMapping(value = "/addMedicalRecord", method = RequestMethod.POST)
     @ResponseBody
-    public boolean dianpsis(MedicalRecord medicalRecord,String IdCard,HttpSession session){
-        return medicalRecordService.insert(medicalRecord,IdCard,session);
+    public boolean diagnosis(MedicalRecord medicalRecord, String IdCard, HttpSession session) {
+        return medicalRecordService.insert(medicalRecord, IdCard, session);
     }
-    
+
+    /////////////////////////////////////////////////task管理与执行/////////////////////////////////////////////////
+    @RequestMapping(value = "/addTask", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean addTask(Task task, Integer checkItemId, String IdCard, String taskContent, HttpSession session) {
+        return taskService.insert(task, checkItemId, IdCard, taskContent, session);
+    }
+
+    @RequestMapping(value = "/goToTaskList")
+    public String goToTaskList() {
+        return "taskList";
+    }
+
+    @RequestMapping(value = "/unfinishedTaskList/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Task> getUnFinishedTaskList(@PathVariable Integer currentPage, HttpSession session) {
+        Staff staff = (Staff) session.getAttribute("staff");
+        return taskService.getTaskUnFinishedByTargetId(staff.getStaffId(), currentPage);
+    }
+
+    @RequestMapping(value = "/unfinishedTaskListItemNumber", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getUnFinishedTaskListItemNumber(HttpSession session) {
+        Staff staff = (Staff) session.getAttribute("staff");
+        return taskService.getTaskUnFinishedItemNumberByTargetId(staff.getStaffId());
+    }
+
+    @RequestMapping(value = "/goToTaskDetails/{taskId}", method = RequestMethod.GET)
+    public String goToTaskDetails(@PathVariable Integer taskId, ModelMap map) {
+        map.addAttribute("taskId", taskId);
+        map.addAttribute("task", taskService.getTaskById(taskId));
+        return "taskDetails";
+    }
+
+    @RequestMapping(value = "/finishTask", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean finishTask(CheckRecord checkRecord, String resultFile, HttpSession session) {
+        return checkRecordService.insert(checkRecord, resultFile, session);
+    }
+
+    @RequestMapping(value = "/changeTaskStatus", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean changeTaskStatus(Integer taskId) {
+        return taskService.changeTaskStatus(taskId);
+    }
 }

@@ -1,5 +1,5 @@
 package com.vector.pojo;
-// Generated 2019-3-22 22:17:21 by Hibernate Tools 4.3.1
+// Generated 2019-4-6 14:07:37 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -17,17 +17,28 @@ public class CheckRecord  implements java.io.Serializable {
      private String paymentStatus;
      private Date checkDate;
      private String checkResultDescription;
+     private String resultFile;
 
     public CheckRecord() {
     }
 
+	
     public CheckRecord(CheckItem checkItem, Patient patient, Staff staff, String paymentStatus, Date checkDate, String checkResultDescription) {
+        this.checkItem = checkItem;
+        this.patient = patient;
+        this.staff = staff;
+        this.paymentStatus = paymentStatus;
+        this.checkDate = checkDate;
+        this.checkResultDescription = checkResultDescription;
+    }
+    public CheckRecord(CheckItem checkItem, Patient patient, Staff staff, String paymentStatus, Date checkDate, String checkResultDescription, String resultFile) {
        this.checkItem = checkItem;
        this.patient = patient;
        this.staff = staff;
        this.paymentStatus = paymentStatus;
        this.checkDate = checkDate;
        this.checkResultDescription = checkResultDescription;
+       this.resultFile = resultFile;
     }
    
     public Integer getCheckRecordId() {
@@ -78,6 +89,13 @@ public class CheckRecord  implements java.io.Serializable {
     
     public void setCheckResultDescription(String checkResultDescription) {
         this.checkResultDescription = checkResultDescription;
+    }
+    public String getResultFile() {
+        return this.resultFile;
+    }
+    
+    public void setResultFile(String resultFile) {
+        this.resultFile = resultFile;
     }
 
 

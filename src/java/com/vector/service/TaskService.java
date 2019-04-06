@@ -15,11 +15,19 @@ import java.util.List;
  */
 public interface TaskService extends CUDService<Task> {
 
-    public List<Task> getTaskByStaffId(Serializable staffId, Integer currentPage);
+    public List<Task> getTaskByTargetId(Serializable staffId, Integer currentPage);
 
-    public Integer getTaskItemNumberByStaffId(Serializable staffId);
+    public Integer getTaskItemNumberByTargetId(Serializable staffId);
+
+    public List<Task> getTaskUnFinishedByTargetId(Serializable staffId, Integer currentPage);
+
+    public Integer getTaskUnFinishedItemNumberByTargetId(Serializable staffId);
 
     public List<Task> getTaskByPatientId(Serializable patientId, Integer currentPage);
 
     public Integer getTaskItemNumberByPatientId(Serializable patientId);
+
+    public Task getTaskById(Serializable taskId);
+    
+    public boolean changeTaskStatus(Serializable taskId);
 }

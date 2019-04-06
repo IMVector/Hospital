@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class NextPage {
 
     @RequestMapping({"/index", "/"})
-    public String index(HttpServletRequest request,HttpSession session) {
+    public String index(HttpServletRequest request, HttpSession session) {
         return "mainIndex";
     }
 
@@ -90,6 +90,16 @@ public class NextPage {
     @RequestMapping(value = "staff/goToMedicineManage")
     public String goToMedicineManage() {
         return "medicineManage";
+    }
+
+    @RequestMapping(value = "staff/goToStaffLogin")
+    public String goToStaffLogin() {
+        return "staffLogin";
+    }
+
+    @RequestMapping(value = "staff/goToCheckStaff")
+    public String goToCheckStaff() {
+        return "checkStaffPage";
     }
 
 }

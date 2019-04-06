@@ -28,16 +28,16 @@
                 <a href="personalCenter5" class="item">安排事项</a>
             </div>
             <div class="item right">
-                <c:if test="${empty patient}">
-                    <a href="patient/goToLogin" class=" ui blue button">登录</a>
+                <c:if test="${empty staff}">
+                    <a href="staff/goToStaffLogin" class=" ui blue button">登录</a>
                     &nbsp
                     &nbsp
-                    <a href="patient/goToRegister" class="ui blue button">注册</a>
+                    <!--<a href="staff/goToRegister" class="ui blue button">注册</a>-->
 
                 </c:if>
-                <c:if test="${ not empty patient}">
+                <c:if test="${ not empty staff}">
                     <a href="personalCenter">
-                        <img class="ui avatar image" src="${patient.image.imagePath}">
+                        <img class="ui avatar image" src="${staff.image.imagePath}">
                     </a>
                     <a class="ui blue" href="unload">退出</a>
                 </c:if>
@@ -64,16 +64,16 @@
                 <a href="personalCenter6" class="item">个人中心</a>
             </div>
             <div class="item right">
-                <c:if test="${empty patient}">
-                    <a href="patient/signup" class=" ui blue button">登录</a>
+                <c:if test="${empty staff}">
+                    <a href="staff/goToStaffLogin" class=" ui blue button">登录</a>
                     &nbsp
                     &nbsp
-                    <a href="patient/register" class="ui blue button">注册</a>
+                    <!--<a href="staff/register" class="ui blue button">注册</a>-->
 
                 </c:if>
-                <c:if test="${ not empty patient}">
+                <c:if test="${ not empty staff}">
                     <a href="personalCenter">
-                        <img class="ui avatar image" src="${patient.image.imagePath}">
+                        <img class="ui avatar image" src="${staff.image.imagePath}">
                     </a>
                     <a class="ui blue" href="unload">退出</a>
                 </c:if>

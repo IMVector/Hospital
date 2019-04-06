@@ -8,13 +8,13 @@
             <column name="TaskId" />
             <generator class="identity" />
         </id>
-        <many-to-one name="patient" class="com.vector.pojo.Patient" fetch="select">
+        <many-to-one name="patient" class="com.vector.pojo.Patient" lazy="false" fetch="select">
             <column name="Patient" not-null="true" />
         </many-to-one>
-        <many-to-one name="staffByTaskSponsor" class="com.vector.pojo.Staff" fetch="select">
+        <many-to-one name="staffByTaskSponsor" class="com.vector.pojo.Staff" lazy="false" fetch="select">
             <column name="TaskSponsor" not-null="true" />
         </many-to-one>
-        <many-to-one name="staffByTaskTarget" class="com.vector.pojo.Staff" fetch="select">
+        <many-to-one name="staffByTaskTarget" class="com.vector.pojo.Staff" lazy="false" fetch="select">
             <column name="TaskTarget" not-null="true" />
         </many-to-one>
         <property name="taskContent" type="string">
@@ -25,6 +25,9 @@
         </property>
         <property name="taskProgress" type="float">
             <column name="TaskProgress" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="date" type="timestamp">
+            <column name="date" length="19" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

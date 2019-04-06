@@ -121,4 +121,25 @@ public class StaffServiceImpl implements StaffService {
         return staffDao.getStaffByRoleWork(roleWork);
     }
 
+
+    @Override
+    public String login(Staff staff, String validateCode, HttpSession session) {
+         if (!validateCode.equals(session.getAttribute("randomcode_key"))) {
+            return "验证码错误";
+        }
+        Staff staffData = staffDao.getStaffByEmail(staff.getEmail());
+        if (null != staffData) {
+            if (MD5Utils.md5(staff.getStaffPassword()).equals(staffData.getStaffPassword())) {
+                session.setAttribute("staff", staffData);
+                return "true";
+            } else {
+                return "密码错误，请检查后重试！";
+            }
+
+        } else {
+            return "该用户不存在！";
+        }
+
+    }
+
 }

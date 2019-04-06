@@ -32,4 +32,6 @@ public interface StaffDao extends BaseDao<Staff>, PaginationBaseDao<Staff> {
     public Staff getStaffByRoleWork(Serializable roleWork);
 
     public List<Staff> getStaffByDepartmentId(Serializable departmentId);
+
+    public Staff getStaffByEmail(Serializable email);
 }

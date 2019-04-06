@@ -22,13 +22,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/upload")
 public class UploadController {
-    
-    @Autowired 
+
+    @Autowired
     ImageService imageService;
 
     @RequestMapping(value = "/uploadImage/uploadPatientImage", method = RequestMethod.POST)
     @ResponseBody
     public String uploadPatientImage(HttpServletRequest request) {
+        String showPath = "";
+        try {
+            showPath = UploadUtils.uploadImage(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Image image = new Image(showPath);
+        try {
+            imageService.insertImage(image);
+        } catch (Exception e) {
+            return "Error";
+        }
+        System.out.println(showPath);
+        return showPath;
+    }
+
+    @RequestMapping(value = "/uploadFile/uploadCheckRecordResultFile", method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadCheckRecordResultFile(HttpServletRequest request) {
         String showPath = "";
         try {
             showPath = UploadUtils.uploadImage(request);

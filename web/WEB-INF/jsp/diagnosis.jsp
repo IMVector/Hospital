@@ -49,7 +49,7 @@
                             </div>
                             <div class="six wide field">
                                 <label for="">检查重点(疑似症状)：</label>
-                                <input type="text" name="taskContent">
+                                <input id="taskContent" type="text" name="taskContent">
                             </div>
                             <div class="four wide field">
                                 <label for="">去检查选中项目：</label>
@@ -164,7 +164,23 @@
 //        });
         $(document).on("click", "#startTask", function () {
             //需要提交的内容:病人的IdCard，checkItemId,taskSponsor(从session中获取)
-            //
+            var Idcard = $("#IdCard").val();
+            var checkItemId = $("#checkItemId").val();
+            var taskContent = $("#taskContent").val();
+            $.ajax({
+                url: "staff/addTask",
+                type: 'POST',
+                data: {"IdCard": Idcard, "checkItemId": checkItemId, "taskContent": taskContent},
+                success: function (data, textStatus, jqXHR) {
+                    if (data) {
+                        toastSuccess("已通知检查医生");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败！请重试！");
+                }
+            });
+
         });
         requestCheckItmeList("#checkItemId");
         function requestCheckItmeList(id) {

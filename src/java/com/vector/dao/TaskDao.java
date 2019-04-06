@@ -15,9 +15,13 @@ import java.util.List;
  */
 public interface TaskDao extends BaseDao<Task> {
 
-    public List<Task> getTaskByStaffId(Serializable staffId, Integer currentPage);
+    public List<Task> getTaskByTargetId(Serializable staffId, Integer currentPage);
 
-    public Integer getTaskItemNumberByStaffId(Serializable staffId);
+    public Integer getTaskItemNumberByTargetId(Serializable staffId);
+
+    public List<Task> getUnFinishedTaskByTargetId(Serializable staffId, Integer currentPage);
+
+    public Integer getUnFinishedTaskItemNumberByTargetId(Serializable staffId);
 
     public List<Task> getTaskByPatientId(Serializable patientId, Integer currentPage);
 

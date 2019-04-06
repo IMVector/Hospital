@@ -13,6 +13,7 @@ import com.vector.pojo.Staff;
 import com.vector.pojo.Task;
 import com.vector.service.TaskService;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,20 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     PatientDao patientDao;
 
+    /**
+     * 根据任务执行人的Id分页查询任务
+     *
+     * @param staffId
+     * @param currentPage
+     * @return
+     */
     @Override
-    public List<Task> getTaskByStaffId(Serializable staffId, Integer currentPage) {
-        return taskDao.getTaskByStaffId(staffId, currentPage);
+    public List<Task> getTaskByTargetId(Serializable staffId, Integer currentPage) {
+        return taskDao.getTaskByTargetId(staffId, currentPage);
     }
 
     @Override
-    public Integer getTaskItemNumberByStaffId(Serializable staffId) {
+    public Integer getTaskItemNumberByTargetId(Serializable staffId) {
         return taskDao.getTaskItemNumberByPatientId(staffId);
     }
 
@@ -74,16 +82,21 @@ public class TaskServiceImpl implements TaskService {
     public boolean insert(Task t, Object... params) {
         Serializable checkItemId = (Serializable) params[0];
         String Idcard = params[1].toString();
-        HttpSession session = (HttpSession) params[2];
-        Staff taskSponsor = (Staff) session.getAttribute("staff");
+        String taskContent = (String) params[2];
+        HttpSession session = (HttpSession) params[3];
+//        Staff taskSponsor = (Staff) session.getAttribute("staff");
+//        Staff taskTarget = getTaskTarget(checkItemId);
+        Staff taskSponsor = new Staff();
+        taskSponsor.setStaffId(6);
         Staff taskTarget = getTaskTarget(checkItemId);
         Patient patient = getPatientByIdCard(Idcard);
-
+        System.out.println(t.getTaskContent());
         t.setTaskProgress(0);
         t.setPatient(patient);
         t.setStaffByTaskSponsor(taskSponsor);
         t.setStaffByTaskTarget(taskTarget);
         t.setTaskStatus("否");
+        t.setDate(new Date());
 
         try {
             taskDao.insert(t);
@@ -96,6 +109,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public boolean update(Task t, Object... params) {
+        t.setDate(new Date());
         try {
             taskDao.update(t);
             return true;
@@ -114,6 +128,29 @@ public class TaskServiceImpl implements TaskService {
             System.out.println(e);
             return false;
         }
+    }
+
+    @Override
+    public List<Task> getTaskUnFinishedByTargetId(Serializable staffId, Integer currentPage) {
+        return taskDao.getUnFinishedTaskByTargetId(staffId, currentPage);
+    }
+
+    @Override
+    public Integer getTaskUnFinishedItemNumberByTargetId(Serializable staffId) {
+        return taskDao.getUnFinishedTaskItemNumberByTargetId(staffId);
+    }
+
+    @Override
+    public Task getTaskById(Serializable taskId) {
+        return taskDao.getOneById(taskId);
+    }
+
+    @Override
+    public boolean changeTaskStatus(Serializable taskId) {
+        Task task = getTaskById(taskId);
+        task.setTaskProgress(1);
+        task.setTaskStatus("是");
+        return update(task); 
     }
 
 }

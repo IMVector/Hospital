@@ -8,12 +8,16 @@ package com.vector.service;
 import com.vector.pojo.Staff;
 import java.io.Serializable;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Vector
  */
 public interface StaffService extends CUDService<Staff>, PaginationBaseService<Staff> {
+
+
+    public String login(Staff staff, String validateCode, HttpSession session);
 
     public List<Staff> getStaffByName(Serializable name);
 
