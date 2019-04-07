@@ -265,6 +265,10 @@
 
 
         function reservation(url) {
+            var patientId="${patient.patientId}";
+            if(patientId===""){
+                window.open("patient/goToLogin","_self");
+            }
             var id_ = url.slice(-3);//截取url后三位
             var reservationDate = $("#" + id_ + "").children("input").val();//预约那天的日期
             $.ajax({

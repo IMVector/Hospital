@@ -52,7 +52,7 @@
                     <a href="personalCenter">
                         <img class="ui avatar image" src="${staff.image.imagePath}">
                     </a>
-                    <a class="ui blue" href="unload">退出</a>
+                    <a class="ui blue" href="staff/unload">退出</a>
                 </c:if>
             </div>
         </div>
@@ -91,7 +91,7 @@
             </div>
             <div class="item right">
                 <c:if test="${empty staff}">
-                    <a href="staff/signup" class=" ui blue button">登录</a>
+                    <a href="staff/goToLogin" class=" ui blue button">登录</a>
                     &nbsp
                     &nbsp
                     <!--<a href="staff/register" class="ui blue button">注册</a>-->
@@ -101,7 +101,7 @@
                     <a href="personalCenter">
                         <img class="ui avatar image" src="${staff.image.imagePath}">
                     </a>
-                    <a class="ui blue" href="unload">退出</a>
+                    <a class="ui blue" href="staff/unload">退出</a>
                 </c:if>
             </div>
         </div>

@@ -94,7 +94,7 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/goToReservation/{staffId}")
-    public String goToReservation(@PathVariable Integer staffId, ModelMap map) {
+    public String goToReservation(@PathVariable Integer staffId, ModelMap map, HttpSession session) {
         map.addAttribute("staff", staffService.getStaffById(staffId));
         map.addAttribute("schedule", scheduleService.getScheduleByStaffId(staffId));
         return "reservation";
@@ -105,11 +105,6 @@ public class PatientController {
     public boolean reservation(@PathVariable Integer staffId, @PathVariable String schedule, Date reservationDate, HttpSession session) throws ParseException {
         Patient p = (Patient) session.getAttribute("patient");
         return reservationService.reservation(p, staffId, schedule, reservationDate);
-    }
-
-    @RequestMapping(value = "/goToReservationList")
-    public String gotoReservationList(HttpSession session) {
-        return "patientReservation";
     }
 
     @RequestMapping(value = "/reservationlist/{patientId}/{currentPage}")
@@ -131,14 +126,14 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/goToDepartmentInfo/{departmentId}", method = RequestMethod.GET)
-    public String goToDepartmentInfo(@PathVariable Integer departmentId, Model model) {
+    public String goToDepartmentInfo(@PathVariable Integer departmentId, Model model, HttpSession session) {
         model.addAttribute("department", departmentService.getDaprtmentById(departmentId));
         return "departmentInfo";
     }
 
     //////////////////////////////////////////病例报告//////////////////////////////////////////////
     @RequestMapping(value = "/medicalRecordDetails/{MdeicalRecordId}", method = RequestMethod.GET)
-    public String showMdeicalRecordDetails(@PathVariable Integer MdeicalRecordId, Model model) {
+    public String showMdeicalRecordDetails(@PathVariable Integer MdeicalRecordId, Model model,HttpSession session) {
         MedicalRecord medicalRecord = medicalRecordService.getMedicalRecordById(MdeicalRecordId);
         model.addAttribute("medicalRecord", medicalRecord);
         return "medicalRecordDetails";
@@ -148,7 +143,6 @@ public class PatientController {
     @ResponseBody
     public List showMdeicalRecordList(@PathVariable Integer patientId, @PathVariable Integer currentPage) {
         List<MedicalRecord> list = medicalRecordService.getAllListOfSomeone(patientId, currentPage);
-
         return list;
     }
 

@@ -86,9 +86,9 @@ public class StaffController {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
-    @RequestMapping(value = "/staffLogin", method = RequestMethod.POST, produces = {"text/html;charset=utf-8"})
+    @RequestMapping(value = "/staffLogin", method = RequestMethod.POST)
     @ResponseBody
-    public String staffLogin(Staff staff, String validateCode, HttpSession session) {
+    public List staffLogin(Staff staff, String validateCode, HttpSession session) {
         return staffService.login(staff, validateCode, session);
     }
 
@@ -297,10 +297,15 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/goToStaffDetails/{id}", method = RequestMethod.GET)
-    public String goToStaffDetails(@PathVariable Integer id, ModelMap map) {
+    public String goToStaffDetails(@PathVariable Integer id, ModelMap map,HttpSession session) {
         map.addAttribute("staff", staffService.getStaffById(id));
         map.addAttribute("schedule", scheduleService.getScheduleByStaffId(id));
-        return "staffDetail";
+        if (null != session.getAttribute("staff")) {
+            return "staffDetail";
+        } else {
+            return "staffLogin";
+        }
+//        return "staffDetail";
     }
 
     //////////////////////////////////////////////////////出勤管理//////////////////////////////////////////////////
@@ -422,11 +427,6 @@ public class StaffController {
         return taskService.insert(task, checkItemId, IdCard, taskContent, session);
     }
 
-    @RequestMapping(value = "/goToTaskList")
-    public String goToTaskList() {
-        return "taskList";
-    }
-
     @RequestMapping(value = "/unfinishedTaskList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
     public List<Task> getUnFinishedTaskList(@PathVariable Integer currentPage, HttpSession session) {
@@ -442,10 +442,15 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/goToTaskDetails/{taskId}", method = RequestMethod.GET)
-    public String goToTaskDetails(@PathVariable Integer taskId, ModelMap map) {
+    public String goToTaskDetails(@PathVariable Integer taskId, ModelMap map, HttpSession session) {
         map.addAttribute("taskId", taskId);
         map.addAttribute("task", taskService.getTaskById(taskId));
-        return "taskDetails";
+        if (null != session.getAttribute("staff")) {
+            return "taskDetails";
+        } else {
+            return "staffLogin";
+        }
+//        return "taskDetails";
     }
 
     @RequestMapping(value = "/finishTask", method = RequestMethod.POST)

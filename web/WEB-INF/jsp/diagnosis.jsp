@@ -70,9 +70,46 @@
                         <!--What kinds of dogs are there?-->
                     </div>
                     <div class="content">
-                        <p class="transition hidden">There are many breeds of dogs.
-                            Each breed varies in size and temperament. 
-                            Owners often select a breed of dog that they find to be compatible with their own lifestyle and desires from a companion.</p>
+
+                        <div class="ui segments">
+                            <div class="ui segment">
+                                <p>检查影像或检查报告文件</p>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+<!--                            <div class="ui segments">
+                                <div class="ui segment">
+                                    <p>Nested Top</p>
+                                </div>
+                                <div class="ui segment">
+                                    <p>Nested Middle</p>
+                                </div>
+                                <div class="ui segment">
+                                    <p>Nested Bottom</p>
+                                </div>
+                            </div>-->
+                            <div class="ui segment">
+                                <p>检查结果描述及分析：</p>
+                            </div>
+                            <div class="ui horizontal segments">
+                                <div class="ui segment">
+                                    <p>病人姓名：</p>
+                                </div>
+                                <div class="ui segment">
+                                    <p>病人年龄：</p>
+                                </div>
+                                <div class="ui segment">
+                                    <p>婚姻状况：</p>
+                                </div>
+                            </div>
+                            <div class="ui segment">
+                                <p>检查人：</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="title">
                         <i class="dropdown icon"></i>

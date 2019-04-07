@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -38,12 +39,12 @@ public class NextPage {
     }
 
     @RequestMapping(value = "patient/goToHealthGraphy")
-    public String goToHealthGraphy() {
+    public String goToHealthGraphy(HttpSession session) {
         return "healthGraphy";
     }
 
     @RequestMapping(value = "patient/goToMedicalRecord")
-    public String goToMedicalRecord() {
+    public String goToMedicalRecord(HttpSession session) {
         return "medicalRecord";
     }
 
@@ -53,42 +54,42 @@ public class NextPage {
     }
 
     @RequestMapping(value = "staff/goToDiagnosis")
-    public String goToDiagnosis() {
+    public String goToDiagnosis(HttpSession session) {
         return "diagnosis";
     }
 
     @RequestMapping(value = "staff/goToExamineStaff")
-    public String goToExamineStaff() {
+    public String goToExamineStaff(HttpSession session) {
         return "examineStaff";
     }
 
     @RequestMapping(value = "staff/goToManageStaff")
-    public String goToManageStaff() {
+    public String goToManageStaff(HttpSession session) {
         return "staffManage";
     }
 
     @RequestMapping(value = "staff/goToDepartmentManage")
-    public String goToDepartmentManage() {
+    public String goToDepartmentManage(HttpSession session) {
         return "departmentManage";
     }
 
     @RequestMapping(value = "staff/goToTitleManage")
-    public String goToTitleManage() {
+    public String goToTitleManage(HttpSession session) {
         return "titleManage";
     }
 
     @RequestMapping(value = "staff/goToRoleManage")
-    public String goToRoleManage() {
+    public String goToRoleManage(HttpSession session) {
         return "roleManage";
     }
 
     @RequestMapping(value = "staff/goToCheckItemManage")
-    public String goToCheckItemManage() {
+    public String goToCheckItemManage(HttpSession session) {
         return "checkItemManage";
     }
 
     @RequestMapping(value = "staff/goToMedicineManage")
-    public String goToMedicineManage() {
+    public String goToMedicineManage(HttpSession session) {
         return "medicineManage";
     }
 
@@ -97,9 +98,25 @@ public class NextPage {
         return "staffLogin";
     }
 
-    @RequestMapping(value = "staff/goToCheckStaff")
-    public String goToCheckStaff() {
-        return "checkStaffPage";
+    @RequestMapping(value = "patient/goToReservationList")
+    public String gotoReservationList(HttpSession session) {
+        return "patientReservation";
     }
 
+    @RequestMapping(value = "patient/unload", method = RequestMethod.GET)
+    public String patientUnload(HttpSession session) {
+        session.removeAttribute("patient");
+        return "patientIndex";
+    }
+
+    @RequestMapping(value = "staff/unload", method = RequestMethod.GET)
+    public String staffUnload(HttpSession session) {
+        session.removeAttribute("staff");
+        return "staffIndex";
+    }
+
+    @RequestMapping(value = "staff/goToTaskList")
+    public String goToTaskList(HttpSession session) {
+        return "taskList";
+    }
 }

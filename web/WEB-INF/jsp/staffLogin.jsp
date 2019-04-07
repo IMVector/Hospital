@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : patientLogin
     Created on : 2019-3-12, 15:05:34
     Author     : Vector
@@ -87,11 +87,13 @@
                         url: "staff/staffLogin", //url
                         data: $('.ui.large.form').serialize(),
                         success: function (data) {
-                            console.log(data);
-                            if (data === "true") {
-                                window.open("staff/goToStaffIndex", "_self");
+                            var list=new Array();
+                            list=data.replace('[','').replace(']','').replace(/"/g,'').split(',');
+                            console.log(list)
+                            if (list[0] === "true") {
+                                window.open(list[1], "_self");
                             } else {
-                                toastError(data);
+                                toastError(list[0]);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {

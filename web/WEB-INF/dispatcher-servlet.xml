@@ -18,6 +18,27 @@
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/patient/goToHealthGraphy"/>
+            <mvc:mapping path="/patient/goToMedicalRecord"/>
+            <mvc:mapping path="/patient/goToReservation"/>
+            <mvc:mapping path="/patient/goToDepartmentInfo"/>
+            <mvc:mapping path="/staff/goToDiagnosis"/>
+            <mvc:mapping path="/staff/goToExamineStaff"/>
+            <mvc:mapping path="/staff/goToManageStaff"/>
+            <mvc:mapping path="/staff/goToDepartmentManage"/>
+            <mvc:mapping path="/staff/goToTitleManage"/>
+            <mvc:mapping path="/staff/goToRoleManage"/>
+            <mvc:mapping path="/staff/goToCheckItemManage"/>
+            <mvc:mapping path="/staff/goToMedicineManage"/>
+            <mvc:mapping path="/staff/goToTaskList"/>
+
+
+            <bean class="com.vector.intercepter.MyIntercepter"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
     

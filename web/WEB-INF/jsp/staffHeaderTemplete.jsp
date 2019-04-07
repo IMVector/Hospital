@@ -39,7 +39,7 @@
                     <a href="personalCenter">
                         <img class="ui avatar image" src="${staff.image.imagePath}">
                     </a>
-                    <a class="ui blue" href="unload">退出</a>
+                    <a class="ui blue" href="staff/unload">退出</a>
                 </c:if>
             </div>
         </div>
@@ -75,7 +75,7 @@
                     <a href="personalCenter">
                         <img class="ui avatar image" src="${staff.image.imagePath}">
                     </a>
-                    <a class="ui blue" href="unload">退出</a>
+                    <a class="ui blue" href="staff/unload">退出</a>
                 </c:if>
             </div>
         </div>

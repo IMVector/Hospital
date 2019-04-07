@@ -46,7 +46,6 @@ public class CheckRecordServiceImpl implements CheckRecordService {
         CheckItem item = new CheckItem();
         item.setCheckItemId(targetStaff.getRole().getRoleWork());//roleWork与checkItemId是逻辑关联
 
-        
         t.setResultFile(resultFile);
         t.setStaff(targetStaff);
         t.setCheckItem(item);
@@ -84,14 +83,32 @@ public class CheckRecordServiceImpl implements CheckRecordService {
         }
     }
 
+    /**
+     * 根据病人Id获取检查结果的数量
+     *
+     * @param params
+     * @return
+     */
     @Override
     public Integer getListItemNumber(Object... params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return checkRecordDao.getListItemNumber(params[0]);
+    }
+
+    /**
+     * 根据病人的Id获取检查结果
+     *
+     * @param currentPage
+     * @param params
+     * @return
+     */
+    @Override
+    public List<CheckRecord> getList(Integer currentPage, Object... params) {
+        return checkRecordDao.getList(currentPage,params[0]); 
     }
 
     @Override
-    public List<CheckRecord> getList(Integer currentPage, Object... params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<CheckRecord> getCheckRecordOfToday(Serializable patientId) {
+        return checkRecordDao.getCheckRecordOfToday(patientId);
     }
 
 }

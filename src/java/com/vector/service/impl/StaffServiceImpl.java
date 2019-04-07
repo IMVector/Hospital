@@ -11,6 +11,7 @@ import com.vector.pojo.Staff;
 import com.vector.service.StaffService;
 import com.vector.utils.MD5Utils;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,23 +122,35 @@ public class StaffServiceImpl implements StaffService {
         return staffDao.getStaffByRoleWork(roleWork);
     }
 
-
     @Override
-    public String login(Staff staff, String validateCode, HttpSession session) {
-         if (!validateCode.equals(session.getAttribute("randomcode_key"))) {
-            return "验证码错误";
+    public List login(Staff staff, String validateCode, HttpSession session) {
+        List<String> list = new ArrayList();
+        if (!validateCode.equals(session.getAttribute("randomcode_key"))) {
+            list.add("验证码错误");
+            return list;
         }
         Staff staffData = staffDao.getStaffByEmail(staff.getEmail());
         if (null != staffData) {
             if (MD5Utils.md5(staff.getStaffPassword()).equals(staffData.getStaffPassword())) {
                 session.setAttribute("staff", staffData);
-                return "true";
+                list.add("true");
+
+                if (staffData.getRole().getRoleName().equals("检查医生")) {
+                    list.add("staff/goToExamineStaff");
+                } else if (staffData.getRole().getRoleName().equals("临床医生")) {
+                    list.add("staff/goToDiagnosis");
+                } else if (staffData.getRole().getRoleName().equals("行政医生")) {
+                    list.add("staff/goToManageStaff");
+                }
+                return list;
             } else {
-                return "密码错误，请检查后重试！";
+                list.add("密码错误，请检查后重试！");
+                return list;
             }
 
         } else {
-            return "该用户不存在！";
+            list.add("该用户不存在！");
+            return list;
         }
 
     }

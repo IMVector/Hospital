@@ -36,7 +36,7 @@
                     <a href="personalCenter">
                         <img class="ui avatar image" src="${patient.image.imagePath}">
                     </a>
-                    <a class="ui blue" href="unload">退出</a>
+                    <a class="ui blue" href="patient/unload">退出</a>
                 </c:if>
             </div>
         </div>
@@ -68,7 +68,7 @@
                     <a href="personalCenter">
                         <img class="ui avatar image" src="${patient.image.imagePath}">
                     </a>
-                    <a class="ui blue" href="unload">退出</a>
+                    <a class="ui blue" href="patient/unload">退出</a>
                 </c:if>
             </div>
         </div>

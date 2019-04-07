@@ -6,11 +6,15 @@
 package com.vector.dao;
 
 import com.vector.pojo.CheckRecord;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  *
  * @author Vector
  */
 public interface CheckRecordDao extends BaseDao<CheckRecord>,PaginationBaseDao<CheckRecord> {
+
+    public List<CheckRecord> getCheckRecordOfToday(Serializable patientId);
     
 }

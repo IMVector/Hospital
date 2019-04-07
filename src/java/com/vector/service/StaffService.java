@@ -16,8 +16,7 @@ import javax.servlet.http.HttpSession;
  */
 public interface StaffService extends CUDService<Staff>, PaginationBaseService<Staff> {
 
-
-    public String login(Staff staff, String validateCode, HttpSession session);
+    public List login(Staff staff, String validateCode, HttpSession session);
 
     public List<Staff> getStaffByName(Serializable name);
 

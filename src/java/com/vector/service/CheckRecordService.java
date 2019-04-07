@@ -7,6 +7,7 @@ package com.vector.service;
 
 import com.vector.pojo.CheckRecord;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -15,5 +16,7 @@ import java.io.Serializable;
 public interface CheckRecordService extends CUDService<CheckRecord>, PaginationBaseService<CheckRecord> {
 
     public CheckRecord getCheckRecordById(Serializable checkRecordId);
+    
+    public List<CheckRecord> getCheckRecordOfToday(Serializable patientId);
 
 }
