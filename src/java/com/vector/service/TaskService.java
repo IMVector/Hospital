@@ -30,4 +30,6 @@ public interface TaskService extends CUDService<Task> {
     public Task getTaskById(Serializable taskId);
     
     public boolean changeTaskStatus(Serializable taskId);
+    
+    public Task getLastTaskByPatientIdCard(Serializable IdCard);
 }

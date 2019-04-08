@@ -68,4 +68,15 @@ public class TaskDaoImpl extends BaseDaoImpl<Task> implements TaskDao {
         return getListSize(hql, staffId);
     }
 
+    @Override
+    public Task getLastTaskByPatientId(Serializable patientId) {
+        String hql = "from Task where patient.patientId=? order by date desc";
+        List<Task> list = getListByQuery(hql, patientId);
+        if (!list.isEmpty()) {
+            return list.get(0);
+        } else {
+            return null;
+        }
+    }
+
 }

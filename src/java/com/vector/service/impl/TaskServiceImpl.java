@@ -33,6 +33,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     StaffDao staffDao;
+    
     @Autowired
     PatientDao patientDao;
 
@@ -84,13 +85,15 @@ public class TaskServiceImpl implements TaskService {
         String Idcard = params[1].toString();
         String taskContent = (String) params[2];
         HttpSession session = (HttpSession) params[3];
-//        Staff taskSponsor = (Staff) session.getAttribute("staff");
-//        Staff taskTarget = getTaskTarget(checkItemId);
-        Staff taskSponsor = new Staff();
-        taskSponsor.setStaffId(6);
+        Staff taskSponsor = (Staff) session.getAttribute("staff");
         Staff taskTarget = getTaskTarget(checkItemId);
-        Patient patient = getPatientByIdCard(Idcard);
+//        Staff taskSponsor = new Staff();
+//        taskSponsor.setStaffId(6);
+//        Staff taskTarget = getTaskTarget(checkItemId);
+        System.out.println(taskSponsor.getStaffId());
         System.out.println(t.getTaskContent());
+
+        Patient patient = getPatientByIdCard(Idcard);
         t.setTaskProgress(0);
         t.setPatient(patient);
         t.setStaffByTaskSponsor(taskSponsor);
@@ -151,6 +154,11 @@ public class TaskServiceImpl implements TaskService {
         task.setTaskProgress(1);
         task.setTaskStatus("是");
         return update(task); 
+    }
+
+    @Override
+    public Task getLastTaskByPatientIdCard(Serializable IdCard) {
+        return taskDao.getLastTaskByPatientId(patientDao.getPatientByIdCard(IdCard.toString()).getPatientId());
     }
 
 }

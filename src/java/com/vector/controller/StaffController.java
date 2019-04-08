@@ -297,15 +297,10 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/goToStaffDetails/{id}", method = RequestMethod.GET)
-    public String goToStaffDetails(@PathVariable Integer id, ModelMap map,HttpSession session) {
+    public String goToStaffDetails(@PathVariable Integer id, ModelMap map, HttpSession session) {
         map.addAttribute("staff", staffService.getStaffById(id));
         map.addAttribute("schedule", scheduleService.getScheduleByStaffId(id));
-        if (null != session.getAttribute("staff")) {
-            return "staffDetail";
-        } else {
-            return "staffLogin";
-        }
-//        return "staffDetail";
+        return "staffDetail";
     }
 
     //////////////////////////////////////////////////////出勤管理//////////////////////////////////////////////////
@@ -445,12 +440,7 @@ public class StaffController {
     public String goToTaskDetails(@PathVariable Integer taskId, ModelMap map, HttpSession session) {
         map.addAttribute("taskId", taskId);
         map.addAttribute("task", taskService.getTaskById(taskId));
-        if (null != session.getAttribute("staff")) {
-            return "taskDetails";
-        } else {
-            return "staffLogin";
-        }
-//        return "taskDetails";
+        return "taskDetails";
     }
 
     @RequestMapping(value = "/finishTask", method = RequestMethod.POST)
@@ -464,4 +454,17 @@ public class StaffController {
     public boolean changeTaskStatus(Integer taskId) {
         return taskService.changeTaskStatus(taskId);
     }
+
+    @RequestMapping(value = "/getLastTaskByPatientIdCard", method = RequestMethod.POST)
+    @ResponseBody
+    public Task getLastTaskByPatientIdCard(String IdCard) {
+        return taskService.getLastTaskByPatientIdCard(IdCard);
+    }
+
+    @RequestMapping(value = "/getCheckRecordOfToday", method = RequestMethod.POST)
+    @ResponseBody
+    public List<CheckRecord> getCheckRecordOfToday(Integer patientId) {
+        return checkRecordService.getCheckRecordOfToday(patientId);
+    }
+
 }

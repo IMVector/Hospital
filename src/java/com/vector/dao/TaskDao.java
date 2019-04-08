@@ -27,4 +27,6 @@ public interface TaskDao extends BaseDao<Task> {
 
     public Integer getTaskItemNumberByPatientId(Serializable patientId);
 
+    public Task getLastTaskByPatientId(Serializable patientId);
+
 }

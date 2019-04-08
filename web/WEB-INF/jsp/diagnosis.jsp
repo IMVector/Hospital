@@ -11,6 +11,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="resourcesTemplete.jsp" />
         <title>诊断</title>
+        <style>
+            #checkRecordList p{
+                font-weight: bold;
+                font-size: 15px;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="staffHeaderTemplete.jsp"/>
@@ -69,7 +75,7 @@
                         检查结果
                         <!--What kinds of dogs are there?-->
                     </div>
-                    <div class="content">
+                    <div id="checkRecordList" class="content">
 
                         <div class="ui segments">
                             <div class="ui segment">
@@ -81,17 +87,6 @@
                                 <br>
                                 <br>
                             </div>
-<!--                            <div class="ui segments">
-                                <div class="ui segment">
-                                    <p>Nested Top</p>
-                                </div>
-                                <div class="ui segment">
-                                    <p>Nested Middle</p>
-                                </div>
-                                <div class="ui segment">
-                                    <p>Nested Bottom</p>
-                                </div>
-                            </div>-->
                             <div class="ui segment">
                                 <p>检查结果描述及分析：</p>
                             </div>
@@ -110,6 +105,7 @@
                                 <p>检查人：</p>
                             </div>
                         </div>
+
                     </div>
                     <div class="title">
                         <i class="dropdown icon"></i>
@@ -184,11 +180,13 @@
                     </div>
                 </div>
             </div>
+            <input type="text" style="display: none" id="patientId">
 
         </div>
-
     </body>
+    <!--window.clearInterval(clock);-->
     <script>
+        var clock = null;
 //        $('.message .close').on('click', function () {
 //            $(this).closest('.message').transition('fade');
 //        });
@@ -211,6 +209,7 @@
                 success: function (data, textStatus, jqXHR) {
                     if (data) {
                         toastSuccess("已通知检查医生");
+                        clock = setInterval(getLastTaskByPatientIdCard, 10000);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -284,6 +283,70 @@
             }
 
         });
+
+        function getLastTaskByPatientIdCard() {
+            var IdCard = $("#IdCard").val();
+            $.ajax({
+                url: "staff/getLastTaskByPatientIdCard",
+                type: 'POST',
+                data: {"IdCard": IdCard},
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data.taskProgress);
+                    console.log(data.taskStatus);
+                    if (data.taskProgress === 1) {
+                        $("#patientId").val(data.patient.patientId);
+                        window.clearInterval(clock);
+                        getTodayMedicalRecord();
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败！请重试！");
+                }
+            });
+
+        }
+        function getTodayMedicalRecord() {
+
+            $.ajax({
+                url: "staff/getCheckRecordOfToday",
+                type: 'POST',
+                data: {"patientId": $("#patientId").val()},
+                success: function (data, textStatus, jqXHR) {
+                     $("#checkRecordList").empty();
+                    $.each(data, function (index, checkRecord) {
+                        var str = "\
+                                <div class=\"ui segments\">\n\
+                                    <div class=\"ui segment\">\n\
+                                        <p>检查影像或检查报告文件</p>"+checkRecord.resultFile+"\n\
+                                    </div>\n\
+                                    <div class=\"ui segment\">\n\
+                                        <p>检查结果描述及分析：</p>"+checkRecord.checkResultDescription+"\n\
+                                    </div>\n\
+                                    <div class=\"ui horizontal segments\">\n\
+                                        <div class=\"ui segment\">\n\
+                                            <p>病人姓名：</p>"+checkRecord.patient.patientName+"\n\
+                                        </div>\n\
+                                        <div class=\"ui segment\">\n\
+                                            <p>病人年龄：</p>"+checkRecord.patient.patientAge+"\n\
+                                        </div>\n\
+                                    <div class=\"ui segment\">\n\
+                                        <p>婚姻状况：</p></div>"+checkRecord.patient.patientMstatus+"\n\
+                                    </div>\n\
+                                    <div class=\"ui segment\">\n\
+                                        <p>检查人：</p>"+checkRecord.staff.staffName+"\n\
+                                    </div>\n\
+                                </div>";
+                        $("#checkRecordList").append(str);
+
+                    });
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败请重试！");
+                }
+            });
+
+        }
 
         $('#medicalRecordForm').form({
             fields: {

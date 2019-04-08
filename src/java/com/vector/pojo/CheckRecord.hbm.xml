@@ -8,13 +8,13 @@
             <column name="CheckRecordId" />
             <generator class="identity" />
         </id>
-        <many-to-one name="checkItem" class="com.vector.pojo.CheckItem" fetch="select">
+        <many-to-one name="checkItem" class="com.vector.pojo.CheckItem" lazy="false" fetch="select">
             <column name="CheckItemId" not-null="true" />
         </many-to-one>
-        <many-to-one name="patient" class="com.vector.pojo.Patient" fetch="select">
+        <many-to-one name="patient" class="com.vector.pojo.Patient"  lazy="false" fetch="select">
             <column name="PatientId" not-null="true" />
         </many-to-one>
-        <many-to-one name="staff" class="com.vector.pojo.Staff" fetch="select">
+        <many-to-one name="staff" class="com.vector.pojo.Staff" lazy="false" fetch="select">
             <column name="CheckStaff" not-null="true" />
         </many-to-one>
         <property name="paymentStatus" type="string">
