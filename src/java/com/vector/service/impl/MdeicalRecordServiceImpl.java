@@ -29,6 +29,7 @@ public class MdeicalRecordServiceImpl implements MedicalRecordService {
 
     @Autowired
     MedicalRecordDao medicalRecordDao;
+
     @Autowired
     PatientDao patientDao;
 
@@ -59,12 +60,11 @@ public class MdeicalRecordServiceImpl implements MedicalRecordService {
         System.out.println(params[1]);
         Patient patient = patientDao.getPatientByIdCard(idCard);
         HttpSession session = (HttpSession) params[1];
-//        Staff staff = (Staff) session.getAttribute("staff");
+        Staff staff = (Staff) session.getAttribute("staff");
         System.out.println(patient.getPatientName());
 
-        Staff staff = new Staff();
-        staff.setStaffId(6);
-
+//        Staff staff = new Staff();
+//        staff.setStaffId(6);
 ////////////上面两行要注释/////////////
         t.setPatient(patient);
         t.setStaff(staff);
@@ -104,6 +104,18 @@ public class MdeicalRecordServiceImpl implements MedicalRecordService {
     @Override
     public MedicalRecord getMedicalRecordById(Serializable MdeicalRecordId) {
         return medicalRecordDao.getOneById(MdeicalRecordId);
+    }
+
+    @Override
+    public List<MedicalRecord> getMedicalRecordByIdCard(Serializable IdCard, Serializable currentPage) {
+        Patient patient = patientDao.getPatientByIdCard(IdCard.toString());
+        return medicalRecordDao.getAllMedicalRecordListOfSomeOne(patient.getPatientId(), currentPage);
+    }
+
+    @Override
+    public Integer getMedicalRecordByIdCardItemNumber(Serializable IdCard) {
+        Patient patient = patientDao.getPatientByIdCard(IdCard.toString());
+        return medicalRecordDao.getListItemNumberOfSomeOne(patient.getPatientId());
     }
 
 }

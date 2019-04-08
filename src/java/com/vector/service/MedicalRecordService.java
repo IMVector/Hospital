@@ -9,7 +9,6 @@ import com.vector.pojo.MedicalRecord;
 import java.io.Serializable;
 import java.util.List;
 
-
 /**
  *
  * @author Vector
@@ -25,5 +24,9 @@ public interface MedicalRecordService extends CUDService<MedicalRecord> {
     public int getListItemNumberOfSomeone(Serializable patientId);
 
     public MedicalRecord getMedicalRecordById(Serializable MdeicalRecordId);
+
+    public List<MedicalRecord> getMedicalRecordByIdCard(Serializable IdCard, Serializable currentPage);
+
+    public Integer getMedicalRecordByIdCardItemNumber(Serializable IdCard);
 
 }

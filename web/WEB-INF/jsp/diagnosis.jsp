@@ -113,10 +113,25 @@
                         <!--How do you acquire a dog?-->
                     </div>
                     <div class="content">
-                        <p class="transition hidden">Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
-                        <p class="transition hidden">A pet shop may be the most convenient way to buy a dog.
-                            Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. 
-                            Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+
+                        <table id="medicalRecordTable" class="ui blue table">
+                        </table>
+
+                        <div>
+                            <p id="pageText"></p>
+                            <div id="medicalRecordPageButtons" class="mini ui basic buttons">
+
+                            </div>
+                            <div>
+                                <label for="" class="ui label">跳转到：</label>
+                                <!--发送ajax请求-->
+                                <select id="pageSelecter" class="mini ui button basic dropdown">
+                                    <option value="">页码</option>      
+                                    <!--<option value="1">1</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <button id="medicalRecordBtn" class="ui primary button">查询病史</button>
                     </div>
                 </div>
                 <br>
@@ -235,15 +250,16 @@
                 }
             });
         }
-
+        //accordion使用配置
         $('.ui.styled.accordion').accordion({
             selector: {
                 trigger: '.title'
             }
         });
-        $(document).on("click", ".ui.indicating.progress", function () {
-            $('.ui.indicating.progress').progress('increment', 30);
-        });
+
+//        $(document).on("click", ".ui.indicating.progress", function () {
+//            $('.ui.indicating.progress').progress('increment', 30);
+//        });
 
         /**
          * 验证病人是否有账号
@@ -262,9 +278,7 @@
                 }
             });
         });
-
         $("#patientModal").modal("show");
-
         $("#medicalRecordBtn").click(function () {
             if ($('medicalRecordForm').form('is valid')) {
                 $.ajax({
@@ -283,7 +297,6 @@
             }
 
         });
-
         function getLastTaskByPatientIdCard() {
             var IdCard = $("#IdCard").val();
             $.ajax({
@@ -296,6 +309,7 @@
                     if (data.taskProgress === 1) {
                         $("#patientId").val(data.patient.patientId);
                         window.clearInterval(clock);
+                        $('.ui.indicating.progress').progress('increment', 100);
                         getTodayMedicalRecord();
                     }
                 },
@@ -303,7 +317,6 @@
                     toastError("请求失败！请重试！");
                 }
             });
-
         }
         function getTodayMedicalRecord() {
 
@@ -312,40 +325,74 @@
                 type: 'POST',
                 data: {"patientId": $("#patientId").val()},
                 success: function (data, textStatus, jqXHR) {
-                     $("#checkRecordList").empty();
+                    $("#checkRecordList").empty();
                     $.each(data, function (index, checkRecord) {
                         var str = "\
                                 <div class=\"ui segments\">\n\
                                     <div class=\"ui segment\">\n\
-                                        <p>检查影像或检查报告文件</p>"+checkRecord.resultFile+"\n\
+                                        <p>检查影像或检查报告文件</p>" + checkRecord.resultFile + "\n\
                                     </div>\n\
                                     <div class=\"ui segment\">\n\
-                                        <p>检查结果描述及分析：</p>"+checkRecord.checkResultDescription+"\n\
+                                        <p>检查结果描述及分析：</p>" + checkRecord.checkResultDescription + "\n\
                                     </div>\n\
                                     <div class=\"ui horizontal segments\">\n\
                                         <div class=\"ui segment\">\n\
-                                            <p>病人姓名：</p>"+checkRecord.patient.patientName+"\n\
+                                            <p>病人姓名：</p>" + checkRecord.patient.patientName + "\n\
                                         </div>\n\
                                         <div class=\"ui segment\">\n\
-                                            <p>病人年龄：</p>"+checkRecord.patient.patientAge+"\n\
+                                            <p>病人年龄：</p>" + checkRecord.patient.patientAge + "\n\
                                         </div>\n\
                                     <div class=\"ui segment\">\n\
-                                        <p>婚姻状况：</p></div>"+checkRecord.patient.patientMstatus+"\n\
+                                        <p>婚姻状况：</p></div>" + checkRecord.patient.patientMstatus + "\n\
                                     </div>\n\
                                     <div class=\"ui segment\">\n\
-                                        <p>检查人：</p>"+checkRecord.staff.staffName+"\n\
+                                        <p>检查人：</p>" + checkRecord.staff.staffName + "\n\
                                     </div>\n\
                                 </div>";
                         $("#checkRecordList").append(str);
-
                     });
-
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     toastError("请求失败请重试！");
                 }
             });
-
+        }
+        $("#medicalRecordBtn").click(function () {
+            var url = 'staff/getMedicalRecordByIdCard/' + $("#IdCard").val() + '/page_key_word';
+            fillForm("medicalRecordPageButtons", "pageText", "pageSelecter", currentPage = 1, url, medicalRecordTableInfo, getMedicalRecordItemNumber);
+        });
+        function medicalRecordTableInfo(data) {
+            $("#medicalRecordTable").empty();
+            $("#medicalRecordTable").append("<thead><tr> <th style='width:100px;'>病例编号</th><th style='width:100px;'>病人姓名</th><th>病例日期</th><th>发病症状</th><th>诊查结果</th><th>查看详情</th></tr></thead>");
+            $.each(data, function (index, medicalRecord) {
+                var str = "<tr id=" + medicalRecord.medicalRecordId + ">\n\
+                    <td style='width:100px;'>" + medicalRecord.medicalRecordId + "</td><td>"+medicalRecord.patient.patientName+"</td>\n\
+                    <td style='width:100px;'><label class=\"mylabel\" data-content=\"" + formatDatebox(medicalRecord.date) + "\" data-position=\"top left\">" + formatDatebox(medicalRecord.date) + "</label></td>\n\
+                    <td style='max-width:400px;'><label class=\"mylabel\" data-content=\"" + medicalRecord.symptom + "\" data-position=\"top left\">" + medicalRecord.symptom + "</label></td>\n\
+                    <td style='max-width:400px;'><label class=\"mylabel\" data-content=\"" + medicalRecord.diagnosticDescription + "\" data-position=\"top left\">" + medicalRecord.diagnosticDescription + "</label></td>\n\
+                    <td style='width:100px;'> <a  class='ui button small blue' href='patient/medicalRecordDetails/" + medicalRecord.medicalRecordId + "'>查看</a> </td>\n\</tr>";
+                $("#medicalRecordTable").append(str);
+            });
+        }
+        /**
+         * 查询数据库中当前病人的所有病例数量 这是一个同步请求
+         * @returns {data|Number} 返回病例数量
+         */
+        function getMedicalRecordItemNumber() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/getMedicalRecordByIdCardItemNum",
+                type: 'POST',
+                async: false,
+                data: {"IdCard": $("#IdCard").val()},
+                success: function (data, textStatus, jqXHR) {
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败，请重试！" + errorThrown);
+                }
+            });
+            return itemNum;
         }
 
         $('#medicalRecordForm').form({
@@ -378,7 +425,8 @@
                     ]
                 }
             }
-        });
+        })
+                ;
 
     </script>
 </html>

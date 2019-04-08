@@ -467,4 +467,16 @@ public class StaffController {
         return checkRecordService.getCheckRecordOfToday(patientId);
     }
 
+    @RequestMapping(value = "/getMedicalRecordByIdCard/{IdCard}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<MedicalRecord> getMedicalRecordByIdCard(@PathVariable String IdCard, @PathVariable Integer currentPage) {
+        return medicalRecordService.getMedicalRecordByIdCard(IdCard, currentPage);
+    }
+
+    @RequestMapping(value = "/getMedicalRecordByIdCardItemNum", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getMedicalRecordByIdCardItemNum(String IdCard) {
+        return medicalRecordService.getMedicalRecordByIdCardItemNumber(IdCard);
+    }
+
 }
