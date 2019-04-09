@@ -37,7 +37,8 @@
                 </div>
                 <div class="ui segments">
                     <div class="ui segment">
-                        <p>检查影像或检查报告文件</p>
+                      
+                        <p>  <i class="file image big icon"></i>检查影像或检查报告文件</p>
                         ${checkRecord.resultFile}
                         <br>
                         <br>
@@ -47,28 +48,30 @@
                         <br>
                     </div>
                     <div class="ui segment">
-                        <p>检查结果描述及分析：</p>${checkRecord.checkResultDescription}
+                        <p><i class="dna big icon"></i>检查结果描述及分析：</p>
+                        <br>
+                        ${checkRecord.checkResultDescription}
                     </div>
                     <div class="ui horizontal segments">
                         <div class="ui segment">
-                            <p>检查项目名称：</p>${checkRecord.checkItem.checkItemName}
+                            <p><i class="tasks big icon"></i>检查项目名称：</p><br>${checkRecord.checkItem.checkItemName}
                         </div>
                         <div class="ui segment">
-                            <p>检查项目价格：</p>${checkRecord.checkItem.checkItemPrice}
+                            <p><i class="yen sign big icon"></i>检查项目价格：</p><br>${checkRecord.checkItem.checkItemPrice}
                         </div>
                         <div class="ui segment">
-                            <p>检查日期：</p>${checkRecord.checkDate}
+                            <p><i class="calendar alternate big icon"></i>检查日期：</p><br>${checkRecord.checkDate}
                         </div>
                         <div class="ui segment">
-                            <p>是否支付：</p>${checkRecord.paymentStatus}
+                            <p><i class="credit card big icon"></i>是否支付：</p><br>${checkRecord.paymentStatus}
                         </div>
 
                     </div>
                     <div class="ui segment">
-                        <p>检查项目描述：</p>${checkRecord.checkItem.checkItemDescription}
+                        <p><i class="edit outline big icon"></i>检查项目描述：</p><br>${checkRecord.checkItem.checkItemDescription}
                     </div>
                     <div class="ui segment">
-                        <p>检查人：</p>${checkRecord.staff.staffName}
+                        <p><i class="users big icon"></i>检查人：</p><br>${checkRecord.staff.staffName}
                     </div>
                 </div>
             </div>

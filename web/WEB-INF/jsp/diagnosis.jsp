@@ -360,6 +360,8 @@
                     success: function (data, textStatus, jqXHR) {
                         if (data === false) {
                             $('.ui.basic.modal').modal('show');
+                        }else{
+                            toastSuccess("病历信息提交成功！");
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {

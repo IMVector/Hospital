@@ -124,4 +124,8 @@ public class NextPage {
     public String goToPatientCheckRecord() {
         return "patientCheckRecord";
     }
+    @RequestMapping(value = "patient/goToPersonnelCenter")
+    public String goToPersonnelCenter() {
+        return "personnelCenter";
+    }
 }

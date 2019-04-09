@@ -114,7 +114,7 @@
             $(document).on('click', ".deleteBtn", function () {
                 var id = $(this).closest("tr").attr("id");
                 $.ajax({
-                    url: "reservation/deleteReservation/" + id,
+                    url: "patient/deleteReservation/" + id,
                     type: 'POST',
                     success: function (data, textStatus, jqXHR) {
                         if (data) {

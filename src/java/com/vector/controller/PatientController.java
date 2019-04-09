@@ -123,6 +123,11 @@ public class PatientController {
     public Integer getReservationListSizeByPatientId(@PathVariable Integer patientId) {
         return reservationService.getUnExpiryReservationByPatientIdListNum(patientId);
     }
+    @RequestMapping(value = "/deleteReservation/{reservationId}")
+    @ResponseBody
+    public boolean cancleReservation(@PathVariable Integer reservationId) {
+        return reservationService.cancleReservation(reservationId);
+    }
 
     @RequestMapping(value = "isIdCardexist/{idCard}")
     @ResponseBody

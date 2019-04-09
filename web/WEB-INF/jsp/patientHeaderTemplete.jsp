@@ -22,7 +22,7 @@
                     患者主页
                 </a>
 
-                <a href="personalCenter" class="item">个人中心</a>
+                <a href="patient/goToPersonnelCenter" class="item">个人中心</a>
             </div>
             <div class="item right">
                 <c:if test="${empty patient}">
@@ -33,7 +33,7 @@
 
                 </c:if>
                 <c:if test="${ not empty patient}">
-                    <a href="personalCenter">
+                    <a href="patient/goToPersonnelCenter">
                         <img class="ui avatar image" src="${patient.image.imagePath}">
                     </a>
                     <a class="ui blue" href="patient/unload">退出</a>
@@ -54,7 +54,7 @@
                     患者主页
                 </a>
 
-                <a href="personalCenter" class="item">个人中心</a>
+                <a href="patient/goToPersonnelCenter" class="item">个人中心</a>
             </div>
             <div class="item right">
                 <c:if test="${empty patient}">
@@ -65,7 +65,7 @@
 
                 </c:if>
                 <c:if test="${ not empty patient}">
-                    <a href="personalCenter">
+                    <a href="patient/goToPersonnelCenter">
                         <img class="ui avatar image" src="${patient.image.imagePath}">
                     </a>
                     <a class="ui blue" href="patient/unload">退出</a>
