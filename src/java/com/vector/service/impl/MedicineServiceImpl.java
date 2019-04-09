@@ -31,6 +31,21 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
+    public Integer getListItemNumber(Object... params) {
+        return medicineDao.getListItemNumber();
+    }
+
+    @Override
+    public List<Medicine> getList(Integer currentPage, Object... params) {
+        return medicineDao.getList(currentPage);
+    }
+
+    @Override
+    public List<Medicine> getMedicineList() {
+        return medicineDao.getMedicineList();
+    }
+
+    @Override
     public boolean insert(Medicine t, Object... params) {
         try {
             medicineDao.insert(t);
@@ -64,18 +79,13 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
-    public Integer getListItemNumber(Object... params) {
-        return medicineDao.getListItemNumber();
+    public List<Medicine> getMedicineByDescription(String description, Integer currentPage) {
+        return medicineDao.getMedicineByDescription(description,currentPage);
     }
 
     @Override
-    public List<Medicine> getList(Integer currentPage, Object... params) {
-        return medicineDao.getList(currentPage);
-    }
-
-    @Override
-    public List<Medicine> getMedicineList() {
-        return medicineDao.getMedicineList();
+    public Integer getMedicineByDescriptionItemNum(String description) {
+        return medicineDao.getMedicineByDescriptionItemNum(description);
     }
 
 }

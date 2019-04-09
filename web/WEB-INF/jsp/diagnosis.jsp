@@ -113,9 +113,11 @@
                         <!--How do you acquire a dog?-->
                     </div>
                     <div class="content">
+                        <div class="container-admin-inner">
+                            <table id="medicalRecordTable" class="ui blue table">
+                            </table>
+                        </div>
 
-                        <table id="medicalRecordTable" class="ui blue table">
-                        </table>
 
                         <div>
                             <p id="pageText"></p>
@@ -131,7 +133,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button id="medicalRecordBtn" class="ui primary button">查询病史</button>
+                        <button id="medicalRecordSearch" class="ui primary button">查询病史</button>
                     </div>
                 </div>
                 <br>
@@ -157,17 +159,58 @@
                         药库信息
                     </div>
                     <div class="content">
-                        <p class="transition visible" style="display: block !important;">
-                            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, 
-                            it can be found as a welcome guest in many households across the world.
-                        </p>
+
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="ui input focus">
+                                        <input id="medicalName" placeholder="药品名称" type="text">
+                                    </div>
+                                </td>
+                                <td> 
+                                    <button id="getByMedicineName" class="ui button blue">根据名字查询</button>
+                                </td>
+
+                                <td>
+                                    <input id="medicineDescription" type="text" placeholder="药品功效">
+                                </td>
+                                <td>
+                                    <button id="getMedicineByDescription" class="ui button blue">根据功效查询</button>
+                                    <!--<button id="add" class="ui button blue">添加药品</button>-->
+                                </td>
+                                <td>
+                                    <button id="getAllMedicineBtn" class="ui button blue">查询所有药品</button>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="container-admin-inner">
+                            <table id="medicineTable" class="ui table blue">
+                            </table>
+                        </div>
+                        <div>
+                            <p id="medicineTablePageText"></p>
+                            <div id="medicineTablePageButtons" class="mini ui basic buttons">
+
+                            </div>
+                            <!--<div>-->
+                            <label for="" class="ui label">跳转到：</label>
+                            <!--发送ajax请求-->
+                            <select id="medicineTablePageSelecter" class="mini ui button basic dropdown">
+                                <option value="">页码</option>
+                                <!--<option value="1">1</option>-->
+                            </select>
+                        </div>
+                        <!--                        <p class="transition visible" style="display: block !important;">
+                                                    A dog is a type of domesticated animal. Known for its loyalty and faithfulness, 
+                                                    it can be found as a welcome guest in many households across the world.
+                                                </p>-->
                     </div>
                 </div>
                 <br>
                 <div class="field">
                     <label>注意事项</label>
                     <div class="ui fluid action input">
-                        <textarea name="PrescriptionPrecautions" placeholder="请输入注意事项"></textarea>
+                        <textarea name="precaution" placeholder="请输入注意事项"></textarea>
                     </div>
                 </div>
 
@@ -201,10 +244,16 @@
     </body>
     <!--window.clearInterval(clock);-->
     <script>
+        $(document).on("mouseover", ".mylabel", function () {
+            $(this).popup("show");
+        });
+        //accordion使用配置
+        $('.ui.styled.accordion').accordion({
+            selector: {
+                trigger: '.title'
+            }
+        });
         var clock = null;
-//        $('.message .close').on('click', function () {
-//            $(this).closest('.message').transition('fade');
-//        });
         window.onbeforeunload = function (event) {
             return "是否清除已填写并未提交数据？";
         };
@@ -212,6 +261,7 @@
 //            alert("是否清除已填写并未提交数据？");
 //            console.log("是否清除已填写并未提交数据？");
 //        });
+/////////////////////////////////////////////////task///////////////////////////////////////
         $(document).on("click", "#startTask", function () {
             //需要提交的内容:病人的IdCard，checkItemId,taskSponsor(从session中获取)
             var Idcard = $("#IdCard").val();
@@ -233,6 +283,34 @@
             });
 
         });
+
+        function getLastTaskByPatientIdCard() {
+            var IdCard = $("#IdCard").val();
+            if (IdCard !== "") {
+                $.ajax({
+                    url: "staff/getLastTaskByPatientIdCard",
+                    type: 'POST',
+                    data: {"IdCard": IdCard},
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data.taskProgress);
+                        console.log(data.taskStatus);
+                        if (data.taskProgress === 1) {
+                            $("#patientId").val(data.patient.patientId);
+                            window.clearInterval(clock);
+                            $('.ui.indicating.progress').progress('increment', 100);
+                            getTodayMedicalRecord();
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        toastError("请求失败！请重试！");
+                    }
+                });
+            } else {
+                toastError("请输入病人身份证号码");
+            }
+
+        }
+/////////////////////////////////////////////checkItem//////////////////////////////////
         requestCheckItmeList("#checkItemId");
         function requestCheckItmeList(id) {
             $.ajax({
@@ -250,12 +328,6 @@
                 }
             });
         }
-        //accordion使用配置
-        $('.ui.styled.accordion').accordion({
-            selector: {
-                trigger: '.title'
-            }
-        });
 
 //        $(document).on("click", ".ui.indicating.progress", function () {
 //            $('.ui.indicating.progress').progress('increment', 30);
@@ -278,7 +350,7 @@
                 }
             });
         });
-        $("#patientModal").modal("show");
+///////////////////////////////////////////////medicaiRecordAdd////////////////////////
         $("#medicalRecordBtn").click(function () {
             if ($('medicalRecordForm').form('is valid')) {
                 $.ajax({
@@ -297,27 +369,7 @@
             }
 
         });
-        function getLastTaskByPatientIdCard() {
-            var IdCard = $("#IdCard").val();
-            $.ajax({
-                url: "staff/getLastTaskByPatientIdCard",
-                type: 'POST',
-                data: {"IdCard": IdCard},
-                success: function (data, textStatus, jqXHR) {
-                    console.log(data.taskProgress);
-                    console.log(data.taskStatus);
-                    if (data.taskProgress === 1) {
-                        $("#patientId").val(data.patient.patientId);
-                        window.clearInterval(clock);
-                        $('.ui.indicating.progress').progress('increment', 100);
-                        getTodayMedicalRecord();
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    toastError("请求失败！请重试！");
-                }
-            });
-        }
+
         function getTodayMedicalRecord() {
 
             $.ajax({
@@ -357,16 +409,22 @@
                 }
             });
         }
-        $("#medicalRecordBtn").click(function () {
+
+        $("#medicalRecordSearch").click(function () {
             var url = 'staff/getMedicalRecordByIdCard/' + $("#IdCard").val() + '/page_key_word';
             fillForm("medicalRecordPageButtons", "pageText", "pageSelecter", currentPage = 1, url, medicalRecordTableInfo, getMedicalRecordItemNumber);
         });
+        /**
+         * 查询过往病史
+         * @param {type} data
+         * @returns {undefined}
+         */
         function medicalRecordTableInfo(data) {
             $("#medicalRecordTable").empty();
             $("#medicalRecordTable").append("<thead><tr> <th style='width:100px;'>病例编号</th><th style='width:100px;'>病人姓名</th><th>病例日期</th><th>发病症状</th><th>诊查结果</th><th>查看详情</th></tr></thead>");
             $.each(data, function (index, medicalRecord) {
                 var str = "<tr id=" + medicalRecord.medicalRecordId + ">\n\
-                    <td style='width:100px;'>" + medicalRecord.medicalRecordId + "</td><td>"+medicalRecord.patient.patientName+"</td>\n\
+                    <td style='width:100px;'>" + medicalRecord.medicalRecordId + "</td><td>" + medicalRecord.patient.patientName + "</td>\n\
                     <td style='width:100px;'><label class=\"mylabel\" data-content=\"" + formatDatebox(medicalRecord.date) + "\" data-position=\"top left\">" + formatDatebox(medicalRecord.date) + "</label></td>\n\
                     <td style='max-width:400px;'><label class=\"mylabel\" data-content=\"" + medicalRecord.symptom + "\" data-position=\"top left\">" + medicalRecord.symptom + "</label></td>\n\
                     <td style='max-width:400px;'><label class=\"mylabel\" data-content=\"" + medicalRecord.diagnosticDescription + "\" data-position=\"top left\">" + medicalRecord.diagnosticDescription + "</label></td>\n\
@@ -425,8 +483,81 @@
                     ]
                 }
             }
-        })
-                ;
+        });
+        /////////////////////////////////////////////////medicine///////////////////////////////////////
+
+        var flag = false;
+        $("#getByMedicineName").on("click", function () {
+            flag=false;
+            var name = $("#medicalName").val();
+            var url = "staff/getMedicineByName/" + name;
+            fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, function () {
+                return 1;
+            });
+        });
+
+        $("#getAllMedicineBtn").click(function () {
+            var url = 'staff/medicineList/page_key_word';
+            fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineItemNumber);
+        });
+
+        $("#getMedicineByDescription").click(function () {
+            flag=true;
+            var url = 'staff/medicineList/' + $("#medicineDescription").val() + '/page_key_word';
+            fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineItemNumber);
+        });
+
+        $("#medicineTablePageSelecter").on("change", function () {
+            if (flag) {
+                var url = 'staff/medicineList/'+ $("#medicineDescription").val()+'/page_key_word';
+                fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineItemNumber);
+            } else {
+                var url = 'staff/medicineList/page_key_word';
+                goToThPage("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", url, medicineTableInfo, getMedicineItemNumber);
+            }
+
+        });
+        function medicineTableInfo(data) {
+            $("#medicineTable").empty();
+            $("#medicineTable").append("<thead><tr><th>名称</th><th>适用症</th><th>说明</th><th>价格</th><th>生产日期</th><th>有效期</th><th>库存</th></tr></thead>");
+            $.each(data, function (index, metication) {
+                var str = " <tr id=" + metication.medicineId + ">\n\
+                                <td style=\"width:150px\">\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicineName + "\" data-position=\"top left\"  >" + metication.medicineName + "</label>\n\</td>\n\
+                                <td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicineDescription + "\" data-position=\"top left\" >" + metication.medicineDescription + "</label></td>\n\
+                                <td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicineInstructions + "\" data-position=\"top left\"   >" + metication.medicineInstructions + "</label></td>\n\
+                                <td style=\"width:100px\">\n\
+                                    <label class=\"mylabel table-label\" >" + metication.medicinePrice + "元</label></td>\n\
+                                <td style=\"width:100px\">\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + formatDatebox(metication.productionDate) + "\" data-position=\"top left\">" + formatDatebox(metication.productionDate) + "</label><div class=\"nonevisiual\"></div></td>\n\
+                                <td style=\"width:100px\">\n\
+                                    <label class=\"mylabel table-label\" >" + metication.validityPeriod + "</label></td>\n\
+                                <td style=\"width:100px\"><label class=\"mylabel table-label\" >" + metication.medicineNumber + "</label></td>";
+
+
+                $("#medicineTable").append(str);
+            });
+        }
+
+        function getMedicineItemNumber() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/medicineListItemNum",
+                type: 'POST',
+                async: false,
+                data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！" + errorThrown);
+                }
+            });
+            return itemNum;
+        }
 
     </script>
 </html>

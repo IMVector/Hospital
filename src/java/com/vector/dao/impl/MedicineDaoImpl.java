@@ -43,4 +43,18 @@ public class MedicineDaoImpl extends BaseDaoImpl<Medicine> implements MedicineDa
         return getListByQuery(hql);
     }
 
+    @Override
+    public List<Medicine> getMedicineByDescription(String description, Integer currentPage) {
+        String hql = "from Medicine where medicineDescription like ?";
+        description = "%" + description + "%";
+        return getListPaginationByQuery(hql, currentPage, description);
+    }
+
+    @Override
+    public Integer getMedicineByDescriptionItemNum(String description) {
+        String hql = "select count(*) from Medicine where medicineDescription like ?";
+        description = "%" + description + "%";
+        return getListSize(hql, description);
+    }
+
 }

@@ -15,6 +15,10 @@ import java.util.List;
  */
 public interface MedicineService extends CUDService<Medicine>, PaginationBaseService<Medicine> {
 
+    public List<Medicine> getMedicineByDescription(String description, Integer currentPage);
+
+    public Integer getMedicineByDescriptionItemNum(String description);
+
     public List<Medicine> getMedicineByName(Serializable name);
 
     public List<Medicine> getMedicineList();

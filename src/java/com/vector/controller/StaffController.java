@@ -408,6 +408,18 @@ public class StaffController {
         return medicineService.getMedicineByName(name);
     }
 
+    @RequestMapping(value = "/medicineList/{description}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Medicine> getMedicineList(@PathVariable String description,@PathVariable Integer currentPage) {
+        return medicineService.getMedicineByDescription(description, currentPage);
+    }
+
+    @RequestMapping(value = "/medicineListItemNum/{description}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer showMedicineListItemNumber(@PathVariable String description) {
+        return medicineService.getMedicineByDescriptionItemNum(description);
+    }
+
     ///////////////////////////////////////////diagnosis///////////////////////////////////////////////////
     @RequestMapping(value = "/addMedicalRecord", method = RequestMethod.POST)
     @ResponseBody

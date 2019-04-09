@@ -1,5 +1,5 @@
 package com.vector.pojo;
-// Generated 2019-3-22 22:17:21 by Hibernate Tools 4.3.1
+// Generated 2019-4-9 10:49:11 by Hibernate Tools 4.3.1
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,6 +19,7 @@ public class MedicalRecord  implements java.io.Serializable {
      private String diagnosticDescription;
      private Date date;
      private String symptom;
+     private String precautions;
      @JsonIgnore
      private Set prescriptions = new HashSet(0);
 
@@ -26,18 +27,20 @@ public class MedicalRecord  implements java.io.Serializable {
     }
 
 	
-    public MedicalRecord(Patient patient, Staff staff, String diagnosticDescription, Date date) {
+    public MedicalRecord(Patient patient, Staff staff, String diagnosticDescription, Date date, String symptom) {
         this.patient = patient;
         this.staff = staff;
         this.diagnosticDescription = diagnosticDescription;
         this.date = date;
+        this.symptom = symptom;
     }
-    public MedicalRecord(Patient patient, Staff staff, String diagnosticDescription, Date date, String symptom, Set prescriptions) {
+    public MedicalRecord(Patient patient, Staff staff, String diagnosticDescription, Date date, String symptom, String precautions, Set prescriptions) {
        this.patient = patient;
        this.staff = staff;
        this.diagnosticDescription = diagnosticDescription;
        this.date = date;
        this.symptom = symptom;
+       this.precautions = precautions;
        this.prescriptions = prescriptions;
     }
    
@@ -82,6 +85,13 @@ public class MedicalRecord  implements java.io.Serializable {
     
     public void setSymptom(String symptom) {
         this.symptom = symptom;
+    }
+    public String getPrecautions() {
+        return this.precautions;
+    }
+    
+    public void setPrecautions(String precautions) {
+        this.precautions = precautions;
     }
     public Set getPrescriptions() {
         return this.prescriptions;
