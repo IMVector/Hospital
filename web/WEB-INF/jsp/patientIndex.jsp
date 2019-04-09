@@ -209,7 +209,7 @@
                                             </svg>
 
                                             <div id="set_text"> 
-                                                <a href="#">         
+                                                <a href="patient/goToCheckRecord">         
                                                     检查记录
                                                 </a> 
                                             </div>

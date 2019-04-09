@@ -119,4 +119,9 @@ public class NextPage {
     public String goToTaskList(HttpSession session) {
         return "taskList";
     }
+
+    @RequestMapping(value = "patient/goToCheckRecord")
+    public String goToPatientCheckRecord() {
+        return "patientCheckRecord";
+    }
 }

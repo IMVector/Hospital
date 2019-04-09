@@ -5,12 +5,14 @@
  */
 package com.vector.controller;
 
+import com.vector.pojo.CheckRecord;
 import com.vector.pojo.MedicalRecord;
 import com.vector.pojo.Patient;
 import com.vector.pojo.Reservation;
 import com.vector.pojo.ScheduleTable;
 import com.vector.service.AttendanceService;
 import com.vector.service.ChartService;
+import com.vector.service.CheckRecordService;
 import com.vector.service.DepartmentService;
 import com.vector.service.MedicalRecordService;
 import com.vector.service.PatientService;
@@ -67,6 +69,9 @@ public class PatientController {
 
     @Autowired
     AttendanceService attendanceServicce;
+
+    @Autowired
+    CheckRecordService checkRecordService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -133,7 +138,7 @@ public class PatientController {
 
     //////////////////////////////////////////病例报告//////////////////////////////////////////////
     @RequestMapping(value = "/medicalRecordDetails/{MdeicalRecordId}", method = RequestMethod.GET)
-    public String showMdeicalRecordDetails(@PathVariable Integer MdeicalRecordId, Model model,HttpSession session) {
+    public String showMdeicalRecordDetails(@PathVariable Integer MdeicalRecordId, Model model, HttpSession session) {
         MedicalRecord medicalRecord = medicalRecordService.getMedicalRecordById(MdeicalRecordId);
         model.addAttribute("medicalRecord", medicalRecord);
         return "medicalRecordDetails";
@@ -196,20 +201,27 @@ public class PatientController {
         map.addAttribute("departmentId", departmentId);
         return "attendanceToPatient";
     }
+
     /////////////////////////////////////检查记录以及检查结果报告///////////////////////////////////////////////////
-//    @RequestMapping(value = "/checkRecordList/{patientId}/{currentPage}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public List showCheckRecordList(@PathVariable String patientId, @PathVariable Integer currentPage) {
-//        List<CheckRecord> list = checkRecordService.getAllListOfSomeone(patientId, currentPage);
-//        return list;
-//    }
-//
-//    @RequestMapping(value = "/checkRecordListItemNumber/{patientId}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Integer showCheckRecordListItemNumber(@PathVariable String patientId) {
-//        return checkRecordService.getListItemNumber(patientId);
-//    }
-//
+    @RequestMapping(value = "/checkRecordList/{patientId}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List showCheckRecordList(@PathVariable Integer patientId, @PathVariable Integer currentPage) {
+        List<CheckRecord> list = checkRecordService.getList(currentPage, patientId);
+        return list;
+    }
+
+    @RequestMapping(value = "/checkRecordListItemNumber/{patientId}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer showCheckRecordListItemNumber(@PathVariable Integer patientId) {
+        return checkRecordService.getListItemNumber(patientId);
+    }
+
+    @RequestMapping("/checkRecordDetails/{checkRecordId}")
+    public String checkRecordDetails(@PathVariable Integer checkRecordId, ModelMap map) {
+        map.addAttribute("checkRecord", checkRecordService.getCheckRecordById(checkRecordId));
+        return "patientCheckRecordDetails";
+    }
+
 //    @RequestMapping(value = "/checkRecordDetails/{checkRecordId}", method = RequestMethod.GET)
 //    public String showCheckRecordDetails(@PathVariable Integer checkRecordId, Model model) {
 //        CheckRecord checkRecord = checkRecordService.getOneById(checkRecordId);
