@@ -158,6 +158,8 @@
                         用药历史
                     </div>
                     <div class="content">
+                        <button id="medicalHistorySearch" class="ui primary button">查询用药史</button>
+                        <button id="medicalHistoryAdd" class="ui primary button">添加用药史</button>
                         <div class="container-admin-inner">
                             <table id="medicalHistoryTable" class="ui blue table">
                             </table>
@@ -178,7 +180,7 @@
                                 </select>
                             </div>
                         </div>
-                        <button id="medicalHistorySearch" class="ui primary button">查询病史</button>
+
                     </div>
                     <div class="title">
                         <i class="dropdown icon"></i>
@@ -263,7 +265,7 @@
                 </div>
             </div>
             <input type="text" style="display: none" id="patientId">
-            <div id="modeltest" class="ui inverted modal ">
+            <div id="modelTest" class="ui inverted modal ">
                 <div class="header">用药历史</div>
                 <div class="content">
                     <div class="ui header blue segment">用药历史</div>
@@ -271,25 +273,25 @@
                         <div class="field">
                             <label for="">药物名称：</label>
                             <div class="ui input ">
-                                <input id="email" name="DiseaseName" placeholder="请输入员工邮箱" type="text">
+                                <input id="email" name="DiseaseName" placeholder="请输入或选择药品名称" type="text">
                             </div>
                         </div>
                         <div class="field">
                             <label for="">不良反应：</label>
                             <div class="ui input ">
-                                <input id="staffName" name="staffName" placeholder="请输入员工姓名" type="text">
+                                <input id="staffName" name="adverseReactions" placeholder="请输入不良反应（若没有请填无）" type="text">
                             </div>
                         </div>
                         <div class="field">
                             <label for="">用药时长：</label>
                             <div class="ui input ">
-                                <input id="staffName" name="staffName" placeholder="请输入员工姓名" type="text">
+                                <input id="staffName" name="duration" placeholder="请输入用药时长（天）" type="text">
                             </div>
                         </div>
                         <div class="field">
                             <label for="">上次用药时间：</label>
                             <div class="ui input ">
-                                <input id="staffName" name="staffName" placeholder="请输入员工姓名" type="text">
+                                <input id="staffName" name="lastTime" placeholder="请输入上次用药时间" type="text">
                             </div>
                         </div>
                         <button id="resetButton" type="reset" style="display:none;"></button> 
@@ -314,6 +316,18 @@
                 trigger: '.title'
             }
         });
+//        $('.ui.selection.dropdown').dropdown({
+//            clearable: true
+//        });
+//        $('.ui.fluid.search.selection.dropdown').dropdown({
+//            direction: 'upward'
+//        });
+//                .dropdown({
+//            clearable: true,
+//            fullTextSearch: true,
+//            direction: 'upward'
+//        });
+
         var clock = null;
         window.onbeforeunload = function (event) {
             return "是否清除已填写并未提交数据？";
@@ -342,9 +356,7 @@
                     toastError("请求失败！请重试！");
                 }
             });
-
         });
-
         function getLastTaskByPatientIdCard() {
             var IdCard = $("#IdCard").val();
             if (IdCard !== "") {
@@ -432,7 +444,6 @@
             }
 
         });
-
         function getTodayMedicalRecord() {
 
             $.ajax({
@@ -558,18 +569,15 @@
                 return 1;
             });
         });
-
         $("#getAllMedicineBtn").click(function () {
             var url = 'staff/medicineList/page_key_word';
             fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineItemNumber);
         });
-
         $("#getMedicineByDescription").click(function () {
             flag = true;
             var url = 'staff/medicineList/' + $("#medicineDescription").val() + '/page_key_word';
             fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineItemNumber);
         });
-
         $("#medicineTablePageSelecter").on("change", function () {
             if (flag) {
                 var url = 'staff/medicineList/' + $("#medicineDescription").val() + '/page_key_word';
@@ -598,8 +606,6 @@
                                 <td style=\"width:100px\">\n\
                                     <label class=\"mylabel table-label\" >" + metication.validityPeriod + "</label></td>\n\
                                 <td style=\"width:100px\"><label class=\"mylabel table-label\" >" + metication.medicineNumber + "</label></td>";
-
-
                 $("#medicineTable").append(str);
             });
         }
@@ -627,12 +633,9 @@
             var url = 'staff/medicalHistoryList/page_key_word';
             fillForm("medicalHistoryTablePageButtons", "medicalHistoryTablePageText", "medicalHistoryTablePageSelecter", currentPage = 1, url, medicalHistoryTableInfo, getMedicalHistoryItemNumber);
         });
-
-
         $("#medicalHistoryTablePageSelecter").on("change", function () {
             var url = 'staff/medicalHistoryList/page_key_word';
             goToThPage("medicalHistoryTablePageButtons", "medicalHistoryTablePageText", "medicalHistoryTablePageSelecter", url, medicalHistoryTableInfo, getMedicalHistoryItemNumber);
-
         });
         function medicalHistoryTableInfo(data) {
             $("#medicalHistoryTable").empty();
@@ -652,8 +655,6 @@
                                 <td style=\"width:100px\">\n\
                                     <label class=\"mylabel table-label\" >" + metication.validityPeriod + "</label></td>\n\
                                 <td style=\"width:100px\"><label class=\"mylabel table-label\" >" + metication.medicalHistoryNumber + "</label></td>";
-
-
                 $("#medicalHistoryTable").append(str);
             });
         }
@@ -675,6 +676,9 @@
             });
             return itemNum;
         }
-
+///////////////////////////////////////////////////////////////////////////////////////
+        $(document).on("click", "#medicalHistoryAdd", function () {
+            $("#modelTest").modal("show");
+        });
     </script>
 </html>
