@@ -155,6 +155,33 @@
                 <div class="ui styled fluid accordion">
                     <div class="title">
                         <i class="dropdown icon"></i>
+                        用药历史
+                    </div>
+                    <div class="content">
+                        <div class="container-admin-inner">
+                            <table id="medicalHistoryTable" class="ui blue table">
+                            </table>
+                        </div>
+
+
+                        <div>
+                            <p id="pageText"></p>
+                            <div id="medicalHistoryPageButtons" class="mini ui basic buttons">
+
+                            </div>
+                            <div>
+                                <label for="" class="ui label">跳转到：</label>
+                                <!--发送ajax请求-->
+                                <select id="pageSelecter" class="mini ui button basic dropdown">
+                                    <option value="">页码</option>      
+                                    <!--<option value="1">1</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <button id="medicalHistorySearch" class="ui primary button">查询病史</button>
+                    </div>
+                    <div class="title">
+                        <i class="dropdown icon"></i>
                         <!--What is a dog?-->
                         药库信息
                     </div>
@@ -200,11 +227,8 @@
                                 <!--<option value="1">1</option>-->
                             </select>
                         </div>
-                        <!--                        <p class="transition visible" style="display: block !important;">
-                                                    A dog is a type of domesticated animal. Known for its loyalty and faithfulness, 
-                                                    it can be found as a welcome guest in many households across the world.
-                                                </p>-->
                     </div>
+
                 </div>
                 <br>
                 <div class="field">
@@ -239,7 +263,44 @@
                 </div>
             </div>
             <input type="text" style="display: none" id="patientId">
+            <div id="modeltest" class="ui inverted modal ">
+                <div class="header">用药历史</div>
+                <div class="content">
+                    <div class="ui header blue segment">用药历史</div>
+                    <form id="myForm" class="ui form">
+                        <div class="field">
+                            <label for="">药物名称：</label>
+                            <div class="ui input ">
+                                <input id="email" name="DiseaseName" placeholder="请输入员工邮箱" type="text">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="">不良反应：</label>
+                            <div class="ui input ">
+                                <input id="staffName" name="staffName" placeholder="请输入员工姓名" type="text">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="">用药时长：</label>
+                            <div class="ui input ">
+                                <input id="staffName" name="staffName" placeholder="请输入员工姓名" type="text">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="">上次用药时间：</label>
+                            <div class="ui input ">
+                                <input id="staffName" name="staffName" placeholder="请输入员工姓名" type="text">
+                            </div>
+                        </div>
+                        <button id="resetButton" type="reset" style="display:none;"></button> 
+                    </form>
+                </div>
+                <div class="actions">
+                    <div class="ui black deny button">放弃</div>
+                    <div class="ui positive button">上传信息</div>
+                </div>
 
+            </div>
         </div>
     </body>
     <!--window.clearInterval(clock);-->
@@ -360,7 +421,7 @@
                     success: function (data, textStatus, jqXHR) {
                         if (data === false) {
                             $('.ui.basic.modal').modal('show');
-                        }else{
+                        } else {
                             toastSuccess("病历信息提交成功！");
                         }
                     },
@@ -490,7 +551,7 @@
 
         var flag = false;
         $("#getByMedicineName").on("click", function () {
-            flag=false;
+            flag = false;
             var name = $("#medicalName").val();
             var url = "staff/getMedicineByName/" + name;
             fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, function () {
@@ -504,14 +565,14 @@
         });
 
         $("#getMedicineByDescription").click(function () {
-            flag=true;
+            flag = true;
             var url = 'staff/medicineList/' + $("#medicineDescription").val() + '/page_key_word';
             fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineItemNumber);
         });
 
         $("#medicineTablePageSelecter").on("change", function () {
             if (flag) {
-                var url = 'staff/medicineList/'+ $("#medicineDescription").val()+'/page_key_word';
+                var url = 'staff/medicineList/' + $("#medicineDescription").val() + '/page_key_word';
                 fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineItemNumber);
             } else {
                 var url = 'staff/medicineList/page_key_word';
@@ -547,6 +608,60 @@
             var itemNum = 0;
             $.ajax({
                 url: "staff/medicineListItemNum",
+                type: 'POST',
+                async: false,
+                data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！" + errorThrown);
+                }
+            });
+            return itemNum;
+        }
+///////////////////////////////////////////////////用药历史///////////////////////////////////////
+
+        $("#getAllMedicalHistoryBtn").click(function () {
+            var url = 'staff/medicalHistoryList/page_key_word';
+            fillForm("medicalHistoryTablePageButtons", "medicalHistoryTablePageText", "medicalHistoryTablePageSelecter", currentPage = 1, url, medicalHistoryTableInfo, getMedicalHistoryItemNumber);
+        });
+
+
+        $("#medicalHistoryTablePageSelecter").on("change", function () {
+            var url = 'staff/medicalHistoryList/page_key_word';
+            goToThPage("medicalHistoryTablePageButtons", "medicalHistoryTablePageText", "medicalHistoryTablePageSelecter", url, medicalHistoryTableInfo, getMedicalHistoryItemNumber);
+
+        });
+        function medicalHistoryTableInfo(data) {
+            $("#medicalHistoryTable").empty();
+            $("#medicalHistoryTable").append("<thead><tr><th>名称</th><th>适用症</th><th>说明</th><th>价格</th><th>生产日期</th><th>有效期</th><th>库存</th></tr></thead>");
+            $.each(data, function (index, metication) {
+                var str = " <tr id=" + metication.medicalHistoryId + ">\n\
+                                <td style=\"width:150px\">\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicalHistoryName + "\" data-position=\"top left\"  >" + metication.medicalHistoryName + "</label>\n\</td>\n\
+                                <td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicalHistoryDescription + "\" data-position=\"top left\" >" + metication.medicalHistoryDescription + "</label></td>\n\
+                                <td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicalHistoryInstructions + "\" data-position=\"top left\"   >" + metication.medicalHistoryInstructions + "</label></td>\n\
+                                <td style=\"width:100px\">\n\
+                                    <label class=\"mylabel table-label\" >" + metication.medicalHistoryPrice + "元</label></td>\n\
+                                <td style=\"width:100px\">\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + formatDatebox(metication.productionDate) + "\" data-position=\"top left\">" + formatDatebox(metication.productionDate) + "</label><div class=\"nonevisiual\"></div></td>\n\
+                                <td style=\"width:100px\">\n\
+                                    <label class=\"mylabel table-label\" >" + metication.validityPeriod + "</label></td>\n\
+                                <td style=\"width:100px\"><label class=\"mylabel table-label\" >" + metication.medicalHistoryNumber + "</label></td>";
+
+
+                $("#medicalHistoryTable").append(str);
+            });
+        }
+
+        function getMedicalHistoryItemNumber() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/medicalHistoryListItemNum",
                 type: 'POST',
                 async: false,
                 data: {},

@@ -33,9 +33,9 @@ public class ReservationServiceImpl implements ReservationService {
         Staff staff = new Staff();
         staff.setStaffId(Integer.parseInt(staffId.toString()));
         Reservation reservation = new Reservation(patient, staff, schedule.toString(), reservationDate, "否");
-        System.out.println(patient.getPatientName());
-        System.out.println(staffId);
-        System.out.println(schedule.toString());
+//        System.out.println(patient.getPatientName());
+//        System.out.println(staffId);
+//        System.out.println(schedule.toString());
         reservation.setReservationId(0);
         try {
             reservationDao.insert(reservation);
