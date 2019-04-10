@@ -131,7 +131,7 @@ public class PatientController {
 
     @RequestMapping(value = "isIdCardexist/{idCard}")
     @ResponseBody
-    public boolean isIdCardExist(@PathVariable String idCard) {
+    public Patient isIdCardExist(@PathVariable String idCard) {
         return patientService.validatePatientByIdCard(idCard);
     }
 

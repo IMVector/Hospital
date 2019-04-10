@@ -1,12 +1,12 @@
 //表格交替背景颜色
-$(document).ready(function () {
-    tableColor();
-});
-$(document).ready(function () {
-    $('.dropdown').dropdown({
-        on: 'hover'
-    });
-});
+//$(document).ready(function () {
+//    tableColor();
+//});
+//$(document).ready(function () {
+//    $('.dropdown').dropdown({
+//        on: 'hover'
+//    });
+//});
 
 /**
  * 交替更改表格的颜色
@@ -70,22 +70,22 @@ Date.prototype.format = function (format) {
         "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
         "S": this.getMilliseconds()
                 // millisecond
-    }
+    };
     if (/(y+)/.test(format))
         format = format.replace(RegExp.$1, (this.getFullYear() + "")
                 .substr(4 - RegExp.$1.length));
     for (var k in o)
         if (new RegExp("(" + k + ")").test(format))
-            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            format = format.replace(RegExp.$1, RegExp.$1.length === 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
     return format;
-}
+};
 /**
  * 显示日期函数年月日
  * @param {type} value
  * @returns {String}
  */
 function formatDatebox(value) {
-    if (value == null || value == '') {
+    if (value === null || value === '') {
         return '';
     }
     var dt;
@@ -97,7 +97,7 @@ function formatDatebox(value) {
     return dt.format("yyyy-MM-dd");
 }
 function formatDateboxDetails(value) {
-    if (value == null || value == '') {
+    if (value === null || value === '') {
         return '';
     }
     var dt;
@@ -134,7 +134,7 @@ function toastError(message) {
         isCenter: true,
         background: 'rgba(230,0,0,0.5)',
         animateIn: 'bounceIn-hastrans',
-        animateOut: 'bounceOut-hastrans',
+        animateOut: 'bounceOut-hastrans'
     });
 }
 
@@ -147,6 +147,6 @@ function toastSuccess(message) {
         isCenter: true,
         background: '#4EA44E',
         animateIn: 'bounceIn-hastrans',
-        animateOut: 'bounceOut-hastrans',
+        animateOut: 'bounceOut-hastrans'
     });
 }

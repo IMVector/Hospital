@@ -106,9 +106,9 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public boolean validatePatientByIdCard(String IdCard) {
+    public Patient validatePatientByIdCard(String IdCard) {
         Patient p = patientDao.getPatientByIdCard(IdCard);
-        return null != p;
+        return p;
     }
 
 }

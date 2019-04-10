@@ -7,9 +7,11 @@ package com.vector.service.impl;
 
 import com.vector.dao.MedicationHistoryDao;
 import com.vector.pojo.MedicationHistory;
+import com.vector.pojo.Staff;
 import com.vector.service.MedicationHistoryService;
 import java.io.Serializable;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,7 @@ public class MedicationHistoryServiceImpl implements MedicationHistoryService {
 
     @Override
     public boolean insert(MedicationHistory t, Object... params) {
+        System.out.println(t.getPatient().getPatientId());
         try {
             medicationHistoryDao.insert(t);
             return true;
@@ -60,7 +63,7 @@ public class MedicationHistoryServiceImpl implements MedicationHistoryService {
 
     @Override
     public Integer getListItemNumber(Object... params) {
-        return medicationHistoryDao.getListItemNumber(params[0]);  
+        return medicationHistoryDao.getListItemNumber(params[0]);
     }
 
     @Override

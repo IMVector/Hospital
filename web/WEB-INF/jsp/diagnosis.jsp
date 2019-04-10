@@ -167,14 +167,14 @@
 
 
                         <div>
-                            <p id="pageText"></p>
+                            <p id="medicalHistoryPageText"></p>
                             <div id="medicalHistoryPageButtons" class="mini ui basic buttons">
 
                             </div>
                             <div>
                                 <label for="" class="ui label">跳转到：</label>
                                 <!--发送ajax请求-->
-                                <select id="pageSelecter" class="mini ui button basic dropdown">
+                                <select id="medicalHistoryPageSelecter" class="mini ui button basic dropdown">
                                     <option value="">页码</option>      
                                     <!--<option value="1">1</option>-->
                                 </select>
@@ -244,6 +244,7 @@
 
             </form>
 
+
             <div class="ui basic modal">
                 <div class="ui icon header">
                     <!--<i class="archive icon"></i>-->
@@ -270,28 +271,36 @@
                 <div class="content">
                     <div class="ui header blue segment">用药历史</div>
                     <form id="myForm" class="ui form">
+                        <input id="patientId_" type="text" name="patient.patientId" style="display: none" >
                         <div class="field">
                             <label for="">药物名称：</label>
                             <div class="ui input ">
-                                <input id="email" name="DiseaseName" placeholder="请输入或选择药品名称" type="text">
+                                <div class="ui fluid search selection dropdown">
+                                    <input type="hidden" name="medicine.medicineId">
+                                    <div class="default text">选择药品 </div>
+                                    <i class="dropdown icon"></i>
+                                    <div id="medicineOptions" class="menu">
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <div class="field">
                             <label for="">不良反应：</label>
                             <div class="ui input ">
-                                <input id="staffName" name="adverseReactions" placeholder="请输入不良反应（若没有请填无）" type="text">
+                                <input id="adverseReactions" name="adverseReactions" placeholder="请输入不良反应（若没有请填无）" type="text">
                             </div>
                         </div>
                         <div class="field">
                             <label for="">用药时长：</label>
                             <div class="ui input ">
-                                <input id="staffName" name="duration" placeholder="请输入用药时长（天）" type="text">
+                                <input id="duration" name="duration" placeholder="请输入用药时长（天）" type="text">
                             </div>
                         </div>
                         <div class="field">
                             <label for="">上次用药时间：</label>
                             <div class="ui input ">
-                                <input id="staffName" name="lastTime" placeholder="请输入上次用药时间" type="text">
+                                <input id="lastTime" name="lastTime" type="date" placeholder="请输入上次用药时间" type="text">
                             </div>
                         </div>
                         <button id="resetButton" type="reset" style="display:none;"></button> 
@@ -307,6 +316,7 @@
     </body>
     <!--window.clearInterval(clock);-->
     <script>
+        getMedicineOptions();
         $(document).on("mouseover", ".mylabel", function () {
             $(this).popup("show");
         });
@@ -316,18 +326,11 @@
                 trigger: '.title'
             }
         });
-//        $('.ui.selection.dropdown').dropdown({
-//            clearable: true
-//        });
-//        $('.ui.fluid.search.selection.dropdown').dropdown({
-//            direction: 'upward'
-//        });
-//                .dropdown({
-//            clearable: true,
-//            fullTextSearch: true,
-//            direction: 'upward'
-//        });
-
+        $('.ui.fluid.search.selection.dropdown').dropdown({
+            clearable: true,
+            fullTextSearch: true,
+            direction: 'upward'
+        });
         var clock = null;
         window.onbeforeunload = function (event) {
             return "是否清除已填写并未提交数据？";
@@ -414,8 +417,11 @@
                 url: "patient/ isIdCardexist/" + $(this).val(),
                 type: 'POST',
                 success: function (data, textStatus, jqXHR) {
-                    if (data === false) {
+                    if (data.patientId === undefined) {
                         $('.ui.basic.modal').modal('show');
+                    } else {
+                        $("#patientId").val(data.patientId);
+                        $("#patientId_").val(data.patientId);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -629,32 +635,27 @@
         }
 ///////////////////////////////////////////////////用药历史///////////////////////////////////////
 
-        $("#getAllMedicalHistoryBtn").click(function () {
-            var url = 'staff/medicalHistoryList/page_key_word';
-            fillForm("medicalHistoryTablePageButtons", "medicalHistoryTablePageText", "medicalHistoryTablePageSelecter", currentPage = 1, url, medicalHistoryTableInfo, getMedicalHistoryItemNumber);
+        $("#medicalHistorySearch").click(function () {
+            var url = 'staff/medicalHistoryList/'+ $("#patientId").val()+'/page_key_word';
+            fillForm("medicalHistoryPageButtons", "medicalHistoryPageText", "medicalHistoryPageSelecter", currentPage = 1, url, medicalHistoryTableInfo, getMedicalHistoryItemNumber);
         });
         $("#medicalHistoryTablePageSelecter").on("change", function () {
-            var url = 'staff/medicalHistoryList/page_key_word';
-            goToThPage("medicalHistoryTablePageButtons", "medicalHistoryTablePageText", "medicalHistoryTablePageSelecter", url, medicalHistoryTableInfo, getMedicalHistoryItemNumber);
+            var url = 'staff/medicalHistoryList/'+ $("#patientId").val()+'/page_key_word';
+            goToThPage("medicalHistoryPageButtons", "medicalHistoryPageText", "medicalHistoryPageSelecter", url, medicalHistoryTableInfo, getMedicalHistoryItemNumber);
         });
         function medicalHistoryTableInfo(data) {
             $("#medicalHistoryTable").empty();
-            $("#medicalHistoryTable").append("<thead><tr><th>名称</th><th>适用症</th><th>说明</th><th>价格</th><th>生产日期</th><th>有效期</th><th>库存</th></tr></thead>");
+            $("#medicalHistoryTable").append("<thead><tr><th>药品名称</th><th>不良反应</th><th>用药时长</th><th>最后一次用药时间</th></tr></thead>");
             $.each(data, function (index, metication) {
-                var str = " <tr id=" + metication.medicalHistoryId + ">\n\
+                var str = " <tr id=" + metication.medicationHistoryId + ">\n\
                                 <td style=\"width:150px\">\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicalHistoryName + "\" data-position=\"top left\"  >" + metication.medicalHistoryName + "</label>\n\</td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicine.medicineName + "\" data-position=\"top left\"  >" + metication.medicine.medicineName + "</label>\n\</td>\n\
                                 <td>\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicalHistoryDescription + "\" data-position=\"top left\" >" + metication.medicalHistoryDescription + "</label></td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + metication.adverseReactions + "\" data-position=\"top left\" >" + metication.adverseReactions + "</label></td>\n\
                                 <td>\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicalHistoryInstructions + "\" data-position=\"top left\"   >" + metication.medicalHistoryInstructions + "</label></td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + metication.duration + "\" data-position=\"top left\"   >" + metication.duration + "</label></td>\n\
                                 <td style=\"width:100px\">\n\
-                                    <label class=\"mylabel table-label\" >" + metication.medicalHistoryPrice + "元</label></td>\n\
-                                <td style=\"width:100px\">\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + formatDatebox(metication.productionDate) + "\" data-position=\"top left\">" + formatDatebox(metication.productionDate) + "</label><div class=\"nonevisiual\"></div></td>\n\
-                                <td style=\"width:100px\">\n\
-                                    <label class=\"mylabel table-label\" >" + metication.validityPeriod + "</label></td>\n\
-                                <td style=\"width:100px\"><label class=\"mylabel table-label\" >" + metication.medicalHistoryNumber + "</label></td>";
+                                    <label class=\"mylabel table-label\" data-content=\"" + formatDatebox(metication.lastTime) + "\" data-position=\"top left\">" + formatDatebox(metication.lastTime) + "</label><div class=\"nonevisiual\"></div></td>";
                 $("#medicalHistoryTable").append(str);
             });
         }
@@ -678,7 +679,55 @@
         }
 ///////////////////////////////////////////////////////////////////////////////////////
         $(document).on("click", "#medicalHistoryAdd", function () {
-            $("#modelTest").modal("show");
+            $("#modelTest").modal({
+                inverted: true,
+                closable: false,
+                onDeny: function () {
+                    $('#resetButton').click();
+                    return true;
+                },
+                onApprove: function () {
+                    if ($("#myForm").form('validate form')) {
+                        $.ajax({
+                            url: 'staff/addMedicationHistory',
+                            type: 'POST',
+                            async: false,
+                            data: $("#myForm").serialize(), //将表单的数据编码成一个字符串提交给服务器
+                            success: function (data) {
+                                if (data) {
+                                    toastSuccess("添加成功");
+                                    $('#resetButton').click();
+                                    $('.ui.modal').modal('hide');
+                                } else {
+                                    toastError("添加失败");
+                                }
+                            },
+                            error: function (req, status, error) {
+                                toastError("请求失败,请重试！" + error);
+                            }
+                        });
+                    } else {
+                        return false;
+                    }
+                }
+            }).modal("show");
         });
+        function getMedicineOptions() {
+            $.ajax({
+                url: "staff/getMedicineOptions",
+                type: 'POST',
+                success: function (data, textStatus, jqXHR) {
+                    $("#medicineOptions").empty();
+                    $.each(data, function (index, medicine) {
+                        var str = "<div class=\"item\" data-value=\"" + medicine.medicineId + "\">" + medicine.medicineName + "</div>";
+                        $("#medicineOptions").append(str);
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败!请重试!");
+                }
+
+            });
+        }
     </script>
 </html>

@@ -21,5 +21,5 @@ public interface PatientService {
 
     public String login(Patient patient, String validateCode, HttpSession session);
     
-    public boolean validatePatientByIdCard(String IdCard);
+    public Patient validatePatientByIdCard(String IdCard);
 }

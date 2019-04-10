@@ -6,12 +6,12 @@
     <class name="com.vector.pojo.MedicationHistory" table="medication_history" catalog="instalhms" optimistic-lock="version">
         <id name="medicationHistoryId" type="int">
             <column name="MedicationHistoryId" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="medicine" class="com.vector.pojo.Medicine" fetch="select">
+        <many-to-one name="medicine" class="com.vector.pojo.Medicine" lazy="false" fetch="select">
             <column name="MedicationId" not-null="true" />
         </many-to-one>
-        <many-to-one name="patient" class="com.vector.pojo.Patient" fetch="select">
+        <many-to-one name="patient" class="com.vector.pojo.Patient" lazy="false" fetch="select">
             <column name="PatientId" not-null="true" />
         </many-to-one>
         <property name="adverseReactions" type="string">

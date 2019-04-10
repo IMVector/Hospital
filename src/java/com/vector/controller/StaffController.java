@@ -9,6 +9,7 @@ import com.vector.pojo.CheckItem;
 import com.vector.pojo.CheckRecord;
 import com.vector.pojo.Department;
 import com.vector.pojo.MedicalRecord;
+import com.vector.pojo.MedicationHistory;
 import com.vector.pojo.Medicine;
 import com.vector.pojo.Role;
 import com.vector.pojo.ScheduleTable;
@@ -19,6 +20,7 @@ import com.vector.service.CheckItemService;
 import com.vector.service.CheckRecordService;
 import com.vector.service.DepartmentService;
 import com.vector.service.MedicalRecordService;
+import com.vector.service.MedicationHistoryService;
 import com.vector.service.MedicineService;
 import com.vector.service.RoleService;
 import com.vector.service.StaffService;
@@ -77,6 +79,9 @@ public class StaffController {
 
     @Autowired
     CheckRecordService checkRecordService;
+
+    @Autowired
+    MedicationHistoryService medicationHistoryService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -410,7 +415,7 @@ public class StaffController {
 
     @RequestMapping(value = "/medicineList/{description}/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Medicine> getMedicineList(@PathVariable String description,@PathVariable Integer currentPage) {
+    public List<Medicine> getMedicineList(@PathVariable String description, @PathVariable Integer currentPage) {
         return medicineService.getMedicineByDescription(description, currentPage);
     }
 
@@ -418,6 +423,12 @@ public class StaffController {
     @ResponseBody
     public Integer showMedicineListItemNumber(@PathVariable String description) {
         return medicineService.getMedicineByDescriptionItemNum(description);
+    }
+
+    @RequestMapping(value = "/getMedicineOptions", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Medicine> getMedicineOptions() {
+        return medicineService.getMedicineList();
     }
 
     ///////////////////////////////////////////diagnosis///////////////////////////////////////////////////
@@ -490,5 +501,23 @@ public class StaffController {
     public Integer getMedicalRecordByIdCardItemNum(String IdCard) {
         return medicalRecordService.getMedicalRecordByIdCardItemNumber(IdCard);
     }
+//////////////////////////////////////////////////////////MedicationHistory///////////////////////////////
 
+    @RequestMapping(value = "/addMedicationHistory", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean addMedicationHistory(MedicationHistory medicationHistory) {
+        return medicationHistoryService.insert(medicationHistory);
+    }
+
+    @RequestMapping(value = "/medicalHistoryList/{patientId}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<MedicationHistory> medicalHistoryList(@PathVariable Integer patientId, @PathVariable Integer currentPage) {
+        return medicationHistoryService.getList(patientId, currentPage);
+    }
+
+    @RequestMapping(value = "/medicalHistoryListItemNum/{patientId}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer medicalHistoryListItemNum(@PathVariable Integer patientId) {
+        return medicationHistoryService.getListItemNumber(patientId);
+    }
 }
