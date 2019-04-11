@@ -19,7 +19,7 @@
         <div class="ui container">
             <div id="canvasContainer_1" class="ui segment">
                 <canvas id="chart_1" class="block"></canvas>
-                <select id="yearSelecter_1" class="mini ui button basic dropdown">
+                <select id="yearSelecter_1" class="ui dropdown">
                     <option value="">选择年份</option>
                     <!--<option value="1">1</option>-->
                 </select>
@@ -29,7 +29,7 @@
 
             <div  id="canvasContainer_2" class="ui segment">
                 <canvas id="chart_2"></canvas>
-                <select id="yearSelecter_2" class="mini ui button basic dropdown ">
+                <select id="yearSelecter_2" class="ui dropdown ">
                     <option value="">选择年份</option>
                     <!--<option value="1">1</option>-->
                 </select>
@@ -38,7 +38,7 @@
 
             <div  id="canvasContainer_3" class="ui segment">
                 <canvas id="chart_3"></canvas>
-                <select id="yearSelecter_3" class="mini ui button basic dropdown ">
+                <select id="yearSelecter_3" class="ui dropdown ">
                     <option value="">选择年份</option>
                     <!--<option value="1">1</option>-->
                 </select>

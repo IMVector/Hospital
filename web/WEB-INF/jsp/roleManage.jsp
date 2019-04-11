@@ -53,7 +53,7 @@
                     <!--<div>-->
                     <label for="" class="ui label">跳转到：</label>
                     <!--发送ajax请求-->
-                    <select id="pageSelecter" class="mini ui button basic dropdown">
+                    <select id="pageSelecter" class="ui dropdown">
                         <option value="">页码</option>
                         <!--<option value="1">1</option>-->
                     </select>

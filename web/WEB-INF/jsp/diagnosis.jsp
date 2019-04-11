@@ -113,6 +113,9 @@
                         <!--How do you acquire a dog?-->
                     </div>
                     <div class="content">
+                         <button id="medicalRecordSearch" class="ui primary button">查询病史</button>
+                         <br>
+                         <br>
                         <div class="container-admin-inner">
                             <table id="medicalRecordTable" class="ui blue table">
                             </table>
@@ -124,16 +127,19 @@
                             <div id="medicalRecordPageButtons" class="mini ui basic buttons">
 
                             </div>
+                            <br>
+                            <br>
                             <div>
-                                <label for="" class="ui label">跳转到：</label>
+                                <label for="" class="ui big label" style="float: left">跳转到：</label>
                                 <!--发送ajax请求-->
-                                <select id="pageSelecter" class="mini ui button basic dropdown">
+                                <select id="pageSelecter" class="ui dropdown" style="width: 20%;float: left">
                                     <option value="">页码</option>      
                                     <!--<option value="1">1</option>-->
                                 </select>
+                                <div  style="clear:both"></div>  
                             </div>
                         </div>
-                        <button id="medicalRecordSearch" class="ui primary button">查询病史</button>
+                       
                     </div>
                 </div>
                 <br>
@@ -160,24 +166,27 @@
                     <div class="content">
                         <button id="medicalHistorySearch" class="ui primary button">查询用药史</button>
                         <button id="medicalHistoryAdd" class="ui primary button">添加用药史</button>
+                        <br>
+                        <br>
                         <div class="container-admin-inner">
                             <table id="medicalHistoryTable" class="ui blue table">
                             </table>
                         </div>
 
-
                         <div>
                             <p id="medicalHistoryPageText"></p>
                             <div id="medicalHistoryPageButtons" class="mini ui basic buttons">
-
                             </div>
+                            <br>
+                            <br>
                             <div>
-                                <label for="" class="ui label">跳转到：</label>
+                                <label for="" class="ui big label" style="float: left">跳转到：</label>
                                 <!--发送ajax请求-->
-                                <select id="medicalHistoryPageSelecter" class="mini ui button basic dropdown">
+                                <select id="medicalHistoryPageSelecter" class="ui dropdown" style="width: 20%;float: left">
                                     <option value="">页码</option>      
                                     <!--<option value="1">1</option>-->
                                 </select>
+                                <div  style="clear:both"></div>  
                             </div>
                         </div>
 
@@ -221,13 +230,17 @@
                             <div id="medicineTablePageButtons" class="mini ui basic buttons">
 
                             </div>
-                            <!--<div>-->
-                            <label for="" class="ui label">跳转到：</label>
-                            <!--发送ajax请求-->
-                            <select id="medicineTablePageSelecter" class="mini ui button basic dropdown">
-                                <option value="">页码</option>
-                                <!--<option value="1">1</option>-->
-                            </select>
+                            <div>
+                                <!--<div>-->
+                                <label for="" class="ui big label" style="float: left">跳转到：</label>
+                                <!--发送ajax请求-->
+                                <select id="medicineTablePageSelecter" class="ui dropdown" style="width: 20%;float: left">
+                                    <option value="">页码</option>
+                                    <!--<option value="1">1</option>-->
+                                </select>
+                                <div  style="clear:both"></div>  
+                            </div>
+
                         </div>
                     </div>
 
@@ -636,11 +649,11 @@
 ///////////////////////////////////////////////////用药历史///////////////////////////////////////
 
         $("#medicalHistorySearch").click(function () {
-            var url = 'staff/medicalHistoryList/'+ $("#patientId").val()+'/page_key_word';
+            var url = 'staff/medicalHistoryList/' + $("#patientId").val() + '/page_key_word';
             fillForm("medicalHistoryPageButtons", "medicalHistoryPageText", "medicalHistoryPageSelecter", currentPage = 1, url, medicalHistoryTableInfo, getMedicalHistoryItemNumber);
         });
         $("#medicalHistoryTablePageSelecter").on("change", function () {
-            var url = 'staff/medicalHistoryList/'+ $("#patientId").val()+'/page_key_word';
+            var url = 'staff/medicalHistoryList/' + $("#patientId").val() + '/page_key_word';
             goToThPage("medicalHistoryPageButtons", "medicalHistoryPageText", "medicalHistoryPageSelecter", url, medicalHistoryTableInfo, getMedicalHistoryItemNumber);
         });
         function medicalHistoryTableInfo(data) {
@@ -664,7 +677,7 @@
         function getMedicalHistoryItemNumber() {
             var itemNum = 0;
             $.ajax({
-                url: "staff/medicalHistoryListItemNum/"+ $("#patientId").val(),
+                url: "staff/medicalHistoryListItemNum/" + $("#patientId").val(),
                 type: 'POST',
                 async: false,
                 success: function (data, textStatus, jqXHR) {
