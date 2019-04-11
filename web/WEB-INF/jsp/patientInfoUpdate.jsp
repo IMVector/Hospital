@@ -26,25 +26,30 @@
                 max-width: 550px;
                 margin: 0 auto;
             }
+
+            .validate-not-visiable{
+                display: none;
+            }
         </style>
     </head>
     <body>
         <div class="column">
             <div class="ui segment">
                 <form class="ui form">
+                    <input type="text" name="patientId" value="${patient.patientId}" style="display: none">
                     <div class="fields">
                         <div class="twelve wide field">
                             <label>邮箱</label>
                             <input id="email" type="text" name="patientEmail" placeholder="请输入邮箱" value="${patient.patientEmail}">
                         </div>
-                        <div class="four wide field">
+                        <div id="validateBtn" class="four wide field validate-not-visiable">
                             <label>发送验证码</label>
                             <button type="button" id="validateEmailButton" class="ui button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发送&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
                         </div>
                     </div>
                     <div class="field">
                         <label>密码</label>
-                        <input type="password" name="patientPassword" placeholder="请输入密码" value="${patient.patientPassword}">
+                        <input type="password" name="patientPassword" placeholder="请输入密码">
                     </div>
                     <div class="field">
                         <label>重复密码</label>
@@ -77,7 +82,7 @@
                         </div>
                         <center>
                             <div  id="mySelect" class="ui primary button">头像</div>
-                            <input id="imagePath" type="text" style="display:none" name="imagePath" value="${patient.image.imagePath}">
+                            <input id="imagePath" type="text" style="display:none" name="image.imagePath" value="${patient.image.imagePath}">
                         </center>
 
                     </div>
@@ -108,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="field">
+                    <div id="validateInput" class="field validate-not-visiable">
                         <label>邮箱验证码</label>
                         <input id="validationCode" type="text" name="validationCode" placeholder="请输入邮箱验证码">
                     </div>
@@ -159,6 +164,8 @@
         var formData;
         var file;
         var validateCode;
+        var flag = false;
+
         $inputImage.change(function () {
             $('.ui.modal').modal('setting', 'closable', false).modal('show');
 
@@ -215,10 +222,8 @@
                     success: function (data) {
                         validateCode = data;
                         toastSuccess("验证邮件发送成功");
-//                        console.log(data);
                         if (data !== "ERROR") {
                             validateCode = data;
-                            console.log(data);
                         } else {
                             toastError("请求失败，请重试！");
                         }
@@ -230,23 +235,45 @@
             }
 
         });
+
+        $("#email").change(function () {
+            flag = true;
+            var email = $("#email").val();
+            if (email === "${patient.patientEmail}") {//没修改邮箱
+                validateCode = md5("1234");
+                $("#validationCode").val("1234");
+            } else {//修改了邮箱，要重新验证
+                $("#validateInput").removeClass("validate-not-visiable");
+                $("#validateBtn").removeClass("validate-not-visiable");
+                toastError("请验证邮箱！");
+            }
+        });
+
+
         //验证并提交表单
         $(document).on("click", "#submitButton", function () {
+
+            if (flag === false) {//如果email字段没改变
+                validateCode = md5("1234");
+                $("#validationCode").val("1234");
+            }
+
+
             var value = $("#validationCode").val();
             var hash = md5(value);
             $('.ui.form').form('validate form');
             if ($('.ui.form').form('is valid') && validateCode === hash) {
+                console.log("+++++++++++++++");
                 $.ajax({
                     //几个参数需要注意一下
                     type: "POST", //方法类型
-                    dataType: "text", //预期服务器返回的数据类型
-                    url: "patient/register", //url
+                    url: "patient/updateInfo", //url
                     data: $('.ui.form').serialize(),
                     success: function (data) {
-                        if (data === "Error") {
-                            toastError("注册失败");
+                        if (data === false) {
+                            toastError("修改失败");
                         } else {
-                            toastSuccess("注册成功");
+                            toastSuccess("修改成功");
                             window.open("patient/goToLogin", "_self");
                         }
                     },
@@ -254,6 +281,8 @@
                         toastError("请求失败，请重试！" + errorThrown);
                     }
                 });
+            } else {
+                toastError("请检查相关字段");
             }
         });
 
@@ -411,47 +440,6 @@
                 }
             }
         });
-
-
-//        $("#crop").on("click", function () {
-//            $('#image').cropper({
-//                aspectRatio: 1 / 1,
-//                viewMode: 1,
-//                dragMode: 'none',
-//                preview: ".small",
-//                responsive: false,
-//                restore: false,
-//                modal: false,
-//                guides: false,
-//                background: false,
-//                autoCrop: false,
-//                autoCropArea: 0.1,
-//                movable: false,
-//                scalable: false,
-//                zoomable: false,
-//                wheelZoomRatio: false,
-//                cropBoxMovable: false,
-//                cropBoxResizable: false,
-//                ready: function () {
-//                    console.log("ready");
-//                },
-//                cropstart: function (e) {
-//                    console.log("cropstart");
-//                },
-//                cropmove: function (e) {
-//                    console.log("cropmove");
-//                },
-//                cropend: function (e) {
-//                    console.log("cropend");
-//                },
-//                crop: function (e) {
-//                    console.log("crop");
-//                },
-//                zoom: function (e) {
-//                    console.log("zoom");
-//                },
-//            });
-//        })
 
     </script>
 </html>

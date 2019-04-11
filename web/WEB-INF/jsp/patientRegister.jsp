@@ -213,7 +213,7 @@
 //                        console.log(data);
                         if (data !== "ERROR") {
                             validateCode = data;
-                            console.log(data);
+//                            console.log(data);
                         } else {
                             toastError("请求失败，请重试！");
                         }

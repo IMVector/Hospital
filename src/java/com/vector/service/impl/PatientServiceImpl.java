@@ -111,4 +111,37 @@ public class PatientServiceImpl implements PatientService {
         return p;
     }
 
+    @Override
+    public boolean update(Patient patient) {
+
+        patient.setPatientName(patient.getPatientName().trim());
+        patient.setPatientAddress(patient.getPatientAddress().trim());
+        patient.setPatientMstatus(patient.getPatientMstatus().trim());
+        patient.setBloodType(patient.getBloodType().trim());
+
+        Map map = IdCardUtils.getBirAgeSex(patient.getIdCard().trim());
+        patient.setPatientBirthday(map.get("birthday").toString());
+        patient.setPatientAge(Integer.parseInt(map.get("age").toString()));
+        patient.setPatientGender(map.get("gender").toString());
+        patient.setPatientPassword(MD5Utils.md5(patient.getPatientPassword()));
+
+        if (!patient.getImage().getImagePath().equals("")) {
+            Image image = imageService.getImageByPath(patient.getImage().getImagePath());
+            patient.setImage(image);
+        } else {
+            Image image = new Image();
+            image.setImageId(5);
+            patient.setImage(image);
+        }
+
+        try {
+            patientDao.update(patient);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+
+    }
+
 }

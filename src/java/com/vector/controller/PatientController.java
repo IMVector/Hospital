@@ -97,6 +97,11 @@ public class PatientController {
     public String login(Patient patient, String validateCode, HttpSession session) {
         return patientService.login(patient, validateCode, session);
     }
+    @RequestMapping(value = "/updateInfo")
+    @ResponseBody
+    public boolean update(Patient patient) {
+        return patientService.update(patient);
+    }
 
     @RequestMapping(value = "/goToReservation/{staffId}")
     public String goToReservation(@PathVariable Integer staffId, ModelMap map, HttpSession session) {
