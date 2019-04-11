@@ -512,7 +512,7 @@ public class StaffController {
     @RequestMapping(value = "/medicalHistoryList/{patientId}/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
     public List<MedicationHistory> medicalHistoryList(@PathVariable Integer patientId, @PathVariable Integer currentPage) {
-        return medicationHistoryService.getList(patientId, currentPage);
+        return medicationHistoryService.getList(currentPage,patientId);
     }
 
     @RequestMapping(value = "/medicalHistoryListItemNum/{patientId}", method = RequestMethod.POST)

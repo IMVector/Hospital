@@ -646,16 +646,17 @@
         function medicalHistoryTableInfo(data) {
             $("#medicalHistoryTable").empty();
             $("#medicalHistoryTable").append("<thead><tr><th>药品名称</th><th>不良反应</th><th>用药时长</th><th>最后一次用药时间</th></tr></thead>");
-            $.each(data, function (index, metication) {
-                var str = " <tr id=" + metication.medicationHistoryId + ">\n\
-                                <td style=\"width:150px\">\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicine.medicineName + "\" data-position=\"top left\"  >" + metication.medicine.medicineName + "</label>\n\</td>\n\
+            $.each(data, function (index, medicationHistory) {
+                console.log(medicationHistory.getMedicationHistoryId);
+                var str = " <tr id=" + medicationHistory.medicationHistoryId + ">\n\
                                 <td>\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + metication.adverseReactions + "\" data-position=\"top left\" >" + metication.adverseReactions + "</label></td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + medicationHistory.medicine.medicineName + "\" data-position=\"top left\"  >" + medicationHistory.medicine.medicineName + "</label>\n\</td>\n\
                                 <td>\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + metication.duration + "\" data-position=\"top left\"   >" + metication.duration + "</label></td>\n\
-                                <td style=\"width:100px\">\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + formatDatebox(metication.lastTime) + "\" data-position=\"top left\">" + formatDatebox(metication.lastTime) + "</label><div class=\"nonevisiual\"></div></td>";
+                                    <label class=\"mylabel table-label\" data-content=\"" + medicationHistory.adverseReactions + "\" data-position=\"top left\" >" + medicationHistory.adverseReactions + "</label></td>\n\
+                                <td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + medicationHistory.duration + "\" data-position=\"top left\"   >" + medicationHistory.duration + "</label></td>\n\
+                                <td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + formatDatebox(medicationHistory.lastTime) + "\" data-position=\"top left\">" + formatDatebox(medicationHistory.lastTime) + "</label><div class=\"nonevisiual\"></div></td>";
                 $("#medicalHistoryTable").append(str);
             });
         }
@@ -663,10 +664,9 @@
         function getMedicalHistoryItemNumber() {
             var itemNum = 0;
             $.ajax({
-                url: "staff/medicalHistoryListItemNum",
+                url: "staff/medicalHistoryListItemNum/"+ $("#patientId").val(),
                 type: 'POST',
                 async: false,
-                data: {},
                 success: function (data, textStatus, jqXHR) {
                     //返回List项目总数量
                     itemNum = data;
