@@ -9,8 +9,10 @@ import com.vector.dao.MedicalRecordDao;
 import com.vector.dao.PatientDao;
 import com.vector.pojo.MedicalRecord;
 import com.vector.pojo.Patient;
+import com.vector.pojo.Prescription;
 import com.vector.pojo.Staff;
 import com.vector.service.MedicalRecordService;
+import com.vector.service.PrescriptionService;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +34,9 @@ public class MdeicalRecordServiceImpl implements MedicalRecordService {
 
     @Autowired
     PatientDao patientDao;
+
+    @Autowired
+    PrescriptionService prescriptionService;
 
     @Override
     public List<MedicalRecord> getAllList(Serializable currentPage) {
@@ -56,22 +61,24 @@ public class MdeicalRecordServiceImpl implements MedicalRecordService {
     @Override
     public boolean insert(MedicalRecord t, Object... params) {
         String idCard = params[0].toString();
-        System.out.println(params[0]);
-        System.out.println(params[1]);
         Patient patient = patientDao.getPatientByIdCard(idCard);
         HttpSession session = (HttpSession) params[1];
+        Prescription prescription = (Prescription) params[2];
         Staff staff = (Staff) session.getAttribute("staff");
-        System.out.println(patient.getPatientName());
 
-//        Staff staff = new Staff();
-//        staff.setStaffId(6);
-////////////上面两行要注释/////////////
+        prescription.setMedicalRecord(t);
+
         t.setPatient(patient);
         t.setStaff(staff);
         t.setDate(new Date());
 
         try {
             medicalRecordDao.insert(t);
+            MedicalRecord medicalRecord = getLastMedicalRecord(patient.getPatientId());
+            prescription.setMedicalRecord(medicalRecord);
+            prescription.setPrescriptionDate(new Date());
+
+            prescriptionService.insert(prescription);
             return true;
         } catch (Exception e) {
             System.out.println(e);
@@ -116,6 +123,11 @@ public class MdeicalRecordServiceImpl implements MedicalRecordService {
     public Integer getMedicalRecordByIdCardItemNumber(Serializable IdCard) {
         Patient patient = patientDao.getPatientByIdCard(IdCard.toString());
         return medicalRecordDao.getListItemNumberOfSomeOne(patient.getPatientId());
+    }
+
+    @Override
+    public MedicalRecord getLastMedicalRecord(Serializable patientId) {
+        return medicalRecordDao.getLastMedicalRecord(patientId);
     }
 
 }

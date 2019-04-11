@@ -11,6 +11,7 @@ import com.vector.pojo.Department;
 import com.vector.pojo.MedicalRecord;
 import com.vector.pojo.MedicationHistory;
 import com.vector.pojo.Medicine;
+import com.vector.pojo.Prescription;
 import com.vector.pojo.Role;
 import com.vector.pojo.ScheduleTable;
 import com.vector.pojo.Staff;
@@ -434,8 +435,8 @@ public class StaffController {
     ///////////////////////////////////////////diagnosis///////////////////////////////////////////////////
     @RequestMapping(value = "/addMedicalRecord", method = RequestMethod.POST)
     @ResponseBody
-    public boolean diagnosis(MedicalRecord medicalRecord, String IdCard, HttpSession session) {
-        return medicalRecordService.insert(medicalRecord, IdCard, session);
+    public boolean diagnosis(MedicalRecord medicalRecord, String IdCard, Prescription prescription, HttpSession session) {
+        return medicalRecordService.insert(medicalRecord, IdCard, session, prescription);
     }
 
     /////////////////////////////////////////////////task管理与执行/////////////////////////////////////////////////
@@ -512,7 +513,7 @@ public class StaffController {
     @RequestMapping(value = "/medicalHistoryList/{patientId}/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
     public List<MedicationHistory> medicalHistoryList(@PathVariable Integer patientId, @PathVariable Integer currentPage) {
-        return medicationHistoryService.getList(currentPage,patientId);
+        return medicationHistoryService.getList(currentPage, patientId);
     }
 
     @RequestMapping(value = "/medicalHistoryListItemNum/{patientId}", method = RequestMethod.POST)

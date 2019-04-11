@@ -113,9 +113,9 @@
                         <!--How do you acquire a dog?-->
                     </div>
                     <div class="content">
-                         <button id="medicalRecordSearch" class="ui primary button">查询病史</button>
-                         <br>
-                         <br>
+                        <button id="medicalRecordSearch" class="ui primary button">查询病史</button>
+                        <br>
+                        <br>
                         <div class="container-admin-inner">
                             <table id="medicalRecordTable" class="ui blue table">
                             </table>
@@ -139,7 +139,7 @@
                                 <div  style="clear:both"></div>  
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
                 <br>
@@ -150,12 +150,12 @@
 
                 <div class="required field">
                     <label>处方</label>
-                    <div class="ui fluid action input">
-                        <input type="text" placeholder="Search...">
-                        <div class="ui button">Search</div>
-                    </div>
-                    <div class="ui segment" style="height:100px;background-color:whitesmoke">
-
+                    <div class="ui fluid multiple search normal selection dropdown">
+                        <input type="hidden" name="prescriptionContent">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">选择药品</div>
+                        <div id="prescriptionOptions" class="menu">
+                        </div>
                     </div>
                 </div>
                 <div class="ui styled fluid accordion">
@@ -249,7 +249,7 @@
                 <div class="field">
                     <label>注意事项</label>
                     <div class="ui fluid action input">
-                        <textarea name="precaution" placeholder="请输入注意事项"></textarea>
+                        <textarea name="prescriptionPrecautions" placeholder="请输入注意事项"></textarea>
                     </div>
                 </div>
 
@@ -341,8 +341,7 @@
         });
         $('.ui.fluid.search.selection.dropdown').dropdown({
             clearable: true,
-            fullTextSearch: true,
-            direction: 'upward'
+            fullTextSearch: true
         });
         var clock = null;
         window.onbeforeunload = function (event) {
@@ -731,9 +730,11 @@
                 type: 'POST',
                 success: function (data, textStatus, jqXHR) {
                     $("#medicineOptions").empty();
+                    $("#prescriptionOptions").empty();
                     $.each(data, function (index, medicine) {
                         var str = "<div class=\"item\" data-value=\"" + medicine.medicineId + "\">" + medicine.medicineName + "</div>";
                         $("#medicineOptions").append(str);
+                        $("#prescriptionOptions").append(str);
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

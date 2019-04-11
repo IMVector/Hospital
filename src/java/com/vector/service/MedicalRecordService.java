@@ -29,4 +29,6 @@ public interface MedicalRecordService extends CUDService<MedicalRecord> {
 
     public Integer getMedicalRecordByIdCardItemNumber(Serializable IdCard);
 
+    public MedicalRecord getLastMedicalRecord(Serializable patientId);
+
 }

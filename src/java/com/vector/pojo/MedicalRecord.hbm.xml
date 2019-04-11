@@ -23,9 +23,6 @@
         <property name="symptom" type="string">
             <column name="Symptom" />
         </property>
-        <property name="precautions" type="string">
-            <column name="Precautions" />
-        </property>
         <set name="prescriptions" table="prescription" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="MedicalRecordId" not-null="true" />

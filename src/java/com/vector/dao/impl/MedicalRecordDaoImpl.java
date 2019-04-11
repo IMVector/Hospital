@@ -68,4 +68,15 @@ public class MedicalRecordDaoImpl extends BaseDaoImpl<MedicalRecord> implements 
         return getListByQuery(hql, patientId);
     }
 
+    @Override
+    public MedicalRecord getLastMedicalRecord(Serializable patientId) {
+        String hql = "from MedicalRecord where patient.patientId=? order by date desc";
+        List<MedicalRecord> list = getListByQuery(hql, patientId);
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return list.get(0);
+        }
+    }
+
 }
