@@ -1,8 +1,3 @@
-<%-- 
-    Document   : staffIndex
-    Created on : 2019-3-18, 19:25:05
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

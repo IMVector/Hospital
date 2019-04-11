@@ -1,8 +1,3 @@
-<%-- 
-    Document   : task
-    Created on : 2018-5-19, 10:30:04
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

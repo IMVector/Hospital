@@ -1,8 +1,3 @@
-<%-- 
-    Document   : templete
-    Created on : 2018-5-18, 8:36:08
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

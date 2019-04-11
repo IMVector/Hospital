@@ -1,8 +1,3 @@
-<%-- 
-    Document   : patientRegister
-    Created on : 2019-3-12, 14:01:08
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -152,7 +147,8 @@
     </body>
     <script>
         $('.ui.radio.checkbox').checkbox();
-        $('select.dropdown').dropdown();
+        $('.ui.selection.dropdown').dropdown();
+        
         var $inputImage = $('#inputImage');
         var $image = $('#image');
         var formData;

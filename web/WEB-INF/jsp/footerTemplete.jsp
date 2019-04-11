@@ -1,8 +1,3 @@
-<%-- 
-    Document   : footerTemplete
-    Created on : 2018-5-18, 15:08:26
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,7 +36,7 @@
             data: {},
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
-                var str = data['date'] + "," + data["week"] + "," + data["weather"] + "," + data["windDirection"] + "," + data["windPower"]
+                var str = data['date'] + "," + data["week"] + "," + data["weather"] + "," + data["windDirection"] + "," + data["windPower"];
                 $("#weatherDescription").html(str);
                 var str="resources/image/"+map[data["weather"]]+".png";
                 $("#weatherImage").attr("src",str);
@@ -49,6 +44,6 @@
             error: function (jqXHR, textStatus, errorThrown) {
                 toastError("请求失败" + errorThrown);
             }
-        })
-    })
+        });
+    });
 </script>

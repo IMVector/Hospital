@@ -1,8 +1,3 @@
-<%-- 
-    Document   : examineStaff
-    Created on : 2019-3-20, 21:55:40
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

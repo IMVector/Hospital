@@ -1,8 +1,3 @@
-<%-- 
-    Document   : manageStaff
-    Created on : 2019-3-21, 9:53:04
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

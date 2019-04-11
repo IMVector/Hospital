@@ -1,8 +1,3 @@
-<%-- 
-    Document   : reservation
-    Created on : 2019-3-17, 21:45:18
-    Author     : Vector
---%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

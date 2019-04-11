@@ -1,8 +1,3 @@
-<%-- 
-    Document   : healthGraphy
-    Created on : 2018-5-30, 14:38:18
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

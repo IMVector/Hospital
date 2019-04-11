@@ -1,8 +1,3 @@
-<%-- 
-    Document   : patientRegister
-    Created on : 2019-3-12, 14:01:08
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

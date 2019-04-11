@@ -1,8 +1,3 @@
-<%-- 
-    Document   : diagnosis
-    Created on : 2019-3-19, 10:00:42
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

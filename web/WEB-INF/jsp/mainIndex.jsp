@@ -1,8 +1,3 @@
-<%-- 
-    Document   : mainIndex
-    Created on : 2018-5-25, 8:34:34
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

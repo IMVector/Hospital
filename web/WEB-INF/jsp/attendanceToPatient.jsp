@@ -1,8 +1,3 @@
-<%-- 
-    Document   : attendanceToPatient
-    Created on : 2019-3-17, 19:39:31
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

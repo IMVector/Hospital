@@ -1,8 +1,3 @@
-<%-- 
-    Document   : patientIndex
-    Created on : 2019-3-12, 13:30:59
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

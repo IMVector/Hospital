@@ -1,10 +1,11 @@
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>注册</title>
+        <title>信息修改</title>
         <jsp:include page="resourcesTemplete.jsp" />
         <script src="resources/js/cropper.js"></script><!-- Cropper.js is required -->
         <link  href="resources/css/cropper.css" rel="stylesheet">
@@ -28,14 +29,13 @@
         </style>
     </head>
     <body>
-        <!--<div class="ui segment">-->
         <div class="column">
             <div class="ui segment">
                 <form class="ui form">
                     <div class="fields">
                         <div class="twelve wide field">
                             <label>邮箱</label>
-                            <input id="email" type="text" name="patientEmail" placeholder="请输入邮箱">
+                            <input id="email" type="text" name="patientEmail" placeholder="请输入邮箱" value="${patient.patientEmail}">
                         </div>
                         <div class="four wide field">
                             <label>发送验证码</label>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="field">
                         <label>密码</label>
-                        <input type="password" name="patientPassword" placeholder="请输入密码">
+                        <input type="password" name="patientPassword" placeholder="请输入密码" value="${patient.patientPassword}">
                     </div>
                     <div class="field">
                         <label>重复密码</label>
@@ -52,34 +52,39 @@
                     </div>
                     <div class="field">
                         <label>姓名</label>
-                        <input type="text" name="patientName" placeholder="请输入姓名">
+                        <input type="text" name="patientName" placeholder="请输入姓名" value="${patient.patientName}">
                     </div>
                     <div class="field">
                         <label>手机号码</label>
-                        <input type="text" name="patientPhone" placeholder="请输入手机号码">
+                        <input type="text" name="patientPhone" placeholder="请输入手机号码" value="${patient.patientPhone}">
                     </div>
                     <div class="field">
                         <label>家庭住址</label>
-                        <input type="text" name="patientAddress" placeholder="请输入家庭住址">
+                        <input type="text" name="patientAddress" placeholder="请输入家庭住址" value="${patient.patientAddress}">
                     </div>
                     <div class="field">
                         <label>身份证号</label>
-                        <input type="text" name="IdCard" placeholder="请输入身份证号">
+                        <input type="text" name="IdCard" readonly="readonly"  placeholder="请输入身份证号" value="${patient.idCard}">
                     </div>
                     <div class="ui placeholder segment">
                         <div class="ui center aligned icon header">
-                            <img id="avatar" class="ui centered circular image" src="resources/image/avatar.png">
+                            <c:if test="${  not empty  patient.image.imagePath}">
+                                <img id="avatar" class="ui centered circular image" src="${patient.image.imagePath}">
+                            </c:if>
+                            <c:if test="${empty patient.image.imagePath}">
+                                <img id="avatar" class="ui centered circular image" src="resources/image/avatar.png">
+                            </c:if>
                         </div>
                         <center>
                             <div  id="mySelect" class="ui primary button">头像</div>
-                            <input id="imagePath" type="text" style="display:none" name="imagePath">
+                            <input id="imagePath" type="text" style="display:none" name="imagePath" value="${patient.image.imagePath}">
                         </center>
 
                     </div>
                     <div class="field">
                         <label>婚姻状况</label>
                         <div class="ui selection dropdown">
-                            <input type="hidden" name="patientMstatus">
+                            <input type="hidden" name="patientMstatus" value="${patient.patientMstatus}">
                             <i class="dropdown icon"></i>
                             <div class="default text">婚姻状况</div>
                             <div class="menu">
@@ -91,7 +96,7 @@
                     <div class="field">
                         <label>血型</label>
                         <div class="ui selection dropdown">
-                            <input type="hidden" name="bloodType">
+                            <input type="hidden" name="bloodType" value="${patient.bloodType}">
                             <i class="dropdown icon"></i>
                             <div class="default text">血型</div>
                             <div class="menu">
@@ -107,7 +112,7 @@
                         <label>邮箱验证码</label>
                         <input id="validationCode" type="text" name="validationCode" placeholder="请输入邮箱验证码">
                     </div>
-                    <button type="button" id="submitButton" class="fluid ui primary button">注册</button>
+                    <button type="button" id="submitButton" class="fluid ui primary button">修改信息</button>
                     <br>
                     <button type="button" id="goToLoginButton" class="fluid ui button">去登录</button>
 
@@ -116,7 +121,6 @@
 
 
         </div>
-        <!--</div>style="display: none"-->
         <form id="imageForm" style="display:none" enctype="multipart/form-data">
             <div> 
                 <input id="inputImage"  type="file" name="input-image" accept="image/*"> 
@@ -146,8 +150,10 @@
         </div>
     </body>
     <script>
+
         $('.ui.radio.checkbox').checkbox();
-        $('select.dropdown').dropdown();
+        $('.ui.selection.dropdown').dropdown();
+
         var $inputImage = $('#inputImage');
         var $image = $('#image');
         var formData;

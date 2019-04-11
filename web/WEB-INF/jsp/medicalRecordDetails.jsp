@@ -1,8 +1,3 @@
-<%-- 
-    Document   : medicalRecordDetails
-    Created on : 2018-5-25, 14:01:03
-    Author     : Vector
---%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : resourcesTemplete
-    Created on : 2018-5-18, 8:57:58
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

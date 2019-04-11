@@ -1,8 +1,3 @@
-<%-- 
-    Document   : warningModel
-    Created on : 2018-6-13, 10:22:02
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

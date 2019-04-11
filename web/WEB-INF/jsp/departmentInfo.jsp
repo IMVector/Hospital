@@ -1,8 +1,3 @@
-<%-- 
-    Document   : departmentInfo
-    Created on : 2019-3-17, 17:38:33
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

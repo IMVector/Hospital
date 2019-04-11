@@ -1,8 +1,3 @@
-<%-- 
-    Document   : checkRecord
-    Created on : 2018-5-19, 10:30:04
-    Author     : Vector
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -65,7 +60,7 @@
                                 <!--<a>婚否：</a>-->
                             </div>
                             <div class="extra">
-                                <a href="updateDetail" class="ui right floated primary button">
+                                <a href="patient/goToUpdatePatientIngo" class="ui right floated primary button">
                                     修改信息
                                     <i class="right chevron icon"></i>
                                 </a>
