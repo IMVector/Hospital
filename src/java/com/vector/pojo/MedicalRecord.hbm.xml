@@ -23,6 +23,9 @@
         <property name="symptom" type="string">
             <column name="Symptom" />
         </property>
+        <property name="paymentStatus" type="string">
+            <column name="PaymentStatus" length="4" not-null="true" />
+        </property>
         <set name="prescriptions" table="prescription" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="MedicalRecordId" not-null="true" />

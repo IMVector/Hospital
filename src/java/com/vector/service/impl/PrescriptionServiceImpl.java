@@ -68,4 +68,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return prescriptionDao.getList(currentPage);
     }
 
+    @Override
+    public List<Prescription> getPrescriptionByMedicalRecordId(Serializable MedicalRecordId) {
+         return prescriptionDao.getPrescriptionByMedicalRecordId(MedicalRecordId);
+    }
+
 }

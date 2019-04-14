@@ -88,4 +88,9 @@ public class MedicineServiceImpl implements MedicineService {
         return medicineDao.getMedicineByDescriptionItemNum(description);
     }
 
+    @Override
+    public Medicine getMedicineById(Serializable medicineId) {
+        return medicineDao.getOneById(medicineId);
+    }
+
 }

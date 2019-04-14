@@ -29,4 +29,6 @@ public interface MedicalRecordDao extends BaseDao<MedicalRecord> {
 
     public MedicalRecord getLastMedicalRecord(Serializable patientId);
 
+    public List<MedicalRecord> getUnPayMedicalRecord(Serializable patientId);
+
 }

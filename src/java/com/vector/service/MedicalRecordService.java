@@ -31,4 +31,6 @@ public interface MedicalRecordService extends CUDService<MedicalRecord> {
 
     public MedicalRecord getLastMedicalRecord(Serializable patientId);
 
+    public List<MedicalRecord> getUnPayMedicalRecord(Serializable patientId);
+
 }

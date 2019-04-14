@@ -7,6 +7,7 @@ package com.vector.dao.impl;
 
 import com.vector.dao.PrescriptionDao;
 import com.vector.pojo.Prescription;
+import java.io.Serializable;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +28,12 @@ public class PrescriptionDaoImpl extends BaseDaoImpl<Prescription>implements Pre
     public List<Prescription> getList(Integer currentPage, Object... params) {
         String hql="from Prescription";
         return getListPaginationByQuery(hql, currentPage);
+    }
+
+    @Override
+    public List<Prescription> getPrescriptionByMedicalRecordId(Serializable medicalRecordId) {
+        String hql="from Prescription where medicalRecordId=?";
+        return getListByQuery(hql, medicalRecordId);
     }
     
 }

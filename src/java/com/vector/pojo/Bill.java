@@ -1,5 +1,5 @@
 package com.vector.pojo;
-// Generated 2019-3-22 22:17:21 by Hibernate Tools 4.3.1
+// Generated 2019-4-14 19:48:45 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,15 +15,24 @@ public class Bill  implements java.io.Serializable {
      private String paymentStatus;
      private Date billDate;
      private float totalAmount;
+     private String chargeItem;
 
     public Bill() {
     }
 
+	
     public Bill(Patient patient, String paymentStatus, Date billDate, float totalAmount) {
+        this.patient = patient;
+        this.paymentStatus = paymentStatus;
+        this.billDate = billDate;
+        this.totalAmount = totalAmount;
+    }
+    public Bill(Patient patient, String paymentStatus, Date billDate, float totalAmount, String chargeItem) {
        this.patient = patient;
        this.paymentStatus = paymentStatus;
        this.billDate = billDate;
        this.totalAmount = totalAmount;
+       this.chargeItem = chargeItem;
     }
    
     public Integer getBillId() {
@@ -60,6 +69,13 @@ public class Bill  implements java.io.Serializable {
     
     public void setTotalAmount(float totalAmount) {
         this.totalAmount = totalAmount;
+    }
+    public String getChargeItem() {
+        return this.chargeItem;
+    }
+    
+    public void setChargeItem(String chargeItem) {
+        this.chargeItem = chargeItem;
     }
 
 

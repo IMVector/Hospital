@@ -79,4 +79,10 @@ public class MedicalRecordDaoImpl extends BaseDaoImpl<MedicalRecord> implements 
         }
     }
 
+    @Override
+    public List<MedicalRecord> getUnPayMedicalRecord(Serializable patientId) {
+        String hql="from MedicalRecord where patient.patientId=? and paymentStatus='否'";
+        return getListByQuery(hql, patientId);
+    }
+
 }

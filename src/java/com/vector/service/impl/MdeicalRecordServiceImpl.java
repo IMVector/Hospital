@@ -130,4 +130,9 @@ public class MdeicalRecordServiceImpl implements MedicalRecordService {
         return medicalRecordDao.getLastMedicalRecord(patientId);
     }
 
+    @Override
+    public List<MedicalRecord> getUnPayMedicalRecord(Serializable patientId) {
+        return medicalRecordDao.getUnPayMedicalRecord(patientId);
+    }
+
 }

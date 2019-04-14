@@ -16,7 +16,9 @@ import java.util.List;
 public interface CheckRecordService extends CUDService<CheckRecord>, PaginationBaseService<CheckRecord> {
 
     public CheckRecord getCheckRecordById(Serializable checkRecordId);
-    
+
     public List<CheckRecord> getCheckRecordOfToday(Serializable patientId);
+
+    public List<CheckRecord> getUnPayCheckRecordByPatientId(Serializable patientId);
 
 }

@@ -16,5 +16,7 @@ import java.util.List;
 public interface CheckRecordDao extends BaseDao<CheckRecord>,PaginationBaseDao<CheckRecord> {
 
     public List<CheckRecord> getCheckRecordOfToday(Serializable patientId);
+
+    public List<CheckRecord> getUnPayCheckRecordByPatientId(Serializable patientId);
     
 }

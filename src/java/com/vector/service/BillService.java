@@ -5,16 +5,15 @@
  */
 package com.vector.service;
 
-import com.vector.pojo.Prescription;
+import com.vector.pojo.Bill;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  *
  * @author Vector
  */
-public interface PrescriptionService extends CUDService<Prescription>, PaginationBaseService<Prescription> {
-
-    public List<Prescription> getPrescriptionByMedicalRecordId(Serializable MedicalRecordId);
-
+public interface BillService extends CUDService<Bill>,PaginationBaseService<Bill>{
+    
+    public boolean getToPayItem(Serializable PatientId);
+    
 }

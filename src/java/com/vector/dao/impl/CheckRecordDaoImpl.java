@@ -53,4 +53,10 @@ public class CheckRecordDaoImpl extends BaseDaoImpl<CheckRecord> implements Chec
         return getListByQuery(hql, patientId,startDate,endDate);
     }
 
+    @Override
+    public List<CheckRecord> getUnPayCheckRecordByPatientId(Serializable patientId) {
+        String hql="from CheckRecord where patient.patientId=? and paymentStatus='否'";
+        return getListByQuery(hql, patientId);
+    }
+
 }

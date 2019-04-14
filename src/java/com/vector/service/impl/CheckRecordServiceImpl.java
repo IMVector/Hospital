@@ -111,4 +111,9 @@ public class CheckRecordServiceImpl implements CheckRecordService {
         return checkRecordDao.getCheckRecordOfToday(patientId);
     }
 
+    @Override
+    public List<CheckRecord> getUnPayCheckRecordByPatientId(Serializable patientId) {
+        return checkRecordDao.getUnPayCheckRecordByPatientId(patientId);
+    }
+
 }
