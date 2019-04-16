@@ -5,12 +5,27 @@
  */
 package com.vector.dao.impl;
 
+import com.vector.dao.BillDao;
 import com.vector.pojo.Bill;
+import java.util.List;
 
 /**
  *
  * @author Vector
  */
-public class BillDaoImpl extends BaseDaoImpl<Bill> {
-    
+public class BillDaoImpl extends BaseDaoImpl<Bill> implements BillDao {
+
+    @Override
+    public Integer getListItemNumber(Object... params) {
+        String hql = "select count(*) from Bill where patient.patientId=?";
+        return getListSize(hql, params[0]);
+
+    }
+
+    @Override
+    public List<Bill> getList(Integer currentPage, Object... params) {
+        String hql = "from Bill where patient.patientId=?";
+        return getListByQuery(hql, params[0]);
+    }
+
 }

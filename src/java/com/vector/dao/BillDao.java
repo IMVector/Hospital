@@ -11,6 +11,6 @@ import com.vector.pojo.Bill;
  *
  * @author Vector
  */
-public interface BillDao extends BaseDao<Bill> {
+public interface BillDao extends BaseDao<Bill> ,PaginationBaseDao<Bill>{
     
 }
