@@ -125,7 +125,7 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public List login(Staff staff, String validateCode, HttpSession session) {
         List<String> list = new ArrayList();
-        if (!validateCode.equals(session.getAttribute("randomcode_key"))) {
+        if (!validateCode.toLowerCase().equals(session.getAttribute("randomcode_key").toString().toLowerCase())) {
             list.add("验证码错误");
             return list;
         }

@@ -134,4 +134,16 @@ public class NextPage {
     public String goToUpdatePatientIngo() {
         return "patientInfoUpdate";
     }
+    @RequestMapping(value = "staff/goToStaffDietAdvice")
+    public String goToStaffDietAdvice() {
+        return "staffDietAdvice";
+    }
+    @RequestMapping(value = "staff/goToStaffPrecautionAdvice")
+    public String goToStaffPrecautionAdvice() {
+        return "staffPrecautionAdvice";
+    }
+    @RequestMapping(value = "staff/goToStaffReservationList")
+    public String goToStaffReservationList() {
+        return "staffReservationList";
+    }
 }

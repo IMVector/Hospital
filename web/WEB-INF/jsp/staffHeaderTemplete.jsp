@@ -13,7 +13,7 @@
                 <a href="index" class="active item">
                     InstalHMS 医院系统
                 </a>
-                <a href="staff/staffIndex" class="item">
+                <a href="staff/goToStaffIndex" class="item">
                     医生主页
                 </a>
                 <a href="personalCenter1" class="item">查看病人就诊记录</a>
@@ -48,7 +48,7 @@
                 <a href="index" class="active item">
                     InstalHMS 医院系统
                 </a>
-                <a href="staff/staffIndex" class="item">
+                <a href="staff/goToStaffIndex" class="item">
                     医生主页
                 </a>
                 <a href="personalCenter1" class="item">查看病人就诊记录</a>

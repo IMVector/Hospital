@@ -29,22 +29,16 @@
                         <!--<img class="ui avatar image" src="/images/avatar/small/christian.jpg">-->
                         <i class="edit outline huge icon"></i>
                         <div class="content">
-                            <div class="header">就医安排</div>
+                            <a class="header link-staff" href="staff/goToStaffDietAdvice">饮食建议</a>
+                            <!--<div class="header">饮食建议</div>-->
                         </div>
                     </div>
                     <div class="item">
                         <!--<img class="ui avatar image" src="/images/avatar/small/daniel.jpg">-->
                         <i class="heartbeat huge icon"></i>
                         <div class="content">
-                            <div class="header">查看检查结果</div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <!--<img class="ui avatar image" src="/images/avatar/small/daniel.jpg">-->
-                        <!--<i class="heartbeat huge icon"></i>-->
-                        <i class="file alternate outline huge icon"></i>
-                        <div class="content">
-                            <div class="header">开处方</div>
+                            <a class="header link-staff" href="staff/goToStaffPrecautionAdvice">预防建议</a>
+                            <!--<div class="header">预防建议</div>-->
                         </div>
                     </div>
                     <div class="item">
@@ -53,7 +47,8 @@
                         <!--<i class="file alternate outline huge icon"></i>-->
                         <i class="calendar alternate outline huge icon"></i>
                         <div class="content">
-                            <div class="header">查看预约信息</div>
+                            <a class="header link-staff" href="staff/goToStaffReservationList">查看预约信息</a>
+                            <!--<div class="header">查看预约信息</div>-->
                         </div>
                     </div>
                 </div>
