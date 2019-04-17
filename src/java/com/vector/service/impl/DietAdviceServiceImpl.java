@@ -9,13 +9,18 @@ import com.vector.dao.DietAdviceDao;
 import com.vector.pojo.DietAdvice;
 import com.vector.service.DietAdviceService;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Vector
  */
+@Transactional
+@Service
 public class DietAdviceServiceImpl implements DietAdviceService {
 
     @Autowired
@@ -23,10 +28,11 @@ public class DietAdviceServiceImpl implements DietAdviceService {
 
     @Override
     public boolean insert(DietAdvice t, Object... params) {
+        
+        t.setDietAdviceTime(new Date());
         try {
             dietAdviceDao.insert(t);
             return true;
-
         } catch (Exception e) {
             System.out.println(e);
             return false;

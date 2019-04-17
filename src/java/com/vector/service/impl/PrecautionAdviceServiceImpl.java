@@ -7,22 +7,28 @@ package com.vector.service.impl;
 
 import com.vector.dao.PrecautionAdviceDao;
 import com.vector.pojo.PrecautionAdvice;
-import com.vector.service.PrecautionAdviceServcie;
 import java.io.Serializable;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.vector.service.PrecautionAdviceService;
+import java.util.Date;
 
 /**
  *
  * @author Vector
  */
-public class PrecautionAdviceServiceImpl implements PrecautionAdviceServcie {
+@Service
+@Transactional
+public class PrecautionAdviceServiceImpl implements PrecautionAdviceService {
 
     @Autowired
     PrecautionAdviceDao precautionAdviceDao;
 
     @Override
     public boolean insert(PrecautionAdvice t, Object... params) {
+        t.setDietAdviceTime(new Date());
         try {
             precautionAdviceDao.insert(t);
             return true;

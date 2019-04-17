@@ -11,6 +11,6 @@ import com.vector.pojo.PrecautionAdvice;
  *
  * @author Vector
  */
-public interface PrecautionAdviceServcie  extends CUDService<PrecautionAdvice>,PaginationBaseService<PrecautionAdvice> {
+public interface PrecautionAdviceService  extends CUDService<PrecautionAdvice>,PaginationBaseService<PrecautionAdvice> {
     
 }

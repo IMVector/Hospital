@@ -85,4 +85,16 @@ public class MedicalRecordDaoImpl extends BaseDaoImpl<MedicalRecord> implements 
         return getListByQuery(hql, patientId);
     }
 
+    @Override
+    public List<MedicalRecord> getMedicalRecordByStaffId(Integer currentPage, Serializable staffId) {
+        String hql="from MedicalRecord where staff.staffId=? group by patient.patientId order by date desc";
+        return getListPaginationByQuery(hql, currentPage, staffId);
+    }
+
+    @Override
+    public Integer getMedicalRecordByStaffIdItemNum(Serializable staffId) {
+        String hql="select count(*) from MedicalRecord where staff.staffId=?  group by patient.patientId order by date desc";
+        return getListSize(hql, staffId);
+    }
+
 }

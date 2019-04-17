@@ -34,8 +34,9 @@
             <mvc:mapping path="/staff/goToCheckItemManage"/>
             <mvc:mapping path="/staff/goToMedicineManage"/>
             <mvc:mapping path="/staff/goToTaskList"/>
-
-
+            <mvc:mapping path="/staff/goToStaffDietAdvice"/>
+            <mvc:mapping path="/staff/goToStaffPrecautionAdvice"/>
+            <mvc:mapping path="/staff/goToStaffReservationList"/>
             <bean class="com.vector.intercepter.MyIntercepter"/>
         </mvc:interceptor>
     </mvc:interceptors>

@@ -135,4 +135,14 @@ public class MdeicalRecordServiceImpl implements MedicalRecordService {
         return medicalRecordDao.getUnPayMedicalRecord(patientId);
     }
 
+    @Override
+    public List<MedicalRecord> getMedicalRecordByStaffId(Integer currentPage, Serializable staffId) {
+         return medicalRecordDao.getMedicalRecordByStaffId(currentPage,staffId);
+    }
+
+    @Override
+    public Integer getMedicalRecordByStaffIdItemNum(Serializable staffId) {
+        return medicalRecordDao.getMedicalRecordByStaffIdItemNum(staffId);
+    }
+
 }

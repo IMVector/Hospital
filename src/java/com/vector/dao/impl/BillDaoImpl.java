@@ -8,11 +8,13 @@ package com.vector.dao.impl;
 import com.vector.dao.BillDao;
 import com.vector.pojo.Bill;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Vector
  */
+@Repository
 public class BillDaoImpl extends BaseDaoImpl<Bill> implements BillDao {
 
     @Override
