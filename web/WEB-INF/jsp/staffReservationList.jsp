@@ -86,7 +86,7 @@
         });
         function reservationTableInfo(data) {
             $("#reservationTable").empty();
-            $("#reservationTable").append("<thead><tr><th>预约编号</th><th>预约时间</th><th>病人姓名</th><th>病人年龄</th><th>预约部门名称</th></tr></thead>");
+            $("#reservationTable").append("<thead><tr><th>预约编号</th><th>预约时间</th><th>病人姓名</th><th>病人年龄</th><th>操作</th></tr></thead>");
             $.each(data, function (index, reservation) {
                 var str = " \n\
                 <tr id=" + reservation.reservationId + ">\n\
@@ -103,7 +103,7 @@
                         <label class='mylabel table-label' data-content='" + reservation.patient.patientAge + "' data-position='top left'>" + reservation.patient.patientAge + "</label>\n\
                     </td>\n\
                     <td>\n\
-                        <label class='mylabel table-label' data-content='" + reservation.staff.department.departmentName + "' data-position='top left'>" + reservation.staff.department.departmentName + "</label>\n\
+                      <a class='ui button primary detailBtn' href='staff/goToStaffReservationDetails/"+reservation.patient.patientId+"'>详情</a>\n\
                     </td>\n\
                 </tr>";
                 //<button class='ui button primary detailBtn'>详情</button>\n\

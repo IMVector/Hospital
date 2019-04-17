@@ -225,6 +225,8 @@
                             <div id="medicineTablePageButtons" class="mini ui basic buttons">
 
                             </div>
+                            <br>
+                            <br>
                             <div>
                                 <!--<div>-->
                                 <label for="" class="ui big label" style="float: left">跳转到：</label>
@@ -654,7 +656,6 @@
             $("#medicalHistoryTable").empty();
             $("#medicalHistoryTable").append("<thead><tr><th>药品名称</th><th>不良反应</th><th>用药时长</th><th>最后一次用药时间</th></tr></thead>");
             $.each(data, function (index, medicationHistory) {
-                console.log(medicationHistory.getMedicationHistoryId);
                 var str = " <tr id=" + medicationHistory.medicationHistoryId + ">\n\
                                 <td>\n\
                                     <label class=\"mylabel table-label\" data-content=\"" + medicationHistory.medicine.medicineName + "\" data-position=\"top left\"  >" + medicationHistory.medicine.medicineName + "</label>\n\</td>\n\

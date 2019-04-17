@@ -146,4 +146,12 @@ public class NextPage {
     public String goToStaffReservationList() {
         return "staffReservationList";
     }
+    @RequestMapping(value = "staff/goToStaffPersonnelCenter")
+    public String goToStaffPersonnelCenter() {
+        return "staffPersonnelCenter";
+    }
+    @RequestMapping(value = "staff/goToStaffInfoUpdate")
+    public String goToStaffInfoUpdate() {
+        return "staffInfoUpdate";
+    }
 }

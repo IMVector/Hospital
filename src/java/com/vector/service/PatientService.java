@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
  * @author Vector
  */
 public interface PatientService {
+    
+    public Patient getPatientById(Serializable patientId);
 
     public String register(Patient patient, String imagePath);
 

@@ -27,6 +27,7 @@ import com.vector.service.DietAdviceService;
 import com.vector.service.MedicalRecordService;
 import com.vector.service.MedicationHistoryService;
 import com.vector.service.MedicineService;
+import com.vector.service.PatientService;
 import com.vector.service.PrecautionAdviceService;
 import com.vector.service.ReservationService;
 import com.vector.service.RoleService;
@@ -89,16 +90,19 @@ public class StaffController {
 
     @Autowired
     MedicationHistoryService medicationHistoryService;
-    
+
     @Autowired
     DietAdviceService dietAdviceService;
-    
+
     @Autowired
     PrecautionAdviceService precautionAdviceService;
 
     @Autowired
     ReservationService reservationService;
-            
+
+    @Autowired
+    PatientService patientService;
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -453,15 +457,22 @@ public class StaffController {
     public boolean diagnosis(MedicalRecord medicalRecord, String IdCard, Prescription prescription, HttpSession session) {
         return medicalRecordService.insert(medicalRecord, IdCard, session, prescription);
     }
+
     @RequestMapping(value = "/medicalRecordList/{staffId}/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<MedicalRecord> medicalRecordList(@PathVariable Integer staffId,@PathVariable Integer currentPage) {
+    public List<MedicalRecord> medicalRecordList(@PathVariable Integer staffId, @PathVariable Integer currentPage) {
         return medicalRecordService.getMedicalRecordByStaffId(currentPage, staffId);
     }
+
     @RequestMapping(value = "/medicalRecordListItemNumber/{staffId}", method = RequestMethod.POST)
     @ResponseBody
     public Integer medicalRecordListItemNumber(@PathVariable Integer staffId) {
         return medicalRecordService.getMedicalRecordByStaffIdItemNum(staffId);
+    }
+    @RequestMapping(value="/getMedicalRecordById/{medicalRecordId}")
+    @ResponseBody
+    public MedicalRecord getMedicalRecordById(@PathVariable Integer medicalRecordId,ModelMap map){
+        return medicalRecordService.getMedicalRecordById(medicalRecordId);
     }
 
     /////////////////////////////////////////////////task管理与执行/////////////////////////////////////////////////
@@ -547,28 +558,33 @@ public class StaffController {
         return medicationHistoryService.getListItemNumber(patientId);
     }
 /////////////////////////////////////////////////////////dietAdvice////////////////////////////////////////
-    @RequestMapping(value="/dietAdviceEdit/{medicalRecordId}",method = RequestMethod.GET)
-    public String goToDietAdviceEdit(@PathVariable Integer medicalRecordId,ModelMap map){
-        MedicalRecord medicalRecord=medicalRecordService.getMedicalRecordById(medicalRecordId);
+
+    @RequestMapping(value = "/dietAdviceEdit/{medicalRecordId}", method = RequestMethod.GET)
+    public String goToDietAdviceEdit(@PathVariable Integer medicalRecordId, ModelMap map) {
+        MedicalRecord medicalRecord = medicalRecordService.getMedicalRecordById(medicalRecordId);
         map.addAttribute("medicalRecord", medicalRecord);
         return "dietAdviceEdit";
     }
-    @RequestMapping(value="/addDietAdvice",method = RequestMethod.POST)
+
+    @RequestMapping(value = "/addDietAdvice", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addDietAdvice(DietAdvice dietAdvice){
+    public boolean addDietAdvice(DietAdvice dietAdvice) {
         return dietAdviceService.insert(dietAdvice);
     }
-    @RequestMapping(value="/precautionAdviceEdit/{medicalRecordId}",method = RequestMethod.GET)
-    public String precautionAdviceEdit(@PathVariable Integer medicalRecordId,ModelMap map){
-        MedicalRecord medicalRecord=medicalRecordService.getMedicalRecordById(medicalRecordId);
+
+    @RequestMapping(value = "/precautionAdviceEdit/{medicalRecordId}", method = RequestMethod.GET)
+    public String precautionAdviceEdit(@PathVariable Integer medicalRecordId, ModelMap map) {
+        MedicalRecord medicalRecord = medicalRecordService.getMedicalRecordById(medicalRecordId);
         map.addAttribute("medicalRecord", medicalRecord);
         return "precautionAdviceEdit";
     }
-    @RequestMapping(value="/addPrecautionAdvice",method = RequestMethod.POST)
+
+    @RequestMapping(value = "/addPrecautionAdvice", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addPrecautionAdvice(PrecautionAdvice precautionAdvice){
+    public boolean addPrecautionAdvice(PrecautionAdvice precautionAdvice) {
         return precautionAdviceService.insert(precautionAdvice);
     }
+
     //////////////////////////////////////////reservationList/////////////////////////////////////////////
     @RequestMapping(value = "/reservationlist/{staffId}/{currentPage}")
     @ResponseBody
@@ -581,4 +597,11 @@ public class StaffController {
     public Integer getReservationListSizeByStaffId(@PathVariable Integer staffId) {
         return reservationService.getUnExpiryReservationByStafftIdListNum(staffId);
     }
+
+    @RequestMapping(value = "/goToStaffReservationDetails/{patientId}")
+    public String goToStaffMedicalDetails(@PathVariable Integer patientId, ModelMap map) {
+        map.addAttribute("patient", patientService.getPatientById(patientId));
+        return "staffReservationDetails";
+    }
+
 }

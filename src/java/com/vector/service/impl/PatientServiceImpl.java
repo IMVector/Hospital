@@ -144,4 +144,9 @@ public class PatientServiceImpl implements PatientService {
 
     }
 
+    @Override
+    public Patient getPatientById(Serializable patientId) {
+        return patientDao.getOneById(patientId);
+    }
+
 }
