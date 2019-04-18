@@ -73,7 +73,7 @@
                     </div>
                     <div class="ui placeholder segment">
                         <div class="ui center aligned icon header">
-                            <c:if test="${  not empty  patient.image.imagePath}">
+                            <c:if test="${not empty  patient.image.imagePath}">
                                 <img id="avatar" class="ui centered circular image" src="${patient.image.imagePath}">
                             </c:if>
                             <c:if test="${empty patient.image.imagePath}">

@@ -272,6 +272,11 @@ public class StaffController {
     public boolean updateStaff(Staff staff) {
         return staffService.update(staff);
     }
+    @RequestMapping(value = "/updateStaffSelf", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean updateStaffSelf(Staff staff) {
+        return staffService.updateStaff(staff);
+    }
 
     @RequestMapping(value = "/deleteStaff/{id}", method = RequestMethod.POST)
     @ResponseBody

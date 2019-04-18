@@ -8,6 +8,7 @@ package com.vector.service.impl;
 import com.vector.dao.StaffDao;
 import com.vector.pojo.Image;
 import com.vector.pojo.Staff;
+import com.vector.service.ImageService;
 import com.vector.service.StaffService;
 import com.vector.utils.MD5Utils;
 import java.io.Serializable;
@@ -29,9 +30,11 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     StaffDao staffDao;
 
+    @Autowired
+    ImageService imageService;
+
     @Override
     public boolean insert(Staff t, Object... params) {
-        //        params[0] imagePath     
         Image image = new Image();
         image.setImageId(4);
         t.setImage(image);
@@ -153,6 +156,28 @@ public class StaffServiceImpl implements StaffService {
             return list;
         }
 
+    }
+
+    @Override
+    public boolean updateStaff(Staff staff) {
+
+        if (!staff.getImage().getImagePath().equals("")) {
+            Image image = imageService.getImageByPath(staff.getImage().getImagePath());
+            staff.setImage(image);
+        } else {
+            Image image = new Image();
+            image.setImageId(4);
+            staff.setImage(image);
+        }
+         staff.setStaffPassword(MD5Utils.md5(staff.getStaffPassword()));
+
+        try {
+            staffDao.update(staff);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
     }
 
 }
