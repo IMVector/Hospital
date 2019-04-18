@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2019-04-10 19:46:43
+Date: 2019-04-18 16:20:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -56,6 +56,7 @@ CREATE TABLE `bill` (
   `PatientId` int(11) NOT NULL,
   `BillDate` datetime NOT NULL,
   `TotalAmount` float NOT NULL,
+  `ChargeItem` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`BillId`),
   KEY `patientBill` (`PatientId`) USING BTREE,
   CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`PatientId`) REFERENCES `patient` (`PatientId`)
@@ -123,7 +124,7 @@ CREATE TABLE `check_record` (
   CONSTRAINT `check_record_ibfk_1` FOREIGN KEY (`CheckItemId`) REFERENCES `check_item` (`CheckItemId`),
   CONSTRAINT `check_record_ibfk_2` FOREIGN KEY (`CheckStaff`) REFERENCES `staff` (`StaffId`),
   CONSTRAINT `check_record_ibfk_3` FOREIGN KEY (`PatientId`) REFERENCES `patient` (`PatientId`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of check_record
@@ -136,6 +137,8 @@ INSERT INTO `check_record` VALUES ('6', '3', '1', '否', '2019-04-08 10:44:58', 
 INSERT INTO `check_record` VALUES ('7', '3', '1', '否', '2019-04-08 10:45:31', '丰东股份表现出责罚', '6', 'resources\\image\\20190408104525090.png');
 INSERT INTO `check_record` VALUES ('8', '3', '2', '否', '2019-04-08 10:51:37', '的双方各江湖告急', '7', 'resources\\image\\20190408105131952.png');
 INSERT INTO `check_record` VALUES ('9', '3', '2', '否', '2019-04-08 10:55:03', '反，每年北京快乐', '7', 'resources\\image\\20190408105457730.jpg');
+INSERT INTO `check_record` VALUES ('10', '3', '2', '否', '2019-04-10 23:43:04', 'fdsfcxzvsdfdsf', '7', 'resources\\image\\20190410234257562.jpg');
+INSERT INTO `check_record` VALUES ('11', '3', '2', '否', '2019-04-11 14:37:47', '无明显病变，一切正常', '7', 'resources\\image\\20190411143730690.png');
 
 -- ----------------------------
 -- Table structure for department
@@ -172,11 +175,16 @@ CREATE TABLE `diet_advice` (
   KEY `dietAdviceStaff` (`StaffId`) USING BTREE,
   CONSTRAINT `diet_advice_ibfk_1` FOREIGN KEY (`PatientId`) REFERENCES `patient` (`PatientId`),
   CONSTRAINT `diet_advice_ibfk_2` FOREIGN KEY (`StaffId`) REFERENCES `staff` (`StaffId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of diet_advice
 -- ----------------------------
+INSERT INTO `diet_advice` VALUES ('1', '3', 'fdasfdsf', '6', '2019-04-17 10:57:27');
+INSERT INTO `diet_advice` VALUES ('2', '3', 'fsdafg', '6', '2019-04-17 10:58:33');
+INSERT INTO `diet_advice` VALUES ('3', '3', '第三方收到', '6', '2019-04-17 11:26:46');
+INSERT INTO `diet_advice` VALUES ('4', '3', '地方撒', '6', '2019-04-17 11:28:31');
+INSERT INTO `diet_advice` VALUES ('5', '3', '是反复', '6', '2019-04-17 11:29:16');
 
 -- ----------------------------
 -- Table structure for image
@@ -187,7 +195,7 @@ CREATE TABLE `image` (
   `ImagePath` varchar(255) NOT NULL,
   `UsePage` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ImageId`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of image
@@ -196,7 +204,7 @@ INSERT INTO `image` VALUES ('1', 'resources\\image\\staffDefault.jpg', null);
 INSERT INTO `image` VALUES ('2', 'resources\\image\\staffDefault.jpg', null);
 INSERT INTO `image` VALUES ('3', 'resources\\image\\staffDefault.jpg', null);
 INSERT INTO `image` VALUES ('4', 'resources\\image\\staffDefault.jpg', null);
-INSERT INTO `image` VALUES ('5', 'resources\\image\\staffDefault.jpg', null);
+INSERT INTO `image` VALUES ('5', 'resources\\image\\avatar.png', null);
 INSERT INTO `image` VALUES ('6', 'resources\\image\\staffDefault.jpg', null);
 INSERT INTO `image` VALUES ('7', 'resources\\image\\staffDefault.jpg', null);
 INSERT INTO `image` VALUES ('8', 'resources\\image\\staffDefault.jpg', null);
@@ -212,6 +220,18 @@ INSERT INTO `image` VALUES ('17', 'resources\\image\\20190408100909064.jpg', nul
 INSERT INTO `image` VALUES ('18', 'resources\\image\\20190408104525090.png', null);
 INSERT INTO `image` VALUES ('19', 'resources\\image\\20190408105131952.png', null);
 INSERT INTO `image` VALUES ('20', 'resources\\image\\20190408105457730.jpg', null);
+INSERT INTO `image` VALUES ('21', 'resources\\image\\20190410234257562.jpg', null);
+INSERT INTO `image` VALUES ('22', 'resources\\image\\20190411143730690.png', null);
+INSERT INTO `image` VALUES ('23', 'resources\\image\\20190411154806523.jpg', null);
+INSERT INTO `image` VALUES ('24', 'resources\\image\\20190411172022936.jpg', null);
+INSERT INTO `image` VALUES ('25', 'resources\\image\\20190411172224008.png', null);
+INSERT INTO `image` VALUES ('26', 'resources\\image\\20190411172331862.png', null);
+INSERT INTO `image` VALUES ('27', 'resources\\image\\20190411174728279.png', null);
+INSERT INTO `image` VALUES ('28', 'resources\\image\\20190418104520087.jpg', null);
+INSERT INTO `image` VALUES ('29', 'resources\\image\\20190418105210328.jpg', null);
+INSERT INTO `image` VALUES ('30', 'resources\\image\\20190418105333088.jpg', null);
+INSERT INTO `image` VALUES ('31', 'resources\\image\\20190418111924962.jpg', null);
+INSERT INTO `image` VALUES ('32', 'resources\\image\\20190418114111004.jpg', null);
 
 -- ----------------------------
 -- Table structure for leave
@@ -244,34 +264,35 @@ CREATE TABLE `medical_record` (
   `DiagnosticDescription` varchar(255) NOT NULL,
   `Date` datetime NOT NULL,
   `Symptom` varchar(255) NOT NULL,
-  `Precautions` varchar(255) DEFAULT NULL,
+  `PaymentStatus` varchar(4) NOT NULL,
   PRIMARY KEY (`MedicalRecordId`),
   KEY `patientMedicalRecord` (`PatientId`) USING BTREE,
   KEY `diagnoseStaffMedicalRecord` (`DiagnoseStaff`) USING BTREE,
   CONSTRAINT `medical_record_ibfk_1` FOREIGN KEY (`DiagnoseStaff`) REFERENCES `staff` (`StaffId`),
   CONSTRAINT `medical_record_ibfk_2` FOREIGN KEY (`PatientId`) REFERENCES `patient` (`PatientId`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of medical_record
 -- ----------------------------
-INSERT INTO `medical_record` VALUES ('1', '3', '6', '轻微感冒发顺丰的的撒发生打发打发阿萨德范德萨发', '2019-04-10 15:48:00', '头疼发热放大声的撒范德萨发大水范德萨范德萨', null);
-INSERT INTO `medical_record` VALUES ('2', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', null);
-INSERT INTO `medical_record` VALUES ('3', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', null);
-INSERT INTO `medical_record` VALUES ('4', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', null);
-INSERT INTO `medical_record` VALUES ('5', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', null);
-INSERT INTO `medical_record` VALUES ('6', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', null);
-INSERT INTO `medical_record` VALUES ('7', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', null);
-INSERT INTO `medical_record` VALUES ('8', '3', '6', '撒旦范德萨', '2019-04-02 22:01:16', '士大夫打撒', null);
-INSERT INTO `medical_record` VALUES ('11', '3', '8', '上火', '2019-04-09 13:31:06', '头疼。。。。。。。。。。。。。。。。。。。', null);
-INSERT INTO `medical_record` VALUES ('22', '3', '8', '上火', '2019-04-09 13:31:17', '头疼。。。。。。。。。。。。。。。。。。。', null);
+INSERT INTO `medical_record` VALUES ('1', '3', '6', '轻微感冒发顺丰的的撒发生打发打发阿萨德范德萨发', '2019-04-10 15:48:00', '头疼发热放大声的撒范德萨发大水范德萨范德萨', '否');
+INSERT INTO `medical_record` VALUES ('2', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', '否');
+INSERT INTO `medical_record` VALUES ('3', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', '否');
+INSERT INTO `medical_record` VALUES ('4', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', '否');
+INSERT INTO `medical_record` VALUES ('5', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', '否');
+INSERT INTO `medical_record` VALUES ('6', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', '否');
+INSERT INTO `medical_record` VALUES ('7', '3', '6', '轻微感冒', '2019-04-10 15:48:00', '头疼发热', '否');
+INSERT INTO `medical_record` VALUES ('8', '3', '6', '撒旦范德萨', '2019-04-02 22:01:16', '士大夫打撒', '否');
+INSERT INTO `medical_record` VALUES ('11', '3', '8', '上火', '2019-04-09 13:31:06', '头疼。。。。。。。。。。。。。。。。。。。', '否');
+INSERT INTO `medical_record` VALUES ('22', '3', '8', '上火', '2019-04-09 13:31:17', '头疼。。。。。。。。。。。。。。。。。。。', '否');
+INSERT INTO `medical_record` VALUES ('23', '3', '7', '无明显症状，多喝水', '2019-04-11 14:38:43', '脚冷，手冷', '否');
 
 -- ----------------------------
 -- Table structure for medication_history
 -- ----------------------------
 DROP TABLE IF EXISTS `medication_history`;
 CREATE TABLE `medication_history` (
-  `MedicationHistoryId` int(11) NOT NULL,
+  `MedicationHistoryId` int(11) NOT NULL AUTO_INCREMENT,
   `PatientId` int(11) NOT NULL,
   `MedicationId` int(11) NOT NULL,
   `AdverseReactions` varchar(100) NOT NULL,
@@ -282,11 +303,12 @@ CREATE TABLE `medication_history` (
   KEY `medicationHistoryMedication` (`MedicationId`) USING BTREE,
   CONSTRAINT `medication_history_ibfk_1` FOREIGN KEY (`MedicationId`) REFERENCES `medicine` (`MedicineId`),
   CONSTRAINT `medication_history_ibfk_2` FOREIGN KEY (`PatientId`) REFERENCES `patient` (`PatientId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of medication_history
 -- ----------------------------
+INSERT INTO `medication_history` VALUES ('1', '3', '6', 'qwe', '12', '2019-04-03 00:00:00');
 
 -- ----------------------------
 -- Table structure for medicine
@@ -337,12 +359,13 @@ CREATE TABLE `patient` (
   UNIQUE KEY `IdCard` (`IdCard`) USING BTREE,
   KEY `patientImage` (`Image`) USING BTREE,
   CONSTRAINT `patient_ibfk_1` FOREIGN KEY (`Image`) REFERENCES `image` (`ImageId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of patient
 -- ----------------------------
-INSERT INTO `patient` VALUES ('3', '王企鹅', '1994-10-04', '男', '25', '未知', '15265870943', '山东省青岛市', '已婚', '2523511898@qq.com', null, 'e10adc3949ba59abbe56e057f20f883e', '370829199410041756');
+INSERT INTO `patient` VALUES ('3', '王企鹅', '1994-10-04', '男', '25', 'AB型', '15265870943', '山东省青岛市', '未婚', '2523511898@qq.com', '27', 'e10adc3949ba59abbe56e057f20f883e', '370829199410041756');
+INSERT INTO `patient` VALUES ('4', '社会王', '1994-10-04', '女', '25', 'A型', '15265870944', '山东省青岛市', '未婚', '1769326712@qq.com', '23', 'e10adc3949ba59abbe56e057f20f883e', '370829199410041766');
 
 -- ----------------------------
 -- Table structure for precaution_advice
@@ -354,9 +377,12 @@ CREATE TABLE `precaution_advice` (
   `PrecautionAdviceContent` varchar(100) NOT NULL,
   `StaffId` int(11) NOT NULL,
   `DietAdviceTime` datetime NOT NULL,
+  `LastId` int(11) DEFAULT NULL,
   PRIMARY KEY (`PrecautionAdviceId`),
   KEY `patientPrecautionAdvice` (`PatientId`) USING BTREE,
   KEY `staffPrecautionAdvice` (`StaffId`) USING BTREE,
+  KEY `back_to_staff` (`LastId`),
+  CONSTRAINT `back_to_staff` FOREIGN KEY (`LastId`) REFERENCES `precaution_advice` (`PrecautionAdviceId`),
   CONSTRAINT `precaution_advice_ibfk_1` FOREIGN KEY (`PatientId`) REFERENCES `patient` (`PatientId`),
   CONSTRAINT `precaution_advice_ibfk_2` FOREIGN KEY (`StaffId`) REFERENCES `staff` (`StaffId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -364,6 +390,7 @@ CREATE TABLE `precaution_advice` (
 -- ----------------------------
 -- Records of precaution_advice
 -- ----------------------------
+INSERT INTO `precaution_advice` VALUES ('0', '3', '范德萨发', '6', '2019-04-17 11:34:50', null);
 
 -- ----------------------------
 -- Table structure for prescription
@@ -378,11 +405,12 @@ CREATE TABLE `prescription` (
   PRIMARY KEY (`PrescriptionId`),
   KEY `MedicalRecordPrescription` (`MedicalRecordId`) USING BTREE,
   CONSTRAINT `prescription_ibfk_1` FOREIGN KEY (`MedicalRecordId`) REFERENCES `medical_record` (`MedicalRecordId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of prescription
 -- ----------------------------
+INSERT INTO `prescription` VALUES ('1', '23', '2,5,4,7', '2019-04-11 14:38:43', '少吃辣，多吃清淡食物');
 
 -- ----------------------------
 -- Table structure for reservation
@@ -400,13 +428,14 @@ CREATE TABLE `reservation` (
   KEY `staffReservation` (`StaffId`) USING BTREE,
   CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`PatientId`) REFERENCES `patient` (`PatientId`),
   CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`StaffId`) REFERENCES `staff` (`StaffId`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of reservation
 -- ----------------------------
 INSERT INTO `reservation` VALUES ('12', '7_1', '6', '3', '2019-04-14 00:00:00', '否');
 INSERT INTO `reservation` VALUES ('13', '4_2', '7', '3', '2019-04-11 00:00:00', '否');
+INSERT INTO `reservation` VALUES ('14', '4_2', '7', '3', '2019-04-11 00:00:00', '否');
 
 -- ----------------------------
 -- Table structure for role
@@ -458,7 +487,7 @@ CREATE TABLE `staff` (
 -- ----------------------------
 -- Records of staff
 -- ----------------------------
-INSERT INTO `staff` VALUES ('6', '王琪', '8', '9', '5', 'e10adc3949ba59abbe56e057f20f883e', '4', '2523511899@qq.com', '内科', '交大毕业博士后哈哈哈哈哈哈哈哈哈', '男');
+INSERT INTO `staff` VALUES ('6', '王琪', '8', '10', '32', 'e10adc3949ba59abbe56e057f20f883e', '4', '2523511899@qq.com', '内科', '                                交大毕业博士后哈哈哈哈哈哈哈哈哈\r\n                            ', '男');
 INSERT INTO `staff` VALUES ('7', '王企2', '10', '10', '4', 'e10adc3949ba59abbe56e057f20f883e', '5', '2523511888@qq.com', '放射治疗', '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或', '女');
 INSERT INTO `staff` VALUES ('8', '王企鹅', '8', '9', '4', 'e10adc3949ba59abbe56e057f20f883e', '6', '2523511881@qq.com', '放射治疗', '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或', '女');
 INSERT INTO `staff` VALUES ('9', '易上福', '9', '9', '4', 'e10adc3949ba59abbe56e057f20f883e', '4', '2523511198@qq.com', '颈椎', '第三方的范德萨发的那个火炬红包VB线程', '男');
@@ -483,7 +512,7 @@ CREATE TABLE `task` (
   CONSTRAINT `task_ibfk_1` FOREIGN KEY (`Patient`) REFERENCES `patient` (`PatientId`),
   CONSTRAINT `task_ibfk_2` FOREIGN KEY (`TaskSponsor`) REFERENCES `staff` (`StaffId`),
   CONSTRAINT `task_ibfk_3` FOREIGN KEY (`TaskTarget`) REFERENCES `staff` (`StaffId`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of task
@@ -495,6 +524,8 @@ INSERT INTO `task` VALUES ('5', '7', '6', '疑似症状', '是', '3', '1', '2019
 INSERT INTO `task` VALUES ('6', '7', '7', '范德萨发的是符合规范', '是', '3', '1', '2019-04-08 10:09:19');
 INSERT INTO `task` VALUES ('10', '7', '7', 'gfdh万v健康韩国客户那边能不能把你', '是', '3', '1', '2019-04-08 10:51:37');
 INSERT INTO `task` VALUES ('11', '7', '7', '12346776663', '是', '3', '1', '2019-04-08 10:55:03');
+INSERT INTO `task` VALUES ('12', '7', '6', 'fdsfds', '是', '3', '1', '2019-04-10 23:43:04');
+INSERT INTO `task` VALUES ('13', '7', '6', '肝虚', '是', '3', '1', '2019-04-11 14:37:47');
 
 -- ----------------------------
 -- Table structure for title

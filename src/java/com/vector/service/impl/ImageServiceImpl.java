@@ -40,4 +40,52 @@ public class ImageServiceImpl implements ImageService {
         imageDao.insert(image);
     }
 
+    @Override
+    public boolean insert(Image t, Object... params) {
+        try {
+            imageDao.insert(t);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean update(Image t, Object... params) {
+        try {
+            imageDao.update(t);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(Serializable id) {
+        try {
+            imageDao.delete(id);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    @Override
+    public Integer getListItemNumber(Object... params) {
+          return imageDao.getListItemNumber();
+    }
+
+    @Override
+    public List<Image> getList(Integer currentPage, Object... params) {
+          return imageDao.getList(currentPage);
+    }
+
+    @Override
+    public Image getImageById(Serializable imageId) {
+        return imageDao.getOneById(imageId);
+    }
+
 }

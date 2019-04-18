@@ -47,4 +47,5 @@ public class ImageDaoImpl extends BaseDaoImpl<Image> implements ImageDao {
         return getListPaginationByQuery(hql, currentPage);
     }
 
+
 }

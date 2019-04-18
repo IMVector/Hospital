@@ -143,6 +143,7 @@
                 </div>
 
             </div>
+            <a href="admin/goToAdminIndex">跳转到管理员</a>
 
             <div class="ui segment">
                 <!--<img class="ui fluid image" src="resources/image/bgthird.png">-->

@@ -101,3 +101,12 @@
 在MedicalRecord中
  @JsonIgnore
      private Set prescriptions = new HashSet(0);
+
+
+//将数据库备份到d盘下的目录里
+C:\mysql\bin
+
+mysqldump  -uroot -p123456  instalhms >D:back_1.sql
+
+	
+mysql -u root -p < D:back_1.sql

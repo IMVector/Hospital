@@ -154,4 +154,8 @@ public class NextPage {
     public String goToStaffInfoUpdate() {
         return "staffInfoUpdate";
     }
+    @RequestMapping(value = "admin/goToAdminIndex")
+    public String goToAdminIndex() {
+        return "adminIndex";
+    }
 }

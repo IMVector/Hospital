@@ -13,12 +13,14 @@ import java.util.List;
  *
  * @author Vector
  */
-public interface ImageService {
+public interface ImageService extends CUDService<Image>, PaginationBaseService<Image> {
 
-    List<Image> getFirstPageImage();
+    public List<Image> getFirstPageImage();
 
     public Image getImageByPath(Serializable path);
 
     public void insertImage(Image image);
+
+    public Image getImageById(Serializable imageId);
 
 }
