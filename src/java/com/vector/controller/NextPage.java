@@ -129,6 +129,14 @@ public class NextPage {
     public String goToPersonnelCenter() {
         return "personnelCenter";
     }
+    @RequestMapping(value = "patient/goToPatientAdvice")
+    public String goToPatientAdvice() {
+        return "patientAdvice";
+    }
+    @RequestMapping(value = "patient/goToPatientPrescription")
+    public String goToPatientPrescription() {
+        return "patientPrescription";
+    }
 
     @RequestMapping(value = "patient/goToUpdatePatientIngo")
     public String goToUpdatePatientIngo() {

@@ -159,7 +159,7 @@
                                             </svg>
 
                                             <div id="set_text"> 
-                                                <a href="#">         
+                                                <a href="patient/goToPatientAdvice">         
                                                     健康建议
                                                 </a> 
                                             </div>
@@ -181,7 +181,7 @@
                                             </svg>
 
                                             <div id="set_text"> 
-                                                <a href="#">         
+                                                <a href="patient/goToPatientPrescription">         
                                                     处方信息
                                                 </a> 
                                             </div>

@@ -15,6 +15,7 @@ public class PrecautionAdvice  implements java.io.Serializable {
 
      private int precautionAdviceId;
      private Patient patient;
+     @JsonIgnore
      private PrecautionAdvice precautionAdvice;
      private Staff staff;
      private String precautionAdviceContent;

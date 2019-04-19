@@ -6,16 +6,20 @@
 package com.vector.controller;
 
 import com.vector.pojo.CheckRecord;
+import com.vector.pojo.DietAdvice;
 import com.vector.pojo.MedicalRecord;
 import com.vector.pojo.Patient;
+import com.vector.pojo.PrecautionAdvice;
 import com.vector.pojo.Reservation;
 import com.vector.pojo.ScheduleTable;
 import com.vector.service.AttendanceService;
 import com.vector.service.ChartService;
 import com.vector.service.CheckRecordService;
 import com.vector.service.DepartmentService;
+import com.vector.service.DietAdviceService;
 import com.vector.service.MedicalRecordService;
 import com.vector.service.PatientService;
+import com.vector.service.PrecautionAdviceService;
 import com.vector.service.ReservationService;
 import com.vector.service.StaffService;
 import com.vector.service.WorkScheduleService;
@@ -73,6 +77,11 @@ public class PatientController {
     @Autowired
     CheckRecordService checkRecordService;
 
+    @Autowired
+    DietAdviceService dietAdviceService;
+    @Autowired
+    PrecautionAdviceService precautionAdviceService;
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -97,6 +106,7 @@ public class PatientController {
     public String login(Patient patient, String validateCode, HttpSession session) {
         return patientService.login(patient, validateCode, session);
     }
+
     @RequestMapping(value = "/updateInfo")
     @ResponseBody
     public boolean update(Patient patient) {
@@ -128,6 +138,7 @@ public class PatientController {
     public Integer getReservationListSizeByPatientId(@PathVariable Integer patientId) {
         return reservationService.getUnExpiryReservationByPatientIdListNum(patientId);
     }
+
     @RequestMapping(value = "/deleteReservation/{reservationId}")
     @ResponseBody
     public boolean cancleReservation(@PathVariable Integer reservationId) {
@@ -232,12 +243,34 @@ public class PatientController {
         return "patientCheckRecordDetails";
     }
 
-//    @RequestMapping(value = "/checkRecordDetails/{checkRecordId}", method = RequestMethod.GET)
-//    public String showCheckRecordDetails(@PathVariable Integer checkRecordId, Model model) {
-//        CheckRecord checkRecord = checkRecordService.getOneById(checkRecordId);
-//        model.addAttribute("checkRecord", checkRecord);
-//        return "checkRecordDetails";
-//    }
+    /////////////////////////////////////////////健康建议//////////////////////////////////////////////
+    @RequestMapping(value = "/precautionAdviceList/{patientId}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List showHealthAdviceList(@PathVariable Integer patientId, @PathVariable Integer currentPage) {
+        List<PrecautionAdvice> list = precautionAdviceService.getList(currentPage,patientId);
+        return list;
+    }
+
+    @RequestMapping(value = "/precautionAdviceListItemNumber/{patientId}", method = RequestMethod.POST)
+    @ResponseBody
+    public int showhealthAdviceListItemNumber(@PathVariable Integer patientId) {
+        return precautionAdviceService.getListItemNumber(patientId);
+    }
+
+    @RequestMapping(value = "/dietAdviceList/{patientId}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List showDietAdviceList(@PathVariable Integer patientId, @PathVariable Integer currentPage) {
+        List<DietAdvice> list = dietAdviceService.getList(currentPage, patientId);
+        return list;
+    }
+
+    @RequestMapping(value = "/dietAdviceListItemNumber/{patientId}", method = RequestMethod.POST)
+    @ResponseBody
+    public int showDietAdviceListItemNumber(@PathVariable Integer patientId) {
+        return dietAdviceService.getListItemNumber(patientId);
+    }
+
+
     ///////////////////////////////////////处方报告/////////////////////////////////////////////////
 //    @RequestMapping(value = "/prescriptionList/{patientId}/{currentPage}", method = RequestMethod.POST)
 //    @ResponseBody

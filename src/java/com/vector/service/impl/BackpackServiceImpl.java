@@ -5,10 +5,8 @@
  */
 package com.vector.service.impl;
 
-import com.vector.dao.BackpackFileDao;
 import com.vector.dao.BackpackSettingDao;
 import com.vector.pojo.BackpackFile;
-import com.vector.pojo.BackpackSetting;
 import com.vector.service.BackpackFileService;
 import com.vector.service.BackpackSettingService;
 import java.io.FileOutputStream;
@@ -16,7 +14,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;

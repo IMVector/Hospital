@@ -8,13 +8,13 @@
             <column name="PrecautionAdviceId" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="patient" class="com.vector.pojo.Patient" fetch="select">
+        <many-to-one name="patient" class="com.vector.pojo.Patient" lazy="false" fetch="select">
             <column name="PatientId" not-null="true" />
         </many-to-one>
-        <many-to-one name="precautionAdvice" class="com.vector.pojo.PrecautionAdvice" fetch="select">
+        <many-to-one name="precautionAdvice" class="com.vector.pojo.PrecautionAdvice"  fetch="select">
             <column name="LastId" />
         </many-to-one>
-        <many-to-one name="staff" class="com.vector.pojo.Staff" fetch="select">
+        <many-to-one name="staff" class="com.vector.pojo.Staff" lazy="false" fetch="select">
             <column name="StaffId" not-null="true" />
         </many-to-one>
         <property name="precautionAdviceContent" type="string">
