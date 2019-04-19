@@ -13,21 +13,18 @@
                 <a href="index" class="active item">
                     InstalHMS 医院系统
                 </a>
-                <a href="staff/goToManageStaffIndex" class="item">                            
-                    医院管理主页
+                <a href="staff/goToExamineStaff" class="item">
+                    医生主页
                 </a>
-                <a class="item" href="staff/goToManageStaff">员工管理</a>
-                <a href="staff/goToDepartmentManage" class="item">部门管理</a>
-                <a class="item" href="staff/goToTitleManage">职称管理</a>
-                <a class="item" href="staff/goToRoleManage">角色管理</a>
-                <a href="staff/goToCheckItemManage" class="item">检查项目管理</a>
-                <a href="staff/goToBloodBank" class="item">血库信息管理 </a>
-                <a href="staff/goToMedicineManage" class="item">药品信息管理 </a>
+<!--                <a href="personalCenter1" class="item">查看病人就诊记录</a>
+                <a href="personalCenter2" class="item">查看病人处方记录</a>
+                <a href="personalCenter3" class="item">查看病人检查记录</a>
+                <a href="personalCenter4" class="item">查询药品</a>
+                <a href="personalCenter5" class="item">安排事项</a>-->
             </div>
-
             <div class="item right">
                 <c:if test="${empty staff}">
-                    <a href="staff/goToLogin" class=" ui blue button">登录</a>
+                    <a href="staff/goToStaffLogin" class=" ui blue button">登录</a>
                     &nbsp
                     &nbsp
                     <!--<a href="staff/goToRegister" class="ui blue button">注册</a>-->
@@ -51,20 +48,19 @@
                 <a href="index" class="active item">
                     InstalHMS 医院系统
                 </a>
-                <a href="staff/goToManageStaffIndex" class="item">                            
-                    医院管理主页
+                <a href="staff/goToExamineStaff" class="item">
+                    医生主页
                 </a>
-                <a class="item" href="staff/goToManageStaff">员工管理</a>
-                <a href="staff/goToDepartmentManage" class="item">部门管理</a>
-                <a class="item" href="staff/goToTitleManage">职称管理</a>
-                <a class="item" href="staff/goToRoleManage">角色管理</a>
-                <a href="staff/goToCheckItemManage" class="item">检查项目管理</a>
-                <a href="staff/goToBloodBank" class="item">血库信息管理 </a>
-                <a href="staff/goToMedicineManage" class="item">药品信息管理 </a>
+<!--                <a href="personalCenter1" class="item">查看病人就诊记录</a>
+                <a href="personalCenter2" class="item">查看病人处方记录</a>
+                <a href="personalCenter3" class="item">查看病人检查记录</a>
+                <a href="personalCenter4" class="item">查询药品</a>
+                <a href="personalCenter5" class="item">安排事项</a>
+                <a href="personalCenter6" class="item">个人中心</a>-->
             </div>
             <div class="item right">
                 <c:if test="${empty staff}">
-                    <a href="staff/goToLogin" class=" ui blue button">登录</a>
+                    <a href="staff/goToStaffLogin" class=" ui blue button">登录</a>
                     &nbsp
                     &nbsp
                     <!--<a href="staff/register" class="ui blue button">注册</a>-->
@@ -100,3 +96,4 @@
     });
 
 </script>
+

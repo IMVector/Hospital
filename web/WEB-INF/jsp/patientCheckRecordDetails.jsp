@@ -34,6 +34,7 @@
                     <div class="ui segment">
                       
                         <p>  <i class="file image big icon"></i>检查影像或检查报告文件</p>
+                        <a href="${checkRecord.resultFile}">文件</a>
                         ${checkRecord.resultFile}
                         <br>
                         <br>

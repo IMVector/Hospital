@@ -112,7 +112,7 @@ public class NextPage {
     @RequestMapping(value = "staff/unload", method = RequestMethod.GET)
     public String staffUnload(HttpSession session) {
         session.removeAttribute("staff");
-        return "staffIndex";
+        return "mainIndex";
     }
 
     @RequestMapping(value = "staff/goToTaskList")
@@ -161,6 +161,10 @@ public class NextPage {
     @RequestMapping(value = "staff/goToStaffInfoUpdate")
     public String goToStaffInfoUpdate() {
         return "staffInfoUpdate";
+    }
+    @RequestMapping(value = "staff/goToManageStaffIndex")
+    public String goToManageStaffIndex() {
+        return "manageStaffIndex";
     }
     @RequestMapping(value = "admin/goToAdminIndex")
     public String goToAdminIndex() {

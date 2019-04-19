@@ -8,7 +8,7 @@
     </head>
     <body>
         <div class="ui container">
-            <jsp:include page="staffHeaderTemplete.jsp"/>
+            <jsp:include page="examStaffHeaderTemplete.jsp"/>
             <div class="ui segment">
                 <div class="ui huge horizontal divided list">
                     <div class="item">

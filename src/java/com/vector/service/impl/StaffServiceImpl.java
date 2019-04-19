@@ -143,7 +143,7 @@ public class StaffServiceImpl implements StaffService {
                 } else if (staffData.getRole().getRoleName().equals("临床医生")) {
                     list.add("staff/goToStaffIndex");
                 } else if (staffData.getRole().getRoleName().equals("行政医生")) {
-                    list.add("staff/goToManageStaff");
+                    list.add("staff/goToManageStaffIndex");
                 }else if(staffData.getRole().getRoleName().equals("管理员")){
                     list.add("admin/goToAdminIndex");
                 }
