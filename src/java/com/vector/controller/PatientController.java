@@ -282,25 +282,17 @@ public class PatientController {
         map.addAttribute("precautionAdvice", precautionAdviceService.getPrecautionAdviceById(precautionAdviceId));
         return "patientReply";
     }
+///////////////////////////////////////bill////////////////////////////////////////////
 
-    ///////////////////////////////////////处方报告/////////////////////////////////////////////////
-//    @RequestMapping(value = "/prescriptionList/{patientId}/{currentPage}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public List showPrescriptionList(@PathVariable String patientId, @PathVariable Integer currentPage) {
-//        List<Prescription> list = prescriptionService.getAllListOfSomeone(patientId, currentPage);
-//        return list;
-//    }
-//
-//    @RequestMapping(value = "/prescriptionListItemNumber/{patientId}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Integer showPrescriptionListItemNumber(@PathVariable String patientId) {
-//        return prescriptionService.getListItemNumber(patientId);
-//    }
-//
-//    @RequestMapping(value = "/prescriptionDetails/{prescriptionId}", method = RequestMethod.GET)
-//    public String showPrescriptionDetails(@PathVariable Integer prescriptionId, Model model) {
-//        Prescription prescription = prescriptionService.getOneById(prescriptionId);
-//        model.addAttribute("prescription", prescription);
-//        return "prescriptionDetails";
-//    }
+    @RequestMapping(value = "/getUnPayCheckRecordByPatientId", method = RequestMethod.POST)
+    @ResponseBody
+    public List<CheckRecord> getUnPayCheckRecordByPatientId(Integer patientId, ModelMap map) {
+        return checkRecordService.getUnPayCheckRecordByPatientId(patientId);
+    }
+
+    @RequestMapping(value = "/getUnPayMedicalRecord", method = RequestMethod.POST)
+    @ResponseBody
+    public List<MedicalRecord> getUnPayMedicalRecord(Integer patientId, ModelMap map) {
+        return medicalRecordService.getUnPayMedicalRecord(patientId);
+    }
 }

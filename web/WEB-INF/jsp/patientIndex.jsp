@@ -226,7 +226,7 @@
                                             </svg>
 
                                             <div id="set_text"> 
-                                                <a href="#">         
+                                                <a href="patient/goToBill">         
                                                     账单信息
                                                 </a> 
                                             </div>

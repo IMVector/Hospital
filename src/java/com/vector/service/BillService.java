@@ -6,14 +6,16 @@
 package com.vector.service;
 
 import com.vector.pojo.Bill;
+import com.vector.pojo.CheckRecord;
+import com.vector.pojo.MedicalRecord;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
  * @author Vector
  */
-public interface BillService extends CUDService<Bill>,PaginationBaseService<Bill>{
-    
+public interface BillService extends CUDService<Bill>, PaginationBaseService<Bill> {
+
     public boolean getToPayItem(Serializable PatientId);
-    
 }

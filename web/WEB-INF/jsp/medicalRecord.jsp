@@ -71,9 +71,9 @@
             $.each(data, function (index, medicalRecord) {
                 var str = "<tr id=" + medicalRecord.medicalRecordId + ">\n\
                     <td style='width:100px;'>" + medicalRecord.medicalRecordId + "</td><td>${patient.patientName}</td>\n\
-                    <td style='width:100px;'><label class=\"mylabel\" data-content=\"" + formatDatebox(medicalRecord.date) + "\" data-position=\"top left\">" + formatDatebox(medicalRecord.date) + "</label></td>\n\
-                    <td style='max-width:400px;'><label class=\"mylabel\" data-content=\"" + medicalRecord.symptom + "\" data-position=\"top left\">" + medicalRecord.symptom + "</label></td>\n\
-                    <td style='max-width:400px;'><label class=\"mylabel\" data-content=\"" + medicalRecord.diagnosticDescription + "\" data-position=\"top left\">" + medicalRecord.diagnosticDescription + "</label></td>\n\
+                    <td style='width:100px;'><label class='mylabel' data-content='" + formatDatebox(medicalRecord.date) + "' data-position='top left'>" + formatDatebox(medicalRecord.date) + "</label></td>\n\
+                    <td style='max-width:400px;'><label class='mylabel' data-content='" + medicalRecord.symptom + "' data-position='top left'>" + medicalRecord.symptom + "</label></td>\n\
+                    <td style='max-width:400px;'><label class='mylabel' data-content='" + medicalRecord.diagnosticDescription + "' data-position='top left'>" + medicalRecord.diagnosticDescription + "</label></td>\n\
                     <td style='width:100px;'> <a  class='ui button small blue' href='patient/medicalRecordDetails/" + medicalRecord.medicalRecordId + "'>查看</a> </td>\n\</tr>";
 
                 $("#medicalRecordTable").append(str);
@@ -104,11 +104,6 @@
             });
             return itemNum;
         }
-
-
-
-
-
 
     </script>
 </html>

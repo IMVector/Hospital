@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2019-04-18 16:20:32
+Date: 2019-04-19 20:34:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,11 +24,21 @@ CREATE TABLE `backpack_file` (
   `BackpackFilePath` varchar(255) NOT NULL,
   `BackpackTime` datetime NOT NULL,
   PRIMARY KEY (`BackpackFileId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of backpack_file
 -- ----------------------------
+INSERT INTO `backpack_file` VALUES ('2', 'D:\\2019_04_19_03_00_00backpack.sql', '2019-04-19 15:00:00');
+INSERT INTO `backpack_file` VALUES ('3', 'D:\\2019_04_19_03_30_00backpack.sql', '2019-04-19 15:30:00');
+INSERT INTO `backpack_file` VALUES ('4', 'D:\\2019_04_19_04_00_00backpack.sql', '2019-04-19 16:00:00');
+INSERT INTO `backpack_file` VALUES ('5', 'D:\\2019_04_19_04_30_00backpack.sql', '2019-04-19 16:30:00');
+INSERT INTO `backpack_file` VALUES ('6', 'D:\\2019_04_19_05_00_00backpack.sql', '2019-04-19 17:00:00');
+INSERT INTO `backpack_file` VALUES ('7', 'D:\\2019_04_19_05_30_00backpack.sql', '2019-04-19 17:30:00');
+INSERT INTO `backpack_file` VALUES ('8', 'D:\\2019_04_19_06_00_00backpack.sql', '2019-04-19 18:00:00');
+INSERT INTO `backpack_file` VALUES ('9', 'D:\\2019_04_19_06_30_00backpack.sql', '2019-04-19 18:30:00');
+INSERT INTO `backpack_file` VALUES ('10', 'D:\\2019_04_19_07_30_00backpack.sql', '2019-04-19 19:30:00');
+INSERT INTO `backpack_file` VALUES ('11', 'D:\\2019_04_19_08_30_00backpack.sql', '2019-04-19 20:30:00');
 
 -- ----------------------------
 -- Table structure for backpack_setting
@@ -36,15 +46,15 @@ CREATE TABLE `backpack_file` (
 DROP TABLE IF EXISTS `backpack_setting`;
 CREATE TABLE `backpack_setting` (
   `BackpackSettingId` int(11) NOT NULL AUTO_INCREMENT,
-  `BackpackSqlFile` varchar(255) NOT NULL,
-  `BackpackBatFile` varchar(255) NOT NULL,
+  `EnvironmentPath` varchar(255) NOT NULL,
   `BackpackToPath` varchar(255) NOT NULL,
   PRIMARY KEY (`BackpackSettingId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of backpack_setting
 -- ----------------------------
+INSERT INTO `backpack_setting` VALUES ('1', 'C:\\\\mysql\\\\bin\\\\', 'D:\\\\');
 
 -- ----------------------------
 -- Table structure for bill
@@ -200,10 +210,10 @@ CREATE TABLE `image` (
 -- ----------------------------
 -- Records of image
 -- ----------------------------
-INSERT INTO `image` VALUES ('1', 'resources\\image\\staffDefault.jpg', null);
-INSERT INTO `image` VALUES ('2', 'resources\\image\\staffDefault.jpg', null);
-INSERT INTO `image` VALUES ('3', 'resources\\image\\staffDefault.jpg', null);
-INSERT INTO `image` VALUES ('4', 'resources\\image\\staffDefault.jpg', null);
+INSERT INTO `image` VALUES ('1', 'resources\\image\\bgfirst.png', '病人轮播图');
+INSERT INTO `image` VALUES ('2', 'resources\\image\\bgsecond.png', '医生轮播图');
+INSERT INTO `image` VALUES ('3', 'resources\\image\\bgthird.png', '管理轮播图');
+INSERT INTO `image` VALUES ('4', 'resources\\image\\20190418222142335.png', '第4个轮播图');
 INSERT INTO `image` VALUES ('5', 'resources\\image\\avatar.png', null);
 INSERT INTO `image` VALUES ('6', 'resources\\image\\staffDefault.jpg', null);
 INSERT INTO `image` VALUES ('7', 'resources\\image\\staffDefault.jpg', null);
@@ -372,25 +382,28 @@ INSERT INTO `patient` VALUES ('4', '社会王', '1994-10-04', '女', '25', 'A型
 -- ----------------------------
 DROP TABLE IF EXISTS `precaution_advice`;
 CREATE TABLE `precaution_advice` (
-  `PrecautionAdviceId` int(11) NOT NULL,
+  `PrecautionAdviceId` int(11) NOT NULL AUTO_INCREMENT,
   `PatientId` int(11) NOT NULL,
   `PrecautionAdviceContent` varchar(100) NOT NULL,
   `StaffId` int(11) NOT NULL,
   `DietAdviceTime` datetime NOT NULL,
   `LastId` int(11) DEFAULT NULL,
+  `Role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`PrecautionAdviceId`),
   KEY `patientPrecautionAdvice` (`PatientId`) USING BTREE,
   KEY `staffPrecautionAdvice` (`StaffId`) USING BTREE,
   KEY `back_to_staff` (`LastId`),
-  CONSTRAINT `back_to_staff` FOREIGN KEY (`LastId`) REFERENCES `precaution_advice` (`PrecautionAdviceId`),
   CONSTRAINT `precaution_advice_ibfk_1` FOREIGN KEY (`PatientId`) REFERENCES `patient` (`PatientId`),
   CONSTRAINT `precaution_advice_ibfk_2` FOREIGN KEY (`StaffId`) REFERENCES `staff` (`StaffId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of precaution_advice
 -- ----------------------------
-INSERT INTO `precaution_advice` VALUES ('0', '3', '范德萨发', '6', '2019-04-17 11:34:50', null);
+INSERT INTO `precaution_advice` VALUES ('1', '3', '范德萨发', '6', '2019-04-17 11:34:50', null, 'staff');
+INSERT INTO `precaution_advice` VALUES ('2', '3', '为什么？', '6', '2019-04-19 19:22:48', '1', 'patient');
+INSERT INTO `precaution_advice` VALUES ('3', '3', '因为...........................', '6', '2019-04-19 19:46:37', '2', 'staff');
+INSERT INTO `precaution_advice` VALUES ('4', '3', '哈哈哈哈哈哈哈哈哈哈哈哈哈', '6', '2019-04-19 19:48:46', '3', 'patient');
 
 -- ----------------------------
 -- Table structure for prescription
@@ -452,6 +465,7 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
+INSERT INTO `role` VALUES ('1', '管理员', '管理网站', null);
 INSERT INTO `role` VALUES ('4', '临床医生', '负责诊断病人', '1');
 INSERT INTO `role` VALUES ('5', '检查医生', '负责使用仪器检查病人病情，并给出检查结果说明', '2');
 INSERT INTO `role` VALUES ('6', '行政医生', '负责管理人事部门事务，药品进出等等', '3');
@@ -490,7 +504,7 @@ CREATE TABLE `staff` (
 INSERT INTO `staff` VALUES ('6', '王琪', '8', '10', '32', 'e10adc3949ba59abbe56e057f20f883e', '4', '2523511899@qq.com', '内科', '                                交大毕业博士后哈哈哈哈哈哈哈哈哈\r\n                            ', '男');
 INSERT INTO `staff` VALUES ('7', '王企2', '10', '10', '4', 'e10adc3949ba59abbe56e057f20f883e', '5', '2523511888@qq.com', '放射治疗', '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或', '女');
 INSERT INTO `staff` VALUES ('8', '王企鹅', '8', '9', '4', 'e10adc3949ba59abbe56e057f20f883e', '6', '2523511881@qq.com', '放射治疗', '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或', '女');
-INSERT INTO `staff` VALUES ('9', '易上福', '9', '9', '4', 'e10adc3949ba59abbe56e057f20f883e', '4', '2523511198@qq.com', '颈椎', '第三方的范德萨发的那个火炬红包VB线程', '男');
+INSERT INTO `staff` VALUES ('9', '易上福', '9', '9', '4', 'e10adc3949ba59abbe56e057f20f883e', '1', '2523511198@qq.com', '颈椎', '第三方的范德萨发的那个火炬红包VB线程', '男');
 
 -- ----------------------------
 -- Table structure for task

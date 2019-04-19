@@ -133,6 +133,10 @@ public class NextPage {
     public String goToPatientAdvice() {
         return "patientAdvice";
     }
+    @RequestMapping(value = "patient/goToBill")
+    public String goToBill() {
+        return "bill";
+    }
 
     @RequestMapping(value = "patient/goToUpdatePatientIngo")
     public String goToUpdatePatientIngo() {
