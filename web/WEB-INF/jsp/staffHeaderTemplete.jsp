@@ -16,11 +16,12 @@
                 <a href="staff/goToStaffIndex" class="item">
                     医生主页
                 </a>
-<!--                <a href="personalCenter1" class="item">查看病人就诊记录</a>
-                <a href="personalCenter2" class="item">查看病人处方记录</a>
-                <a href="personalCenter3" class="item">查看病人检查记录</a>
-                <a href="personalCenter4" class="item">查询药品</a>
-                <a href="personalCenter5" class="item">安排事项</a>-->
+                <a href="staff/goToReplyByPatient" class="item">病人回复</a>
+                <!--                <a href="personalCenter1" class="item">查看病人就诊记录</a>
+                                <a href="personalCenter2" class="item">查看病人处方记录</a>
+                                <a href="personalCenter3" class="item">查看病人检查记录</a>
+                                <a href="personalCenter4" class="item">查询药品</a>
+                                <a href="personalCenter5" class="item">安排事项</a>-->
             </div>
             <div class="item right">
                 <c:if test="${empty staff}">
@@ -51,12 +52,13 @@
                 <a href="staff/goToStaffIndex" class="item">
                     医生主页
                 </a>
-<!--                <a href="personalCenter1" class="item">查看病人就诊记录</a>
-                <a href="personalCenter2" class="item">查看病人处方记录</a>
-                <a href="personalCenter3" class="item">查看病人检查记录</a>
-                <a href="personalCenter4" class="item">查询药品</a>
-                <a href="personalCenter5" class="item">安排事项</a>
-                <a href="personalCenter6" class="item">个人中心</a>-->
+                <a href="staff/goToReplyByPatient" class="item">病人回复</a>
+                <!--                <a href="personalCenter1" class="item">查看病人就诊记录</a>
+                                <a href="personalCenter2" class="item">查看病人处方记录</a>
+                                <a href="personalCenter3" class="item">查看病人检查记录</a>
+                                <a href="personalCenter4" class="item">查询药品</a>
+                                <a href="personalCenter5" class="item">安排事项</a>
+                                <a href="personalCenter6" class="item">个人中心</a>-->
             </div>
             <div class="item right">
                 <c:if test="${empty staff}">

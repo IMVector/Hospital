@@ -24,6 +24,7 @@
                     <form id="precautionAdviceFrom" class="ui form">
                         <input name="staff.staffId" type="text" value="${staff.staffId}" style="display: none">
                         <input name="patient.patientId" type="text" value="${medicalRecord.patient.patientId}" style="display: none">
+                        <input name="role" type="text" value="staff" style="display: none">
                         <div class="field">
                             <label>预防建议</label>
                             <div class="ui fluid action input">

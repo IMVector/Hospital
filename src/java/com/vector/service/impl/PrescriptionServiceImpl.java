@@ -6,13 +6,18 @@
 package com.vector.service.impl;
 
 import com.vector.dao.PrescriptionDao;
+import com.vector.pojo.Medicine;
 import com.vector.pojo.Prescription;
+import com.vector.service.MedicineService;
 import com.vector.service.PrescriptionService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 
 /**
  *
@@ -24,6 +29,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Autowired
     PrescriptionDao prescriptionDao;
+
+    @Autowired
+    MedicineService medicineService;
 
     @Override
     public boolean insert(Prescription t, Object... params) {
@@ -70,7 +78,27 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Override
     public List<Prescription> getPrescriptionByMedicalRecordId(Serializable MedicalRecordId) {
-         return prescriptionDao.getPrescriptionByMedicalRecordId(MedicalRecordId);
+        return prescriptionDao.getPrescriptionByMedicalRecordId(MedicalRecordId);
+    }
+
+    @Override
+    public Map getMedicalRecordPrescription(Serializable MedicalRecordId) {
+        ModelMap map = new ModelMap();
+        List<Prescription> prescriptionList = prescriptionDao.getPrescriptionByMedicalRecordId(MedicalRecordId);
+        if (!prescriptionList.isEmpty()) {
+            List<Medicine> mlist = new ArrayList();
+            Prescription prescription = prescriptionList.get(0);
+            String medicineIdArray[] = prescription.getPrescriptionContent().split(",");
+            for (int i = 0; i < medicineIdArray.length; i++) {
+                mlist.add(medicineService.getMedicineById(Integer.parseInt(medicineIdArray[i])));
+            }
+            map.addAttribute("prescription", prescription);
+            map.addAttribute("medicineList", mlist);
+            return map;
+        } else {
+            return null;
+        }
+
     }
 
 }

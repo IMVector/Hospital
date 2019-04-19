@@ -73,4 +73,19 @@ public class PrecautionAdviceServiceImpl implements PrecautionAdviceService {
         return precautionAdviceDao.getList(currentPage, params[0]);
     }
 
+    @Override
+    public PrecautionAdvice getPrecautionAdviceById(Serializable precautionAdviceId) {
+        return precautionAdviceDao.getOneById(precautionAdviceId);
+    }
+
+    @Override
+    public Integer getListItemNumberOfStaff(Object... params) {
+        return precautionAdviceDao.getListItemNumberOfStaff(params);
+    }
+
+    @Override
+    public List<PrecautionAdvice> getListOfStaff(Integer currentPage, Object... params) {
+        return precautionAdviceDao.getListOfStaff(currentPage, params);
+    }
+
 }

@@ -8,6 +8,7 @@ package com.vector.service;
 import com.vector.pojo.Prescription;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,4 +18,5 @@ public interface PrescriptionService extends CUDService<Prescription>, Paginatio
 
     public List<Prescription> getPrescriptionByMedicalRecordId(Serializable MedicalRecordId);
 
+    public Map getMedicalRecordPrescription(Serializable MedicalRecordId);
 }

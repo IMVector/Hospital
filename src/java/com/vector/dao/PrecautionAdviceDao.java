@@ -6,11 +6,15 @@
 package com.vector.dao;
 
 import com.vector.pojo.PrecautionAdvice;
+import java.util.List;
 
 /**
  *
  * @author Vector
  */
-public interface PrecautionAdviceDao extends BaseDao<PrecautionAdvice>,PaginationBaseDao<PrecautionAdvice>{
-    
+public interface PrecautionAdviceDao extends BaseDao<PrecautionAdvice>, PaginationBaseDao<PrecautionAdvice> {
+
+    public Integer getListItemNumberOfStaff(Object... params);
+
+    public List<PrecautionAdvice> getListOfStaff(Integer currentPage, Object... params);
 }

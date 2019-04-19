@@ -20,6 +20,7 @@ import com.vector.service.DietAdviceService;
 import com.vector.service.MedicalRecordService;
 import com.vector.service.PatientService;
 import com.vector.service.PrecautionAdviceService;
+import com.vector.service.PrescriptionService;
 import com.vector.service.ReservationService;
 import com.vector.service.StaffService;
 import com.vector.service.WorkScheduleService;
@@ -79,8 +80,13 @@ public class PatientController {
 
     @Autowired
     DietAdviceService dietAdviceService;
+
     @Autowired
     PrecautionAdviceService precautionAdviceService;
+
+    @Autowired
+
+    PrescriptionService prescriptionService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -158,10 +164,11 @@ public class PatientController {
     }
 
     //////////////////////////////////////////病例报告//////////////////////////////////////////////
-    @RequestMapping(value = "/medicalRecordDetails/{MdeicalRecordId}", method = RequestMethod.GET)
-    public String showMdeicalRecordDetails(@PathVariable Integer MdeicalRecordId, Model model, HttpSession session) {
-        MedicalRecord medicalRecord = medicalRecordService.getMedicalRecordById(MdeicalRecordId);
+    @RequestMapping(value = "/medicalRecordDetails/{mdeicalRecordId}", method = RequestMethod.GET)
+    public String showMdeicalRecordDetails(@PathVariable Integer mdeicalRecordId, Model model, HttpSession session) {
+        MedicalRecord medicalRecord = medicalRecordService.getMedicalRecordById(mdeicalRecordId);
         model.addAttribute("medicalRecord", medicalRecord);
+        model.addAttribute("prescription", prescriptionService.getMedicalRecordPrescription(medicalRecord));
         return "medicalRecordDetails";
     }
 
@@ -247,7 +254,7 @@ public class PatientController {
     @RequestMapping(value = "/precautionAdviceList/{patientId}/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
     public List showHealthAdviceList(@PathVariable Integer patientId, @PathVariable Integer currentPage) {
-        List<PrecautionAdvice> list = precautionAdviceService.getList(currentPage,patientId);
+        List<PrecautionAdvice> list = precautionAdviceService.getList(currentPage, patientId);
         return list;
     }
 
@@ -270,6 +277,11 @@ public class PatientController {
         return dietAdviceService.getListItemNumber(patientId);
     }
 
+    @RequestMapping(value = "/goToReply/{precautionAdviceId}", method = RequestMethod.GET)
+    public String goToReply(@PathVariable Integer precautionAdviceId, ModelMap map) {
+        map.addAttribute("precautionAdvice", precautionAdviceService.getPrecautionAdviceById(precautionAdviceId));
+        return "patientReply";
+    }
 
     ///////////////////////////////////////处方报告/////////////////////////////////////////////////
 //    @RequestMapping(value = "/prescriptionList/{patientId}/{currentPage}", method = RequestMethod.POST)

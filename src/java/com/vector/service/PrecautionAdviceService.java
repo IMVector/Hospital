@@ -6,11 +6,18 @@
 package com.vector.service;
 
 import com.vector.pojo.PrecautionAdvice;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  *
  * @author Vector
  */
-public interface PrecautionAdviceService  extends CUDService<PrecautionAdvice>,PaginationBaseService<PrecautionAdvice> {
-    
+public interface PrecautionAdviceService extends CUDService<PrecautionAdvice>, PaginationBaseService<PrecautionAdvice> {
+
+    public Integer getListItemNumberOfStaff(Object... params);
+
+    public List<PrecautionAdvice> getListOfStaff(Integer currentPage, Object... params);
+
+    public PrecautionAdvice getPrecautionAdviceById(Serializable precautionAdviceId);
 }

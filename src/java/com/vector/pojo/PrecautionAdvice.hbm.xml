@@ -1,18 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 2019-4-17 11:06:28 by Hibernate Tools 4.3.1 -->
+<!-- Generated 2019-4-19 19:19:15 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.vector.pojo.PrecautionAdvice" table="precaution_advice" catalog="instalhms" optimistic-lock="version">
-        <id name="precautionAdviceId" type="int">
+        <id name="precautionAdviceId" type="java.lang.Integer">
             <column name="PrecautionAdviceId" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="patient" class="com.vector.pojo.Patient" lazy="false" fetch="select">
             <column name="PatientId" not-null="true" />
-        </many-to-one>
-        <many-to-one name="precautionAdvice" class="com.vector.pojo.PrecautionAdvice"  fetch="select">
-            <column name="LastId" />
         </many-to-one>
         <many-to-one name="staff" class="com.vector.pojo.Staff" lazy="false" fetch="select">
             <column name="StaffId" not-null="true" />
@@ -23,11 +20,11 @@
         <property name="dietAdviceTime" type="timestamp">
             <column name="DietAdviceTime" length="19" not-null="true" />
         </property>
-        <set name="precautionAdvices" table="precaution_advice" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="LastId" />
-            </key>
-            <one-to-many class="com.vector.pojo.PrecautionAdvice" />
-        </set>
+        <property name="lastId" type="java.lang.Integer">
+            <column name="LastId" />
+        </property>
+        <property name="role" type="string">
+            <column name="Role" />
+        </property>
     </class>
 </hibernate-mapping>

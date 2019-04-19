@@ -169,23 +169,23 @@
 
                             </div> 
                         </div>
-                        <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/55.jpg);">
+                        <div class="four wide column " style="background:url(resources/image/backgroundImage/55.jpg);">
                             <div class="image-text">
                                 <div>
-                                    <i class="pills huge icon"></i>
+                                    <!--<i class="pills huge icon"></i>-->
                                     <div>
                                         <br>
-                                        <div class="set-btn-wrapper"> 
-                                            <svg height="45" width="150" xmlns="#">
-                                            <rect id="set_button" height="45" width="150"></rect>
-                                            </svg>
-
-                                            <div id="set_text"> 
-                                                <a href="patient/goToPatientPrescription">         
-                                                    处方信息
-                                                </a> 
-                                            </div>
-                                        </div>
+                                        <!--                                        <div class="set-btn-wrapper"> 
+                                                                                    <svg height="45" width="150" xmlns="#">
+                                                                                    <rect id="set_button" height="45" width="150"></rect>
+                                                                                    </svg>
+                                        
+                                                                                    <div id="set_text"> 
+                                                                                        <a href="patient/goToPatientPrescription">         
+                                                                                            处方信息
+                                                                                        </a> 
+                                                                                    </div>
+                                                                                </div>-->
                                     </div>
                                 </div>
 
@@ -237,23 +237,23 @@
                             </div> 
 
                         </div>
-                        <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/88.jpg);">
+                        <div class="four wide column" style="background:url(resources/image/backgroundImage/88.jpg);">
                             <div class="image-text">
                                 <div>
-                                    <i class="map signs huge icon"></i>  
+                                    <!--<i class="map signs huge icon"></i>-->  
                                     <div>
                                         <br>
-                                        <div class="set-btn-wrapper"> 
-                                            <svg height="45" width="150" xmlns="#">
-                                            <rect id="set_button" height="45" width="150"></rect>
-                                            </svg>
-
-                                            <div id="set_text"> 
-                                                <a href="#">         
-                                                    医生安排
-                                                </a> 
-                                            </div>
-                                        </div>
+                                        <!--                                        <div class="set-btn-wrapper"> 
+                                                                                    <svg height="45" width="150" xmlns="#">
+                                                                                    <rect id="set_button" height="45" width="150"></rect>
+                                                                                    </svg>
+                                        
+                                                                                    <div id="set_text"> 
+                                                                                        <a href="#">         
+                                                                                            医生安排
+                                                                                        </a> 
+                                                                                    </div>
+                                                                                </div>-->
                                     </div>
                                 </div>
 
@@ -269,27 +269,29 @@
                 <div class="ui green segment">
                     <h3>科室导航</h3>
                 </div>
-
-                <div class="ui grid">
-                    <div class="sixteen wide column">
-                        <div class="ui fluid action input">
-                            <input id="departmentByName" type="text" placeholder="搜索科室">
-                            <button id="departmentByNameBtn" type="button" class="ui icon button">
-                                <i class="search icon"></i>
-                            </button>
+                <div class="ui segment">
+                    <div class="ui grid">
+                        <div class="sixteen wide column">
+                            <div class="ui fluid action input">
+                                <input id="departmentByName" type="text" placeholder="搜索科室">
+                                <button id="departmentByNameBtn" type="button" class="ui icon button">
+                                    <i class="search icon"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="six wide column">
-                        <img src="resources/image/backgroundImage/88.jpg" alt="">
-                    </div>
-                    <div class="ten wide column">
-                        <div id="department" class="ui grid">
+                        <div class="six wide column">
+                            <img src="resources/image/backgroundImage/88.jpg" alt="">
+                        </div>
+                        <div class="ten wide column">
+                            <div id="department" class="ui grid">
 
-                            <!--<div class="four wide column">  <a class="ui primary button" href="patient/goToDepartmentInfo/test">test</a></div>-->
+                                <!--<div class="four wide column">  <a class="ui primary button" href="patient/goToDepartmentInfo/test">test</a></div>-->
+                            </div>
                         </div>
                     </div>
                 </div>
+
 
 
             </div>

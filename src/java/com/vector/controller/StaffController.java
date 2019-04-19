@@ -564,6 +564,19 @@ public class StaffController {
     public Integer medicalHistoryListItemNum(@PathVariable Integer patientId) {
         return medicationHistoryService.getListItemNumber(patientId);
     }
+
+    @RequestMapping(value = "/precautionAdviceList/{staffId}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List showHealthAdviceList(@PathVariable Integer staffId, @PathVariable Integer currentPage) {
+        List<PrecautionAdvice> list = precautionAdviceService.getListOfStaff(currentPage, staffId);
+        return list;
+    }
+
+    @RequestMapping(value = "/precautionAdviceListItemNumber/{staffId}", method = RequestMethod.POST)
+    @ResponseBody
+    public int showhealthAdviceListItemNumber(@PathVariable Integer staffId) {
+        return precautionAdviceService.getListItemNumberOfStaff(staffId);
+    }
 /////////////////////////////////////////////////////////dietAdvice////////////////////////////////////////
 
     @RequestMapping(value = "/dietAdviceEdit/{medicalRecordId}", method = RequestMethod.GET)
@@ -590,6 +603,12 @@ public class StaffController {
     @ResponseBody
     public boolean addPrecautionAdvice(PrecautionAdvice precautionAdvice) {
         return precautionAdviceService.insert(precautionAdvice);
+    }
+
+    @RequestMapping(value = "/goToReply/{precautionAdviceId}", method = RequestMethod.GET)
+    public String goToReply(@PathVariable Integer precautionAdviceId, ModelMap map) {
+        map.addAttribute("precautionAdvice", precautionAdviceService.getPrecautionAdviceById(precautionAdviceId));
+        return "staffReply";
     }
 
     //////////////////////////////////////////reservationList/////////////////////////////////////////////

@@ -47,6 +47,7 @@
                         </select>
                     </div>
                 </div>
+                <div class="ui divider"></div>
                 <div class="ui header blue segment">
                     饮食建议
                 </div>
@@ -103,13 +104,13 @@
 
         function showdietAdviceTable(data) {
             $("#dietAdviceTable").empty();
-            $("#dietAdviceTable").append("<thead><tr> <th>建议编号</th><th>病人姓名</th><th>建议日期</th><th>建议内容</th><th>查看详情</th></tr></thead>");
+            $("#dietAdviceTable").append("<thead><tr> <th>建议编号</th><th>病人姓名</th><th>建议日期</th><th>建议内容</th><th>建议人</th></tr></thead>");
             $.each(data, function (index, dietAdvice) {
                 var str = "<tr id=" + dietAdvice.dietAdviceId + ">\n\
                     <td>" + dietAdvice.dietAdviceId + "</td><td>${patient.patientName}</td>\n\
-                    <td><label class=\"mylabel\" data-content=\"" + formatDatebox(dietAdvice.dietAdviceTime) + "\" data-position=\"right center\">" + formatDatebox(dietAdvice.dietAdviceTime) + "</label></td>\n\
-                    <td><label class=\"mylabel\" data-content=\"" + dietAdvice.dietAdviceContent + "\" data-position=\"right center\">" + dietAdvice.dietAdviceContent + "</label></td>\n\
-                    <td> <a  class='ui button small blue' href='dietAdviceDetails/" + dietAdvice.dietAdviceId + "'>查看</a> </td>\n\</tr>";
+                    <td><label class=\"mylabel\" data-content=\"" + formatDatebox(dietAdvice.dietAdviceTime) + "\" data-position=\"top left\">" + formatDatebox(dietAdvice.dietAdviceTime) + "</label></td>\n\
+                    <td><label class=\"mylabel\" data-content=\"" + dietAdvice.dietAdviceContent + "\" data-position=\"top left\">" + dietAdvice.dietAdviceContent + "</label></td>\n\
+                    <td><label class=\"mylabel\" data-content=\"" + dietAdvice.staff.staffName + "\" data-position=\"top left\">" + dietAdvice.staff.staffName + "</label></td></tr>";
                 $("#dietAdviceTable").append(str);
             });
         }
@@ -137,13 +138,14 @@
         }
         function showHealthAdviceTable(data) {
             $("#healthAdviceTable").empty();
-            $("#healthAdviceTable").append("<thead><tr> <th>建议编号</th><th>病人姓名</th><th>建议日期</th><th>建议内容</th><th>查看详情</th></tr></thead>");
+            $("#healthAdviceTable").append("<thead><tr> <th>建议编号</th><th>病人姓名</th><th>建议日期</th><th>建议内容</th><th>建议人</th><th>操作</th></tr></thead>");
             $.each(data, function (index, healthAdvice) {
                 var str = "<tr id=" + healthAdvice.precautionAdviceId + ">\n\
                     <td>" + healthAdvice.precautionAdviceId + "</td><td>${patient.patientName}</td>\n\
-                    <td><label class=\"mylabel\" data-content=\"" + formatDatebox(healthAdvice.dietAdviceTime) + "\" data-position=\"right center\">" + formatDatebox(healthAdvice.dietAdviceTime) + "</label></td>\n\
-                    <td><label class=\"mylabel\" data-content=\"" + healthAdvice.precautionAdviceContent + "\" data-position=\"right center\">" + healthAdvice.precautionAdviceContent + "</label></td>\n\
-                    <td> <a  class='ui button small blue' href='healthAdviceDetails/" + healthAdvice.precautionAdviceId + "'>查看</a> </td>\n\</tr>";
+                    <td><label class=\"mylabel\" data-content=\"" + formatDatebox(healthAdvice.dietAdviceTime) + "\" data-position=\"top left\">" + formatDatebox(healthAdvice.dietAdviceTime) + "</label></td>\n\
+                    <td><label class=\"mylabel\" data-content=\"" + healthAdvice.precautionAdviceContent + "\" data-position=\"top left\">" + healthAdvice.precautionAdviceContent + "</label></td>\n\
+                    <td><label class=\"mylabel\" data-content=\"" + healthAdvice.staff.staffName + "\" data-position=\"top left\">" + healthAdvice.staff.staffName + "</label> </td>\n\
+                    <td><a class='ui button small blue' href='patient/goToReply/" +  healthAdvice.precautionAdviceId+ "'>回复</a> </td></tr>";
 
                 $("#healthAdviceTable").append(str);
             });

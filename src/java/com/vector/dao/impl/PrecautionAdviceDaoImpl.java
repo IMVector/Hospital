@@ -19,13 +19,25 @@ public class PrecautionAdviceDaoImpl extends BaseDaoImpl<PrecautionAdvice> imple
 
     @Override
     public Integer getListItemNumber(Object... params) {
-        String hql = "select count(*) from PrecautionAdvice where patient.patientId=?";
+        String hql = "select count(*) from PrecautionAdvice where patient.patientId=? and role='staff'";
         return getListSize(hql, params[0]);
     }
 
     @Override
     public List<PrecautionAdvice> getList(Integer currentPage, Object... params) {
-        String hql = "from PrecautionAdvice where patient.patientId=?";
+        String hql = "from PrecautionAdvice where patient.patientId=? and role='staff'";
+        return getListPaginationByQuery(hql, currentPage, params[0]);
+    }
+
+    @Override
+    public Integer getListItemNumberOfStaff(Object... params) {
+        String hql = "select count(*) from PrecautionAdvice where staff.staffId=? and role='patient'";
+        return getListSize(hql, params[0]);
+    }
+
+    @Override
+    public List<PrecautionAdvice> getListOfStaff(Integer currentPage, Object... params) {
+        String hql = "from PrecautionAdvice where staff.staffId=? and role='patient'";
         return getListPaginationByQuery(hql, currentPage, params[0]);
     }
 

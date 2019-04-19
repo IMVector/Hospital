@@ -5,6 +5,7 @@
  */
 package com.vector.dao;
 
+import com.vector.pojo.PrecautionAdvice;
 import com.vector.pojo.Prescription;
 import java.io.Serializable;
 import java.util.List;
@@ -13,8 +14,8 @@ import java.util.List;
  *
  * @author Vector
  */
-public interface PrescriptionDao extends BaseDao<Prescription>,PaginationBaseDao<Prescription> {
+public interface PrescriptionDao extends BaseDao<Prescription>, PaginationBaseDao<Prescription> {
 
     public List<Prescription> getPrescriptionByMedicalRecordId(Serializable MedicalRecordId);
-    
+
 }

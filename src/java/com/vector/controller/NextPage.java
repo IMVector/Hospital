@@ -133,10 +133,6 @@ public class NextPage {
     public String goToPatientAdvice() {
         return "patientAdvice";
     }
-    @RequestMapping(value = "patient/goToPatientPrescription")
-    public String goToPatientPrescription() {
-        return "patientPrescription";
-    }
 
     @RequestMapping(value = "patient/goToUpdatePatientIngo")
     public String goToUpdatePatientIngo() {
@@ -165,6 +161,10 @@ public class NextPage {
     @RequestMapping(value = "staff/goToManageStaffIndex")
     public String goToManageStaffIndex() {
         return "manageStaffIndex";
+    }
+    @RequestMapping(value = "staff/goToReplyByPatient")
+    public String goToReplyByPatient() {
+        return "replyByPatient";
     }
     @RequestMapping(value = "admin/goToAdminIndex")
     public String goToAdminIndex() {
