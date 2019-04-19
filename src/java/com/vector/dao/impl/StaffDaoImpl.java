@@ -98,11 +98,23 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
     @Override
     public Staff getStaffByEmail(Serializable email) {
         String hql = "from Staff where email= ?";
-        List<Staff> list=getListByQuery(hql, email);
-        if(!list.isEmpty()){
+        List<Staff> list = getListByQuery(hql, email);
+        if (!list.isEmpty()) {
             return list.get(0);
-        }else{
+        } else {
             return null;
         }
+    }
+
+    @Override
+    public List<Staff> getStaffWithImage(Integer currentPage) {
+        String hql = "from Staff where image.imagePath is not null";
+        return getListPaginationByQuery(hql, currentPage);
+    }
+
+    @Override
+    public int getStaffNumWithImage() {
+        String hql = "select count(*) from Staff where image.imagePath is not null";
+        return getListSize(hql);
     }
 }

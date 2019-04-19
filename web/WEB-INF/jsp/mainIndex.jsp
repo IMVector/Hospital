@@ -63,7 +63,7 @@
                                 <ul class="links">
                                     <li class="l3">
                                         <p class="p">管理版</p>
-                                        <a class="link" href="managerSignUp">进入</a>
+                                        <a class="link" href="staff/goToStaffLogin">进入</a>
                                     </li>
                                 </ul>
                             </div>
@@ -91,7 +91,7 @@
                     名医风采
                 </div>
                 <div>
-                    <div class="ui active inverted dimmer">
+                    <div id="loader_1" class="ui active inverted dimmer">
                         <div class="ui text loader">加载</div>
                     </div>
                     <div id="card_parent" class="ui link cards" style="min-height:100px">
@@ -143,7 +143,6 @@
                 </div>
 
             </div>
-            <a href="admin/goToAdminIndex">跳转到管理员</a>
 
             <div class="ui segment">
                 <!--<img class="ui fluid image" src="resources/image/bgthird.png">-->
@@ -173,11 +172,11 @@
 
             $(document).ready(function () {
 
-                var url = 'staffWithImage/page_key_word';
+                var url = 'staff/staffWithImage/page_key_word';
                 fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, getStaffWithImage, staffItemNumWithImage);
 
                 $("#pageSelecter").on("change", function () {
-                    var url = 'staffWithImage/page_key_word';
+                    var url = 'staff/staffWithImage/page_key_word';
                     goToThPage("PageButtons", "pageText", "pageSelecter", url, getStaffWithImage, staffItemNumWithImage);
                 });
 
@@ -315,7 +314,7 @@
                 var itemNum = 0;
 
                 $.ajax({
-                    url: "getStaffWithImageItemNum/",
+                    url: "staff/getStaffWithImageItemNum/",
                     type: 'POST',
                     async: false,
                     data: {},
@@ -330,12 +329,24 @@
                 return itemNum;
             }
             function getStaffWithImage(data) {
+                $("#loader_1").removeClass("active");
                 $("#card_parent").empty();
                 $.each(data, function (index, staff) {
-                    var str = '<div class="card"><div class="image" ><img src="' + staff.image.imagePath + '"></div>\n\
-                     <div class="content"><div class="header">' + staff.staffName + '</div>\n\
-                    <div class="meta">座右铭</div><div class="description">' + staff.motto + '</div></div>\n\
-                    <div class="extra content"><span class="right floated">' + staff.department.departmentName + '</span><span><i class="user icon"></i>' + staff.title.titleName + '</span></div></div > ';
+                    var str = '\
+            <div class="card">\n\
+                <div class="image" >\n\
+                    <img src="' + staff.image.imagePath + '">\n\
+                </div>\n\
+                <div class="content">\n\
+                    <div class="header">姓名：' + staff.staffName + '</div>\n\
+                    <div class="meta">座右铭</div>\n\
+                    <div class="description">擅长领域：' + staff.specialty + '</div>\n\
+                </div>\n\
+                <div class="extra content">\n\
+                    <span class="right floated">' + staff.department.departmentName + '</span>\n\
+                    <span><i class="user icon"></i>' + staff.title.titleName + '</span>\n\
+                </div>\n\
+            </div > ';
                     $("#card_parent").append(str);
 
                 });

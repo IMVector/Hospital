@@ -43,19 +43,19 @@ public class BackPackServiceTest {
 //    @Test
 //    public void testBackpack() {
 //        System.out.println("backpack");
-//        BackPackService instance = new BackPackService();
+//        BackpackServiceImpl instance = new BackpackServiceImpl();
 //        instance.backpack();
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
 //
 //    /**
-//     * Test of restore method, of class BackPackService.
+//     * Test of restore method, of class BackpackServiceImpl.
 //     */
 //    @Test
 //    public void testRestore() {
 //        System.out.println("restore");
-//        BackPackService instance = new BackPackService();
+//        BackpackServiceImpl instance = new BackpackServiceImpl();
 //        boolean expResult = false;
 //        boolean result = instance.restore();
 //        assertEquals(expResult, result);
@@ -64,12 +64,12 @@ public class BackPackServiceTest {
 //    }
 
     /**
-     * Test of test_1 method, of class BackPackService.
+     * Test of test_1 method, of class BackpackServiceImpl.
      */
     @Test
     public void testTest_1() {
         System.out.println("test_1");
-        BackPackService instance = new BackPackService();
+        BackpackServiceImpl instance = new BackpackServiceImpl();
         boolean expResult = true;
         boolean result = instance.test_1();
         assertEquals(expResult, result);

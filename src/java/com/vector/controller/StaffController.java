@@ -272,6 +272,7 @@ public class StaffController {
     public boolean updateStaff(Staff staff) {
         return staffService.update(staff);
     }
+
     @RequestMapping(value = "/updateStaffSelf", method = RequestMethod.POST)
     @ResponseBody
     public boolean updateStaffSelf(Staff staff) {
@@ -474,9 +475,10 @@ public class StaffController {
     public Integer medicalRecordListItemNumber(@PathVariable Integer staffId) {
         return medicalRecordService.getMedicalRecordByStaffIdItemNum(staffId);
     }
-    @RequestMapping(value="/getMedicalRecordById/{medicalRecordId}")
+
+    @RequestMapping(value = "/getMedicalRecordById/{medicalRecordId}")
     @ResponseBody
-    public MedicalRecord getMedicalRecordById(@PathVariable Integer medicalRecordId,ModelMap map){
+    public MedicalRecord getMedicalRecordById(@PathVariable Integer medicalRecordId, ModelMap map) {
         return medicalRecordService.getMedicalRecordById(medicalRecordId);
     }
 
@@ -607,6 +609,18 @@ public class StaffController {
     public String goToStaffMedicalDetails(@PathVariable Integer patientId, ModelMap map) {
         map.addAttribute("patient", patientService.getPatientById(patientId));
         return "staffReservationDetails";
+    }
+
+    @RequestMapping(value = "/staffWithImage/{currentPage}")
+    @ResponseBody
+    public List<Staff> getStaffWithImage(@PathVariable Integer currentPage) {
+        return staffService.getStaffWithImage(currentPage);
+    }
+
+    @RequestMapping(value = "/getStaffWithImageItemNum", method = RequestMethod.POST)
+    @ResponseBody
+    public int getStaffWithImageItemNum() {
+        return staffService.getStaffNumWithImage();
     }
 
 }

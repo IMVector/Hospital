@@ -42,7 +42,6 @@ public class BillServiceImpl implements BillService {
     BillDao billDao;
 
     @Override
-
     public boolean insert(Bill t, Object... params) {
         try {
             billDao.insert(t);

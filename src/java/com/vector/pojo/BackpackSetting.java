@@ -1,5 +1,5 @@
 package com.vector.pojo;
-// Generated 2019-3-22 22:17:21 by Hibernate Tools 4.3.1
+// Generated 2019-4-19 9:49:57 by Hibernate Tools 4.3.1
 
 
 
@@ -10,16 +10,14 @@ public class BackpackSetting  implements java.io.Serializable {
 
 
      private Integer backpackSettingId;
-     private String backpackSqlFile;
-     private String backpackBatFile;
+     private String environmentPath;
      private String backpackToPath;
 
     public BackpackSetting() {
     }
 
-    public BackpackSetting(String backpackSqlFile, String backpackBatFile, String backpackToPath) {
-       this.backpackSqlFile = backpackSqlFile;
-       this.backpackBatFile = backpackBatFile;
+    public BackpackSetting(String environmentPath, String backpackToPath) {
+       this.environmentPath = environmentPath;
        this.backpackToPath = backpackToPath;
     }
    
@@ -30,19 +28,12 @@ public class BackpackSetting  implements java.io.Serializable {
     public void setBackpackSettingId(Integer backpackSettingId) {
         this.backpackSettingId = backpackSettingId;
     }
-    public String getBackpackSqlFile() {
-        return this.backpackSqlFile;
+    public String getEnvironmentPath() {
+        return this.environmentPath;
     }
     
-    public void setBackpackSqlFile(String backpackSqlFile) {
-        this.backpackSqlFile = backpackSqlFile;
-    }
-    public String getBackpackBatFile() {
-        return this.backpackBatFile;
-    }
-    
-    public void setBackpackBatFile(String backpackBatFile) {
-        this.backpackBatFile = backpackBatFile;
+    public void setEnvironmentPath(String environmentPath) {
+        this.environmentPath = environmentPath;
     }
     public String getBackpackToPath() {
         return this.backpackToPath;

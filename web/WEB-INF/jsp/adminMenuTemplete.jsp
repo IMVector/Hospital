@@ -28,10 +28,6 @@
             网站图片管理
         </div>
 
-        <div id="databaseManage" class="ui header orange segment">
-            数据库设置管理
-        </div>
-
         <div id="webManage" class="ui header violet segment">
             网站管理
         </div>

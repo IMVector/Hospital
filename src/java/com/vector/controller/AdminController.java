@@ -6,10 +6,12 @@
 package com.vector.controller;
 
 import com.vector.pojo.BackpackFile;
-import com.vector.pojo.BackpackSetting;
 import com.vector.pojo.Image;
+import com.vector.service.BackpackFileService;
+import com.vector.service.BackpackSettingService;
 import com.vector.service.ImageService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,17 +28,22 @@ public class AdminController {
 
     @Autowired
     private ImageService imageService;
-    ///////////////////////////////////图像管理/////////////////////////////////////////////////////
 
+    @Autowired
+    BackpackFileService backpackFileService;
+    
+    @Autowired
+    BackpackSettingService backpackSettingService;
+///////////////////////////////////图像管理/////////////////////////////////////////////////////
     @RequestMapping(value = "/imageList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Image> getImageList(@PathVariable int currentPage) {
+    public List<Image> getImageList(@PathVariable Integer currentPage) {
         return imageService.getList(currentPage);
     }
 
     @RequestMapping(value = "/imageListItemNum", method = RequestMethod.POST)
     @ResponseBody
-    public int getImageListItemNum() {
+    public Integer getImageListItemNum() {
         return imageService.getListItemNumber();
     }
 
@@ -48,7 +55,7 @@ public class AdminController {
 
     @RequestMapping(value = "/deleteImage/{departmentId}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean deleteImage(@PathVariable int imageId) {
+    public boolean deleteImage(@PathVariable Integer imageId) {
         return imageService.delete(imageId);
     }
 
@@ -63,82 +70,41 @@ public class AdminController {
     public Image getLogo() {
         return imageService.getImageById(4);
     }
-
+//////////////////////////////////////////管理员跳页//////////////////////////////////
     @RequestMapping(value = "/admin/{page}", method = RequestMethod.GET)
     public String changePage(@PathVariable String page) {
         System.out.println(page);
         return page;
     }
+////////////////////////////////////////数据库备份相关///////////////////////////////
+    @RequestMapping(value = "/databaseBackpackFileList/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<BackpackFile> getDatabaseBackpackFileList(@PathVariable Integer currentPage) {
+        return backpackFileService.getList(currentPage);
+    }
 
-//    @RequestMapping(value = "/backpackSettingList/{currentPage}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public List<BackpackSetting> getDatabaseSetting(@PathVariable int currentPage) {
-//
-//        return databaseSettingService.getAllList(currentPage);
-//
-//    }
-//
-//    @RequestMapping(value = "/backpackSettingListItemNum", method = RequestMethod.POST)
-//    @ResponseBody
-//    public int getDatabaseSettingIntemNum() {
-//
-//        return databaseSettingService.getListItemNumber();
-//
-//    }
-//
-//    @RequestMapping(value = "/setSettting/{id}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public void setSettting(@PathVariable int id) {
-//        BackpackSetting backpackSetting = databaseSettingService.getBackpackSettingById(id);
-//        databaseSettingService.setSettingPath(backpackSetting);
-//    }
-//
-//    @RequestMapping(value = "/databaseBackpackFileList/{currentPage}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public List<BackpackFile> getDatabaseBackpackFileList(@PathVariable int currentPage) {
-//        return backpackFileService.getAllList(currentPage);
-//    }
-//
-//    @RequestMapping(value = "/backpackFileListItemNum", method = RequestMethod.POST)
-//    @ResponseBody
-//    public int getBackpackFileListIntemNum() {
-//
-//        return backpackFileService.getListItemNumber();
-//    }
-//
-//    @RequestMapping(value = "/restore/{id}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public boolean restore(@PathVariable int id) {
-//        BackpackFile backpackFile = backpackFileService.getBackpackFileById(id);
-//        return databaseSettingService.restore(backpackFile.getBackpackFilePath());
-//    }
-//
-//    @RequestMapping(value = "/deleteRestore/{id}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public int restoreDelete(@PathVariable int id) {
-//
-//        if (backpackFileService.deleteOne(id)) {
-//            return id;
-//        } else {
-//            return -1;
-//        }
-//    }
-//
-//    @RequestMapping(value = "/addBackpackSetting", method = RequestMethod.POST)
-//    @ResponseBody
-//    public boolean addSetting(BackpackSetting setting) {
-//        return databaseSettingService.addOne(setting);
-//    }
-//
-//    @RequestMapping(value = "/deleteSetting/{settingId}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public boolean deleteSetting(@PathVariable int settingId) {
-//        return databaseSettingService.deleteOne(settingId);
-//    }
-//
-//    @RequestMapping(value = "/updateSetting", method = RequestMethod.POST)
-//    @ResponseBody
-//    public boolean updateSetting(BackpackSetting setting) {
-//        return databaseSettingService.updateOne(setting);
-//    }
+    @RequestMapping(value = "/backpackFileListItemNum", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getBackpackFileListIntemNum() {
+        return backpackFileService.getListItemNumber();
+    }
+
+    @RequestMapping(value = "/restore/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean restore(@PathVariable Integer id) {
+        return backpackSettingService.restore(id);
+    }
+
+    @RequestMapping(value = "/deleteRestore/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean restoreDelete(@PathVariable Integer id) {
+        return backpackFileService.delete(id);
+    }
+
+    @RequestMapping(value = "/getBackpackSetting", method = RequestMethod.POST)
+    @ResponseBody
+    public Map getBackpackSetting() {
+        return backpackSettingService.getSetting();
+    }
+
 }

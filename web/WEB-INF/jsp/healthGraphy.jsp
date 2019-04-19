@@ -157,7 +157,6 @@
             var i = 0;
             config.data.datasets.forEach(function (dataset) {
                 dataset.data = dataset.data.map(function () {
-//                    console.log(data[i]);
                     return data[i++];
 
                 });
@@ -208,7 +207,6 @@
             var i = 0;
             config.data.datasets.forEach(function (dataset) {
                 dataset.data = dataset.data.map(function () {
-//                    console.log(data[i]);
                     return data[i++];
 
                 });

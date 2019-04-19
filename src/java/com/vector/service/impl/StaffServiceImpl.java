@@ -144,6 +144,8 @@ public class StaffServiceImpl implements StaffService {
                     list.add("staff/goToStaffIndex");
                 } else if (staffData.getRole().getRoleName().equals("行政医生")) {
                     list.add("staff/goToManageStaff");
+                }else if(staffData.getRole().getRoleName().equals("管理员")){
+                    list.add("admin/goToAdminIndex");
                 }
                 return list;
             } else {
@@ -178,6 +180,16 @@ public class StaffServiceImpl implements StaffService {
             System.out.println(e);
             return false;
         }
+    }
+
+    @Override
+    public List<Staff> getStaffWithImage(Integer currentPage) {
+        return staffDao.getStaffWithImage(currentPage);
+    }
+
+    @Override
+    public int getStaffNumWithImage() {
+        return staffDao.getStaffNumWithImage();
     }
 
 }
