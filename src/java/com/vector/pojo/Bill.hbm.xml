@@ -8,7 +8,7 @@
             <column name="BillId" />
             <generator class="identity" />
         </id>
-        <many-to-one name="patient" class="com.vector.pojo.Patient" fetch="select">
+        <many-to-one name="patient" class="com.vector.pojo.Patient" lazy="false" fetch="select">
             <column name="PatientId" not-null="true" />
         </many-to-one>
         <property name="paymentStatus" type="string">

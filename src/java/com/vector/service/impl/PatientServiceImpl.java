@@ -87,7 +87,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public String login(Patient patient, String validateCode, HttpSession session) {
 
-        if (!validateCode.equals(session.getAttribute("randomcode_key"))) {
+        if (!validateCode.toLowerCase().equals(session.getAttribute("randomcode_key").toString().toLowerCase())) {
             return "验证码错误";
         }
         Patient patientData = patientDao.getPatientByEmail(patient.getPatientEmail());

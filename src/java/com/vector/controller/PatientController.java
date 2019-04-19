@@ -5,6 +5,7 @@
  */
 package com.vector.controller;
 
+import com.vector.pojo.Bill;
 import com.vector.pojo.CheckRecord;
 import com.vector.pojo.DietAdvice;
 import com.vector.pojo.MedicalRecord;
@@ -13,6 +14,7 @@ import com.vector.pojo.PrecautionAdvice;
 import com.vector.pojo.Reservation;
 import com.vector.pojo.ScheduleTable;
 import com.vector.service.AttendanceService;
+import com.vector.service.BillService;
 import com.vector.service.ChartService;
 import com.vector.service.CheckRecordService;
 import com.vector.service.DepartmentService;
@@ -85,8 +87,10 @@ public class PatientController {
     PrecautionAdviceService precautionAdviceService;
 
     @Autowired
-
     PrescriptionService prescriptionService;
+
+    @Autowired
+    BillService billService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -295,4 +299,15 @@ public class PatientController {
     public List<MedicalRecord> getUnPayMedicalRecord(Integer patientId, ModelMap map) {
         return medicalRecordService.getUnPayMedicalRecord(patientId);
     }
+
+    @RequestMapping(value = "/billClear", method = RequestMethod.POST)
+    @ResponseBody
+    public Bill billClear(Integer patientId, HttpSession session) {
+        if (billService.getToPayItem(patientId,session)) {
+            return billService.getLastUnPaidBill(patientId);
+        } else {
+            return null;
+        }
+    }
+
 }

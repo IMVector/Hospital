@@ -28,7 +28,7 @@
         <div class="ui container">
             <div class="ui segment">
                 <div class="ui header blue segment">
-                    个人中心
+                    账单中心
                 </div>
                 <div class="ui relaxed divided items">
                     <div class="item">
@@ -69,14 +69,45 @@
                     </div>
                     <div class="ui divider"></div>
                 </div>
+                <div class="ui header blue segment">
+                    账单条目
+                </div>
                 <h3 class="ui block header">
-                    账单信息
+                    未支付病历信息
                 </h3>
                 <table id="medicalRecordTable" class="ui blue table">
                 </table>
+                <h3 class="ui block header">
+                    未支付检查信息
+                </h3>
                 <table id="checkRecordTable" class="ui blue table">
                 </table>
-                <button class="ui fluid green button">清算</button>
+                <button id="clear" class="ui fluid green button">清算</button>
+
+                <table class="ui celled table">
+                    <thead>
+                        <tr>
+                            <th>收费项目</th>
+                            <th>金额</th>
+                            <th>数目</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>3 People</th>
+                            <th>2 Approved</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+
                 <h3 class="ui block header">
                     账单列表
                 </h3>        
@@ -101,10 +132,26 @@
                 </div>-->
     </body>
     <script>
-
+        
         medicalRecord();
         checkRecord();
-
+        
+        
+        $(document).on("click", "#clear", function () {
+            $.ajax({
+                url: "patient/billClear",
+                type: 'POST',
+                data: {"patientId":${patient.patientId}},
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data.totalAmount);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    
+                }
+            });
+            
+        });
+        
         function medicalRecord() {
             $.ajax({
                 url: "patient/getUnPayMedicalRecord",
@@ -119,16 +166,16 @@
                     <td style='width:100px;'><label class='mylabel' data-content='" + formatDatebox(medicalRecord.date) + "' data-position='top left'>" + formatDatebox(medicalRecord.date) + "</label></td>\n\
                     <td style='max-width:400px;'><label class='mylabel' data-content='" + medicalRecord.symptom + "' data-position='top left'>" + medicalRecord.symptom + "</label></td>\n\
                     <td style='max-width:400px;'><label class='mylabel' data-content='" + medicalRecord.diagnosticDescription + "' data-position='top left'>" + medicalRecord.diagnosticDescription + "</label></td>\n\
-                    <td style='width:100px;'> <a  class='ui button small blue' href='patient/medicalRecordDetails/" + medicalRecord.medicalRecordId + "'>查看</a> </td>\n\</tr>";
-
+                    <td style='width:100px;'> <a class='ui button small blue' href='patient/medicalRecordDetails/" + medicalRecord.medicalRecordId + "'>查看</a> </td>\n\</tr>";
+                        
                         $("#medicalRecordTable").append(str);
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-
+                    
                 }
             });
-
+            
         }
         function checkRecord() {
             $.ajax({
@@ -140,19 +187,19 @@
                     $("#checkRecordTable").append("<thead><tr> <th>检查编号</th><th>病人姓名</th><th>检查项目</th><th>检查日期</th><th>查看详情</th></tr></thead>");
                     $.each(data, function (index, checkRecord) {
                         var str = "<tr id=" + checkRecord.checkRecordId + ">\n\
-                   <td>" + checkRecord.checkRecordId + "</td>\n\
-                    <td>${patient.patientName}</td>\n\
-                    <td><label class=\"mylabel\" data-content=\"" + checkRecord.checkItem.checkItemName + "\" data-position=\"right center\">" + checkRecord.checkItem.checkItemName + "</label></td>\n\
-                    <td><label class=\"mylabel\" data-content=\"" + formatDatebox(checkRecord.checkDate) + "\" data-position=\"right center\">" + formatDatebox(checkRecord.checkDate) + "</label></td>\n\
-                    <td> <a  class='ui button small blue' href='patient/checkRecordDetails/" + checkRecord.checkRecordId + "'>查看</a> </td>\n\</tr>";
+                    <td style='width:100px;'>" + checkRecord.checkRecordId + "</td>\n\
+                    <td style='width:100px;'>${patient.patientName}</td>\n\
+                    <td style='max-width:400px;'><label class=\"mylabel\" data-content=\"" + checkRecord.checkItem.checkItemName + "\" data-position=\"right center\">" + checkRecord.checkItem.checkItemName + "</label></td>\n\
+                    <td style='max-width:400px;'><label class=\"mylabel\" data-content=\"" + formatDatebox(checkRecord.checkDate) + "\" data-position=\"right center\">" + formatDatebox(checkRecord.checkDate) + "</label></td>\n\
+                    <td style='width:100px;'> <a  class='ui button small blue' href='patient/checkRecordDetails/" + checkRecord.checkRecordId + "'>查看</a> </td>\n\</tr>";
                         $("#checkRecordTable").append(str);
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-
+                    
                 }
             });
         }
-
+        
     </script>
 </html>

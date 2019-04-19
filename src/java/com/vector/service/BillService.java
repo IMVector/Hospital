@@ -6,10 +6,9 @@
 package com.vector.service;
 
 import com.vector.pojo.Bill;
-import com.vector.pojo.CheckRecord;
-import com.vector.pojo.MedicalRecord;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -17,5 +16,9 @@ import java.util.List;
  */
 public interface BillService extends CUDService<Bill>, PaginationBaseService<Bill> {
 
-    public boolean getToPayItem(Serializable PatientId);
+    public Map getBillItemInfo(Serializable billId);
+
+    public Bill getLastUnPaidBill(Serializable PatientId);
+
+    public boolean getToPayItem(Serializable patientId, HttpSession session);
 }

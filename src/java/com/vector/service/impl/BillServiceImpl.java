@@ -14,6 +14,8 @@ import com.vector.service.PrescriptionService;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,18 +90,20 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public boolean getToPayItem(Serializable patientId) {
-        List<CheckRecord> cList = checkRecordService.getUnPayCheckRecordByPatientId(patientId);
-        List<MedicalRecord> mList = medicalRecordService.getUnPayMedicalRecord(patientId);
-        String chargeItem = "";
+    public boolean getToPayItem(Serializable patientId, HttpSession session) {//在同一个Transaction里要成功都成功要失败都失败
+
+        List<CheckRecord> cList = checkRecordService.getUnPayCheckRecordByPatientId(patientId);//获取未支付的检查
+        List<MedicalRecord> mList = medicalRecordService.getUnPayMedicalRecord(patientId);//获取未支付的病例
+        String chargeItem = "";//收费项目以逗号分割
         float totalAmount = 0;
 
-        chargeItem = "checkRecordId,";
+        chargeItem = "checkRecordId,";//分割标志头
         for (CheckRecord c : cList) {
             totalAmount += c.getCheckItem().getCheckItemPrice();
             chargeItem = chargeItem + c.getCheckRecordId() + ",";
+            alterCheckRecordPaymentStatus(c);//修改支付状态防止下次被重新计算
         }
-        chargeItem += "medicalRecord,";
+        chargeItem += "medicalRecord,";//分割标志头
         for (MedicalRecord m : mList) {
             List<Prescription> list = prescriptionService.getPrescriptionByMedicalRecordId(m.getMedicalRecordId());
             for (Prescription p : list) {
@@ -110,6 +114,7 @@ public class BillServiceImpl implements BillService {
                 }
             }
             chargeItem = chargeItem + m.getMedicalRecordId() + ",";
+            alterMedicalRecordPaymentStatus(m);//修改支付状态防止下次被重新计算
         }
         Patient p = new Patient();
         p.setPatientId(Integer.parseInt(patientId.toString()));
@@ -118,4 +123,30 @@ public class BillServiceImpl implements BillService {
         return insert(bill);
     }
 
+    @Override
+    public Bill getLastUnPaidBill(Serializable PatientId) {
+        return billDao.getLastUnPaidBill(PatientId);
+    }
+
+    public boolean alterCheckRecordPaymentStatus(CheckRecord c) {
+        c.setPaymentStatus("是");
+        return checkRecordService.update(c);
+    }
+
+    public boolean alterMedicalRecordPaymentStatus(MedicalRecord m) {
+        m.setPaymentStatus("是");
+        return medicalRecordService.update(m);
+    }
+
+    @Override
+    public Map getBillItemInfo(Serializable billId) {
+        Bill bill = billDao.getOneById(billId);
+        //checkRecordId,2,3,4,5,6,7,8,9,10,11,medicalRecord,1,2,3,4,5,6,7,8,11,22,23,
+        String itemArray[] = bill.getChargeItem().split("medicalRecord");
+        itemArray[0].replace("checkRecordId", "");
+        String checkRecordItem[]=itemArray[0].split(",");
+        String medicalRecordItem[]=itemArray[1].split(",");
+
+        return null;
+    }
 }

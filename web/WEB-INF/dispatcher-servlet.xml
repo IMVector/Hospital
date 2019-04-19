@@ -26,6 +26,7 @@
             <mvc:mapping path="/patient/goToReservation"/>
             <mvc:mapping path="/patient/goToDepartmentInfo"/>
             <mvc:mapping path="/patient/goToPatientAdvice"/>
+            <mvc:mapping path="/patient/goToBill"/>
             <mvc:mapping path="/staff/goToDiagnosis"/>
             <mvc:mapping path="/staff/goToExamineStaff"/>
             <mvc:mapping path="/staff/goToManageStaff"/>

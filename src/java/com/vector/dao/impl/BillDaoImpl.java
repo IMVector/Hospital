@@ -7,6 +7,7 @@ package com.vector.dao.impl;
 
 import com.vector.dao.BillDao;
 import com.vector.pojo.Bill;
+import java.io.Serializable;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +29,18 @@ public class BillDaoImpl extends BaseDaoImpl<Bill> implements BillDao {
     public List<Bill> getList(Integer currentPage, Object... params) {
         String hql = "from Bill where patient.patientId=?";
         return getListByQuery(hql, params[0]);
+    }
+
+    @Override
+    public Bill getLastUnPaidBill(Serializable patientId) {
+        String hql = "from Bill where patient.patientId=? and paymentStatus='否'order by billDate desc";
+        List<Bill> billList = getListByQuery(hql, patientId);
+        if (!billList.isEmpty()) {
+            return billList.get(0);
+        } else {
+            return null;
+        }
+
     }
 
 }
