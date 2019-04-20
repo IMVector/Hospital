@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author Vector
  */
-public class MyIntercepter implements HandlerInterceptor {
+public class StaffAndPatientIntercepter implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {

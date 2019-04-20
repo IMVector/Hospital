@@ -329,7 +329,7 @@ public class StaffController {
 
     @RequestMapping(value = "/goToStaffDetails/{id}", method = RequestMethod.GET)
     public String goToStaffDetails(@PathVariable Integer id, ModelMap map, HttpSession session) {
-        map.addAttribute("staff", staffService.getStaffById(id));
+        map.addAttribute("staffDetails", staffService.getStaffById(id));
         map.addAttribute("schedule", scheduleService.getScheduleByStaffId(id));
         return "staffDetail";
     }
@@ -492,14 +492,14 @@ public class StaffController {
     @RequestMapping(value = "/unfinishedTaskList/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
     public List<Task> getUnFinishedTaskList(@PathVariable Integer currentPage, HttpSession session) {
-        Staff staff = (Staff) session.getAttribute("staff");
+        Staff staff = (Staff) session.getAttribute("examStaff");
         return taskService.getTaskUnFinishedByTargetId(staff.getStaffId(), currentPage);
     }
 
     @RequestMapping(value = "/unfinishedTaskListItemNumber", method = RequestMethod.POST)
     @ResponseBody
     public Integer getUnFinishedTaskListItemNumber(HttpSession session) {
-        Staff staff = (Staff) session.getAttribute("staff");
+        Staff staff = (Staff) session.getAttribute("examStaff");
         return taskService.getTaskUnFinishedItemNumberByTargetId(staff.getStaffId());
     }
 

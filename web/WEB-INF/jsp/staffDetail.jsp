@@ -29,7 +29,7 @@
                         </div>
                         <div class="ui grid">
                             <div class="four wide column">
-                                <img src="resources/image/狗子.jpeg" height="200px;" alt="">
+                                <img src="${staffDetails.image.imagePath}" height="200px;" alt="">
                             </div>
                             <div class="five wide column">
                                 <div class="ui fluid segment">
@@ -37,7 +37,7 @@
                                         <div class="item">
                                             <div class="content">
 
-                                                <div class="header"> 姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.staffName}
+                                                <div class="header"> 姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staffDetails.staffName}
                                                 </div>
                                                 <br>
                                             </div>
@@ -45,7 +45,7 @@
                                         <div class="item">
                                             <div class="content">
 
-                                                <div class="header">职称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${staff.title.titleName}
+                                                <div class="header">职称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${staffDetails.title.titleName}
                                                 </div>
                                                 <br>
 
@@ -54,19 +54,19 @@
                                         <div class="item">
                                             <div class="content">
 
-                                                <div class="header"> 部门:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${staff.department.departmentName}</div>
+                                                <div class="header"> 部门:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${staffDetails.department.departmentName}</div>
                                                 <br>
                                             </div>
                                         </div>
                                         <div class="item">
                                             <div class="content">
-                                                <div class="header"> 邮箱:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.email}</div>
+                                                <div class="header"> 邮箱:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staffDetails.email}</div>
                                                 <br>
                                             </div>
                                         </div>
                                         <div class="item">
                                             <div class="content">
-                                                <div class="header"> 性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.gender}</div>
+                                                <div class="header"> 性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staffDetails.gender}</div>
                                                 <br>
                                             </div>
                                         </div>
@@ -82,10 +82,10 @@
                                         <div class="item" data-tab="tab-name2">医生擅长领域</div>
                                     </div>
                                     <div class="ui active tab" data-tab="tab-name" style="height: 150px;width: 300px;">
-                                        ${staff.introduction}
+                                        ${staffDetails.introduction}
                                     </div>
                                     <div class="ui tab" data-tab="tab-name2" style="height: 150px;width: 300px;">
-                                        ${staff.specialty}
+                                        ${staffDetails.specialty}
                                     </div>
                                 </div>
 
@@ -193,28 +193,28 @@
                 </div>
             </div>
             <div id="modeltest" class="ui inverted modal ">
-                <div class="header">添加职工</div>
+                <div class="header">修改职工信息</div>
                 <div class="content">
                     <div class="ui header blue segment">职工信息</div>
                     <form id="myForm" class="ui form">
-                        <input type="text" style="display:none;" name="staffId" value="${staff.staffId}">
-                        <input type="text" style="display:none;" name="staffPassword" value="${staff.staffPassword}">
+                        <input type="text" style="display:none;" name="staffId" value="${staffDetails.staffId}">
+                        <input type="text" style="display:none;" name="staffPassword" value="${staffDetails.staffPassword}">
                         <div class="field">
                             <label for="">员工邮箱：</label>
                             <div class="ui input ">
-                                <input type="text" id="email" name="email" placeholder="请输入员工邮箱" value="${staff.email}">
+                                <input type="text" id="email" name="email" placeholder="请输入员工邮箱" value="${staffDetails.email}">
                             </div>
                         </div>
                         <div class="field">
                             <label for="">员工姓名：</label>
                             <div class="ui input ">
-                                <input id="staffName" name="staffName" placeholder="请输入员工姓名" value="${staff.staffName}" type="text">
+                                <input id="staffName" name="staffName" placeholder="请输入员工姓名" value="${staffDetails.staffName}" type="text">
                             </div>
                         </div>
                         <div class="field">
                             <label for="">员工性别：</label>
                             <div class="ui input ">
-                                <select id="staffGender" name="gender" class="ui fluid dropdown" value="${staff.gender}">
+                                <select id="staffGender" name="gender" class="ui fluid dropdown" value="${staffDetails.gender}">
                                     <option value="">性别</option>
                                     <option value="男">男</option>
                                     <option value="女">女</option>
@@ -225,31 +225,31 @@
                         <div class="field">
                             <label for="">职工职称：</label>
                             <div class="ui input ">
-                                <select id="staffTitleInfo"  name="title.titleId" class="ui fluid dropdown" value="${staff.title.titleId}"></select>
+                                <select id="staffTitleInfo"  name="title.titleId" class="ui fluid dropdown" value="${staffDetails.title.titleId}"></select>
                             </div>
                         </div>
                         <div class="field">
                             <label for="">所属部门：</label>
                             <div class="ui input ">
-                                <select id="departmentId" name="department.departmentId" class="ui fluid dropdown" value="${staff.department.departmentId}"></select>
+                                <select id="departmentId" name="department.departmentId" class="ui fluid dropdown" value="${staffDetails.department.departmentId}"></select>
                             </div>
                         </div>
                         <div class="field">
                             <label for="">员工角色：</label>
                             <div class="ui input ">
-                                <select id="roleId" name="role.roleId" class="ui fluid dropdown" value="${staff.role.roleId}"></select>
+                                <select id="roleId" name="role.roleId" class="ui fluid dropdown" value="${staffDetails.role.roleId}"></select>
                             </div>
                         </div>
                         <div class="field">
                             <label for="">员工擅长领域：</label>
                             <div class="ui input ">
-                                <input id="specialty" name="specialty" placeholder="请输入员工擅长领域" type="text" value="${staff.specialty}">
+                                <input id="specialty" name="specialty" placeholder="请输入员工擅长领域" type="text" value="${staffDetails.specialty}">
                             </div>
                         </div>
                         <div class="field">
                             <label for="">员工简介：</label>
                             <div class="ui input ">
-                                <textarea id="introduction" placeholder="请输入员工简介" name="introduction">${staff.introduction}</textarea>
+                                <textarea id="introduction" placeholder="请输入员工简介" name="introduction">${staffDetails.introduction}</textarea>
                             </div>
                         </div>
                         <button id="resetButton" type="reset" style="display:none;"></button> 
@@ -270,7 +270,7 @@
             <div class="content">
                 <div class="ui header blue segment">值班表</div>
                 <form id="scheduleForm">
-                    <input type="text" style="display:none;" name="staff.staffId" value="${staff.staffId}">
+                    <input type="text" style="display:none;" name="staffDetails.staffId" value="${staffDetails.staffId}">
                     <table  id="scheduleTable" style="width: 70%;margin: auto;" class="ui celled table">
                         <thead>
                             <tr>
@@ -400,7 +400,7 @@
     <script>
         $('.ui.pointing.secondary.menu .item').tab();
 
-        $("#staffGender").val("${staff.gender}");
+        $("#staffGender").val("${staffDetails.gender}");
 
         var ajaxCount = 3;
         function isAjaxFinished() {
@@ -495,7 +495,7 @@
                         var str = "<option value=" + title.titleId + ">" + title.titleName + "</option>";
                         $(id).append(str);
                     });
-                    $("#staffTitleInfo").val(${staff.title.titleId});
+                    $("#staffTitleInfo").val(${staffDetails.title.titleId});
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     toastError("请求失败,请重试！");
@@ -514,7 +514,7 @@
                         var str = "<option value=" + department.departmentId + ">" + department.departmentName + "</option>";
                         $(id).append(str);
                     });
-                    $("#departmentId").val(${staff.department.departmentId});
+                    $("#departmentId").val(${staffDetails.department.departmentId});
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -533,7 +533,7 @@
                         var str = "<option value=" + role.roleId + ">" + role.roleName + "</option>";
                         $(id).append(str);
                     });
-                    $("#roleId").val(${staff.role.roleId});
+                    $("#roleId").val(${staffDetails.role.roleId});
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     toastError("请求失败,请重试！");

@@ -108,7 +108,7 @@
                         <!--How do you acquire a dog?-->
                     </div>
                     <div class="content">
-                        <button id="medicalRecordSearch" class="ui primary button">查询病史</button>
+                        <button type="button" id="medicalRecordSearch" class="ui primary button">查询病史</button>
                         <br>
                         <br>
                         <div class="container-admin-inner">
@@ -159,8 +159,8 @@
                         用药历史
                     </div>
                     <div class="content">
-                        <button id="medicalHistorySearch" class="ui primary button">查询用药史</button>
-                        <button id="medicalHistoryAdd" class="ui primary button">添加用药史</button>
+                        <button  type="button" id="medicalHistorySearch" class="ui primary button">查询用药史</button>
+                        <button  type="button" id="medicalHistoryAdd" class="ui primary button">添加用药史</button>
                         <br>
                         <br>
                         <div class="container-admin-inner">
@@ -201,18 +201,17 @@
                                     </div>
                                 </td>
                                 <td> 
-                                    <button id="getByMedicineName" class="ui button blue">根据名字查询</button>
+                                    <button type="button" id="getByMedicineName" class="ui button blue">根据名字查询</button>
                                 </td>
 
                                 <td>
                                     <input id="medicineDescription" type="text" placeholder="药品功效">
                                 </td>
                                 <td>
-                                    <button id="getMedicineByDescription" class="ui button blue">根据功效查询</button>
-                                    <!--<button id="add" class="ui button blue">添加药品</button>-->
+                                    <button type="button" id="getMedicineByDescription" class="ui button blue">根据功效查询</button>
                                 </td>
                                 <td>
-                                    <button id="getAllMedicineBtn" class="ui button blue">查询所有药品</button>
+                                    <button type="button" id="getAllMedicineBtn" class="ui button blue">查询所有药品</button>
                                 </td>
                             </tr>
                         </table>
@@ -269,10 +268,10 @@
                         <i class="remove icon"></i>
                         重新输入
                     </div>
-                    <div class="ui green ok inverted button">
-                        <i class="checkmark icon"></i>
-                        新增用户
-                    </div>
+                    <!--                    <div class="ui green ok inverted button">
+                                            <i class="checkmark icon"></i>
+                                            新增用户
+                                        </div>-->
                 </div>
             </div>
             <input type="text" style="display: none" id="patientId">
@@ -313,7 +312,7 @@
                                 <input id="lastTime" name="lastTime" type="date" placeholder="请输入上次用药时间" type="text">
                             </div>
                         </div>
-                        <button id="resetButton" type="reset" style="display:none;"></button> 
+                        <button type="button" id="resetButton" type="reset" style="display:none;"></button> 
                     </form>
                 </div>
                 <div class="actions">
@@ -440,7 +439,8 @@
         });
 ///////////////////////////////////////////////medicaiRecordAdd////////////////////////
         $("#medicalRecordBtn").click(function () {
-            if ($('medicalRecordForm').form('is valid')) {
+            $('#medicalRecordForm').form('validate form');
+            if ($('#medicalRecordForm').form('is valid')) {
                 $.ajax({
                     url: "staff/addMedicalRecord",
                     type: 'POST',
@@ -450,12 +450,15 @@
                             $('.ui.basic.modal').modal('show');
                         } else {
                             toastSuccess("病历信息提交成功！");
+                            window.open("staff/goToStaffIndex","_self");
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         toastError("请求失败");
                     }
                 });
+            } else {
+                toastError("请将字段填写完整！");
             }
 
         });
@@ -484,7 +487,7 @@
                                             <p>病人年龄：</p>" + checkRecord.patient.patientAge + "\n\
                                         </div>\n\
                                     <div class=\"ui segment\">\n\
-                                        <p>婚姻状况：</p></div>" + checkRecord.patient.patientMstatus + "\n\
+                                        <p>婚姻状况：</p>" + checkRecord.patient.patientMstatus + "\n\
                                     </div>\n\
                                     <div class=\"ui segment\">\n\
                                         <p>检查人：</p>" + checkRecord.staff.staffName + "\n\
@@ -510,14 +513,15 @@
          */
         function medicalRecordTableInfo(data) {
             $("#medicalRecordTable").empty();
-            $("#medicalRecordTable").append("<thead><tr> <th style='width:100px;'>病例编号</th><th style='width:100px;'>病人姓名</th><th>病例日期</th><th>发病症状</th><th>诊查结果</th><th>查看详情</th></tr></thead>");
+            $("#medicalRecordTable").append("<thead><tr> <th>病例编号</th><th>病人姓名</th><th>病例日期</th><th>发病症状</th><th>诊查结果</th><th>查看详情</th></tr></thead>");
             $.each(data, function (index, medicalRecord) {
                 var str = "<tr id=" + medicalRecord.medicalRecordId + ">\n\
-                    <td style='width:100px;'>" + medicalRecord.medicalRecordId + "</td><td>" + medicalRecord.patient.patientName + "</td>\n\
+                    <td>" + medicalRecord.medicalRecordId + "</td>\n\
+                    <td style='width:100px;'>" + medicalRecord.patient.patientName + "</td>\n\
                     <td style='width:100px;'><label class=\"mylabel\" data-content=\"" + formatDatebox(medicalRecord.date) + "\" data-position=\"top left\">" + formatDatebox(medicalRecord.date) + "</label></td>\n\
-                    <td style='max-width:400px;'><label class=\"mylabel\" data-content=\"" + medicalRecord.symptom + "\" data-position=\"top left\">" + medicalRecord.symptom + "</label></td>\n\
-                    <td style='max-width:400px;'><label class=\"mylabel\" data-content=\"" + medicalRecord.diagnosticDescription + "\" data-position=\"top left\">" + medicalRecord.diagnosticDescription + "</label></td>\n\
-                    <td style='width:100px;'> <a  class='ui button small blue' href='patient/medicalRecordDetails/" + medicalRecord.medicalRecordId + "'>查看</a> </td>\n\</tr>";
+                    <td style='max-width:280px;'><label class=\"mylabel\" data-content=\"" + medicalRecord.symptom + "\" data-position=\"top left\">" + medicalRecord.symptom + "</label></td>\n\
+                    <td style='max-width:280px;'><label class=\"mylabel\" data-content=\"" + medicalRecord.diagnosticDescription + "\" data-position=\"top left\">" + medicalRecord.diagnosticDescription + "</label></td>\n\
+                    </tr>";
                 $("#medicalRecordTable").append(str);
             });
         }

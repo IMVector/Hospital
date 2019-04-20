@@ -249,6 +249,8 @@
                         toastError("请求失败，请重试！" + errorThrown);
                     }
                 });
+            }else{
+                toastError("邮箱验证码不正确，或者填写不正确！");
             }
         });
 

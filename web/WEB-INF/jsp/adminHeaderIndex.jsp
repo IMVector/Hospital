@@ -1,9 +1,3 @@
-<%-- 
-    Document   : templete
-    Created on : 2018-5-18, 8:36:08
-    Author     : Vector
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div class="ui four column grid">
@@ -17,7 +11,7 @@
                 <a href="index" class="active item">
                     InstalHMS 医院系统
                 </a>
-                <a href="adminIndex" class="item">
+                <a href="admin/goToAdminIndex" class="item">
                     管理员主页
                 </a>
 
@@ -33,7 +27,7 @@
                 <a class="active item">
                     InstalHMS 医院系统
                 </a>
-                <a href="adminIndex" class="item">
+                <a href="admin/goToAdminIndex" class="item">
                     管理员主页
                 </a>
 

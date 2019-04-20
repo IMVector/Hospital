@@ -135,16 +135,19 @@ public class StaffServiceImpl implements StaffService {
         Staff staffData = staffDao.getStaffByEmail(staff.getEmail());
         if (null != staffData) {
             if (MD5Utils.md5(staff.getStaffPassword()).equals(staffData.getStaffPassword())) {
-                session.setAttribute("staff", staffData);
-                list.add("true");
 
+                list.add("true");
                 if (staffData.getRole().getRoleName().equals("检查医生")) {
+                    session.setAttribute("examStaff", staffData);
                     list.add("staff/goToExamineStaff");
                 } else if (staffData.getRole().getRoleName().equals("临床医生")) {
+                    session.setAttribute("staff", staffData);
                     list.add("staff/goToStaffIndex");
                 } else if (staffData.getRole().getRoleName().equals("行政医生")) {
+                    session.setAttribute("manageStaff", staffData);
                     list.add("staff/goToManageStaffIndex");
-                }else if(staffData.getRole().getRoleName().equals("管理员")){
+                } else if (staffData.getRole().getRoleName().equals("管理员")) {
+                    session.setAttribute("adminStaff", staffData);
                     list.add("admin/goToAdminIndex");
                 }
                 return list;
@@ -171,7 +174,7 @@ public class StaffServiceImpl implements StaffService {
             image.setImageId(4);
             staff.setImage(image);
         }
-         staff.setStaffPassword(MD5Utils.md5(staff.getStaffPassword()));
+        staff.setStaffPassword(MD5Utils.md5(staff.getStaffPassword()));
 
         try {
             staffDao.update(staff);

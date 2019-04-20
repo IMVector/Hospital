@@ -45,10 +45,10 @@
                 <table>
                     <tr>
                         <td>
-                            <button id="getAllBtn" class="ui basic fluid button blue">查询预约信息</button>
+                            <button id="getAllBtn" class="ui fluid button blue">查询预约信息</button>
                         </td>
                         <td>
-                            <button onclick="window.open('patient/goToAttendanceToPatient','_self')" class="ui basic fluid button blue">去预约</button>
+                            <button onclick="window.open('patient/goToAttendanceToPatient/-1', '_self')" class="ui fluid button blue">去预约</button>
                         </td>
                     </tr>
                 </table>
@@ -82,7 +82,8 @@
     <script>
 
         $(document).ready(function () {
-
+            var url = 'patient/reservationlist/${patient.patientId}/page_key_word';
+            fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, reservationTableInfo, reservationItemNum);
 
             $("#getAllBtn").click(function () {
                 var url = 'patient/reservationlist/${patient.patientId}/page_key_word';
@@ -174,7 +175,7 @@
                         <button class='ui button negative deleteBtn'>取消</button>\n\
                     </td>\n\
                 </tr>";
-        //<button class='ui button primary detailBtn'>详情</button>\n\
+                //<button class='ui button primary detailBtn'>详情</button>\n\
                 $("#reservationTable").append(str);
             });
         }

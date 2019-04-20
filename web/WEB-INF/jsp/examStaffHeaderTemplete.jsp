@@ -23,18 +23,18 @@
                 <a href="personalCenter5" class="item">安排事项</a>-->
             </div>
             <div class="item right">
-                <c:if test="${empty staff}">
+                <c:if test="${empty examStaff}">
                     <a href="staff/goToStaffLogin" class=" ui blue button">登录</a>
                     &nbsp
                     &nbsp
                     <!--<a href="staff/goToRegister" class="ui blue button">注册</a>-->
 
                 </c:if>
-                <c:if test="${ not empty staff}">
-                    <a href="staff/goToStaffPersonnelCenter">
-                        <img class="ui avatar image" src="${staff.image.imagePath}">
+                <c:if test="${ not empty examStaff}">
+                    <a href="staff/goToExamStaffPersonnelCenter">
+                        <img class="ui avatar image" src="${examStaff.image.imagePath}">
                     </a>
-                    <a class="ui blue" href="staff/unload">退出</a>
+                    <a class="ui blue" href="staff/examUnload">退出</a>
                 </c:if>
             </div>
         </div>
@@ -59,18 +59,18 @@
                 <a href="personalCenter6" class="item">个人中心</a>-->
             </div>
             <div class="item right">
-                <c:if test="${empty staff}">
+                <c:if test="${empty examStaff}">
                     <a href="staff/goToStaffLogin" class=" ui blue button">登录</a>
                     &nbsp
                     &nbsp
                     <!--<a href="staff/register" class="ui blue button">注册</a>-->
 
                 </c:if>
-                <c:if test="${ not empty staff}">
-                    <a href="staff/goToStaffPersonnelCenter">
-                        <img class="ui avatar image" src="${staff.image.imagePath}">
+                <c:if test="${ not empty examStaff}">
+                    <a href="staff/goToExamStaffPersonnelCenter">
+                        <img class="ui avatar image" src="${examStaff.image.imagePath}">
                     </a>
-                    <a class="ui blue" href="staff/unload">退出</a>
+                    <a class="ui blue" href="staff/examUnload">退出</a>
                 </c:if>
             </div>
         </div>

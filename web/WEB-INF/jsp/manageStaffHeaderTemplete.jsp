@@ -26,18 +26,18 @@
             </div>
 
             <div class="item right">
-                <c:if test="${empty staff}">
+                <c:if test="${empty manageStaff}">
                     <a href="staff/goToLogin" class=" ui blue button">登录</a>
                     &nbsp
                     &nbsp
                     <!--<a href="staff/goToRegister" class="ui blue button">注册</a>-->
 
                 </c:if>
-                <c:if test="${ not empty staff}">
+                <c:if test="${ not empty manageStaff}">
                     <a href="staff/goToStaffPersonnelCenter">
-                        <img class="ui avatar image" src="${staff.image.imagePath}">
+                        <img class="ui avatar image" src="${manageStaff.image.imagePath}">
                     </a>
-                    <a class="ui blue" href="staff/unload">退出</a>
+                    <a class="ui blue" href="staff/manageUnload">退出</a>
                 </c:if>
             </div>
         </div>
@@ -63,18 +63,18 @@
                 <a href="staff/goToMedicineManage" class="item">药品信息管理 </a>
             </div>
             <div class="item right">
-                <c:if test="${empty staff}">
+                <c:if test="${empty manageStaff}">
                     <a href="staff/goToLogin" class=" ui blue button">登录</a>
                     &nbsp
                     &nbsp
                     <!--<a href="staff/register" class="ui blue button">注册</a>-->
 
                 </c:if>
-                <c:if test="${ not empty staff}">
+                <c:if test="${ not empty manageStaff}">
                     <a href="staff/goToStaffPersonnelCenter">
-                        <img class="ui avatar image" src="${staff.image.imagePath}">
+                        <img class="ui avatar image" src="${manageStaff.image.imagePath}">
                     </a>
-                    <a class="ui blue" href="staff/unload">退出</a>
+                    <a class="ui blue" href="staff/manageUnload">退出</a>
                 </c:if>
             </div>
         </div>

@@ -68,6 +68,7 @@ public class MdeicalRecordServiceImpl implements MedicalRecordService {
 
         prescription.setMedicalRecord(t);
 
+        t.setPaymentStatus("否");
         t.setPatient(patient);
         t.setStaff(staff);
         t.setDate(new Date());

@@ -125,7 +125,7 @@ public class PatientController {
 
     @RequestMapping(value = "/goToReservation/{staffId}")
     public String goToReservation(@PathVariable Integer staffId, ModelMap map, HttpSession session) {
-        map.addAttribute("staff", staffService.getStaffById(staffId));
+        map.addAttribute("reservationStaff", staffService.getStaffById(staffId));
         map.addAttribute("schedule", scheduleService.getScheduleByStaffId(staffId));
         return "reservation";
     }

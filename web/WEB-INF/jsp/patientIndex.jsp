@@ -70,237 +70,224 @@
 <body>
     <jsp:include page="patientHeaderTemplete.jsp" />
 
-    <div class="ui fluid-container">
-        <div class="ui centered grid">
+    <div class="ui container">
+        <div class="ui segment">
+            <div class="ui grid">
+                <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/11.jpg);">
+                    <div class="image-text">
+                        <div>
+                            <i class="id card huge icon"></i>
+                            <div>
+                                <br>
+                                <div class="set-btn-wrapper"> 
+                                    <svg height="45" width="150" xmlns="#">
+                                    <rect id="set_button" height="45" width="150"></rect>
+                                    </svg>
 
-            <div class="twelve wide column">
-                <div class="ui segment">
-                    <div class="ui grid">
-                        <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/11.jpg);">
-                            <div class="image-text">
-                                <div>
-                                    <i class="id card huge icon"></i>
-                                    <div>
-                                        <br>
-                                        <div class="set-btn-wrapper"> 
-                                            <svg height="45" width="150" xmlns="#">
-                                            <rect id="set_button" height="45" width="150"></rect>
-                                            </svg>
-
-                                            <div id="set_text"> 
-                                                <a href="patient/goToMedicalRecord">         
-                                                    病历
-                                                </a> 
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                            </div> 
-
-                        </div>
-                        <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/22.jpg);">
-                            <div class="image-text">
-                                <div>
-                                    <i class="file alternate outline huge icon"></i>
-                                    <div>
-                                        <br>
-                                        <div class="set-btn-wrapper"> 
-                                            <svg height="45" width="150" xmlns="#">
-                                            <rect id="set_button" height="45" width="150"></rect>
-                                            </svg>
-
-                                            <div id="set_text"> 
-                                                <a href="patient/goToHealthGraphy">         
-                                                    就医大数据
-                                                </a> 
-                                            </div>
-                                        </div>
+                                    <div id="set_text"> 
+                                        <a href="patient/goToMedicalRecord">         
+                                            病历
+                                        </a> 
                                     </div>
                                 </div>
+                            </div>
 
-                            </div> 
-                        </div>
-                        <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/33.jpg);">
-                            <div class="image-text">
-                                <div>
-                                    <i class="user md huge icon"></i>
-                                    <div>
-                                        <br>
-                                        <div class="set-btn-wrapper"> 
-                                            <svg height="45" width="150" xmlns="#">
-                                            <rect id="set_button" height="45" width="150"></rect>
-                                            </svg>
-
-                                            <div id="set_text"> 
-                                                <a href="patient/goToAttendanceToPatient/-1">         
-                                                    挂号
-                                                </a> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> 
 
                         </div>
-                        <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/44.jpg);">
-                            <div class="image-text">
-                                <div>
-                                    <!--<i class="heart outline huge icon"></i>-->
-                                    <i class="comment outline huge icon"></i>
-                                    <div>
-                                        <br>
-                                        <div class="set-btn-wrapper"> 
-                                            <svg height="45" width="150" xmlns="#">
-                                            <rect id="set_button" height="45" width="150"></rect>
-                                            </svg>
 
-                                            <div id="set_text"> 
-                                                <a href="patient/goToPatientAdvice">         
-                                                    健康建议
-                                                </a> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    </div> 
 
-                            </div> 
-                        </div>
-                        <div class="four wide column " style="background:url(resources/image/backgroundImage/55.jpg);">
-                            <div class="image-text">
-                                <div>
-                                    <!--<i class="pills huge icon"></i>-->
-                                    <div>
-                                        <br>
-                                        <!--                                        <div class="set-btn-wrapper"> 
-                                                                                    <svg height="45" width="150" xmlns="#">
-                                                                                    <rect id="set_button" height="45" width="150"></rect>
-                                                                                    </svg>
-                                        
-                                                                                    <div id="set_text"> 
-                                                                                        <a href="patient/goToPatientPrescription">         
-                                                                                            处方信息
-                                                                                        </a> 
-                                                                                    </div>
-                                                                                </div>-->
-                                    </div>
-                                </div>
-
-                            </div> 
-                        </div>
-                        <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/66.jpg);">
-                            <div class="image-text">
-                                <div>
-                                    <!--                                    <i class="calculator huge icon"></i>-->
-                                    <i class="server huge icon"></i>
-                                    <div>
-                                        <br>
-                                        <div class="set-btn-wrapper"> 
-                                            <svg height="45" width="150" xmlns="#">
-                                            <rect id="set_button" height="45" width="150"></rect>
-                                            </svg>
-
-                                            <div id="set_text"> 
-                                                <a href="patient/goToCheckRecord">         
-                                                    检查记录
-                                                </a> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> 
-                        </div>
-                        <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/77.jpg);">
-                            <div class="image-text">
-                                <div>
-                                    <i class="calculator huge icon"></i>
-                                    <div>
-                                        <br>
-                                        <div class="set-btn-wrapper"> 
-                                            <svg height="45" width="150" xmlns="#">
-                                            <rect id="set_button" height="45" width="150"></rect>
-                                            </svg>
-
-                                            <div id="set_text"> 
-                                                <a href="patient/goToBill">         
-                                                    账单信息
-                                                </a> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> 
-
-                        </div>
-                        <div class="four wide column" style="background:url(resources/image/backgroundImage/88.jpg);">
-                            <div class="image-text">
-                                <div>
-                                    <!--<i class="map signs huge icon"></i>-->  
-                                    <div>
-                                        <br>
-                                        <!--                                        <div class="set-btn-wrapper"> 
-                                                                                    <svg height="45" width="150" xmlns="#">
-                                                                                    <rect id="set_button" height="45" width="150"></rect>
-                                                                                    </svg>
-                                        
-                                                                                    <div id="set_text"> 
-                                                                                        <a href="#">         
-                                                                                            医生安排
-                                                                                        </a> 
-                                                                                    </div>
-                                                                                </div>-->
-                                    </div>
-                                </div>
-
-                            </div> 
-
-                        </div>
-                    </div>
                 </div>
+                <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/22.jpg);">
+                    <div class="image-text">
+                        <div>
+                            <i class="file alternate outline huge icon"></i>
+                            <div>
+                                <br>
+                                <div class="set-btn-wrapper"> 
+                                    <svg height="45" width="150" xmlns="#">
+                                    <rect id="set_button" height="45" width="150"></rect>
+                                    </svg>
 
+                                    <div id="set_text"> 
+                                        <a href="patient/goToHealthGraphy">         
+                                            就医大数据
+                                        </a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> 
+                </div>
+                <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/33.jpg);">
+                    <div class="image-text">
+                        <div>
+                            <i class="user md huge icon"></i>
+                            <div>
+                                <br>
+                                <div class="set-btn-wrapper"> 
+                                    <svg height="45" width="150" xmlns="#">
+                                    <rect id="set_button" height="45" width="150"></rect>
+                                    </svg>
+
+                                    <div id="set_text"> 
+                                        <a href="patient/goToAttendanceToPatient/-1">         
+                                            挂号
+                                        </a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> 
+
+                </div>
+                <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/44.jpg);">
+                    <div class="image-text">
+                        <div>
+                            <!--<i class="heart outline huge icon"></i>-->
+                            <i class="comment outline huge icon"></i>
+                            <div>
+                                <br>
+                                <div class="set-btn-wrapper"> 
+                                    <svg height="45" width="150" xmlns="#">
+                                    <rect id="set_button" height="45" width="150"></rect>
+                                    </svg>
+
+                                    <div id="set_text"> 
+                                        <a href="patient/goToPatientAdvice">         
+                                            健康建议
+                                        </a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> 
+                </div>
+                <div class="four wide column " style="background:url(resources/image/backgroundImage/55.jpg);">
+                    <div class="image-text">
+                        <div>
+                            <!--<i class="pills huge icon"></i>-->
+                            <div>
+                                <br>
+                                <!--                                        <div class="set-btn-wrapper"> 
+                                                                            <svg height="45" width="150" xmlns="#">
+                                                                            <rect id="set_button" height="45" width="150"></rect>
+                                                                            </svg>
+                                
+                                                                            <div id="set_text"> 
+                                                                                <a href="patient/goToPatientPrescription">         
+                                                                                    处方信息
+                                                                                </a> 
+                                                                            </div>
+                                                                        </div>-->
+                            </div>
+                        </div>
+
+                    </div> 
+                </div>
+                <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/66.jpg);">
+                    <div class="image-text">
+                        <div>
+                            <!--                                    <i class="calculator huge icon"></i>-->
+                            <i class="server huge icon"></i>
+                            <div>
+                                <br>
+                                <div class="set-btn-wrapper"> 
+                                    <svg height="45" width="150" xmlns="#">
+                                    <rect id="set_button" height="45" width="150"></rect>
+                                    </svg>
+
+                                    <div id="set_text"> 
+                                        <a href="patient/goToCheckRecord">         
+                                            检查记录
+                                        </a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> 
+                </div>
+                <div class="four wide column div-overflow" style="background:url(resources/image/backgroundImage/77.jpg);">
+                    <div class="image-text">
+                        <div>
+                            <i class="calculator huge icon"></i>
+                            <div>
+                                <br>
+                                <div class="set-btn-wrapper"> 
+                                    <svg height="45" width="150" xmlns="#">
+                                    <rect id="set_button" height="45" width="150"></rect>
+                                    </svg>
+
+                                    <div id="set_text"> 
+                                        <a href="patient/goToBill">         
+                                            账单信息
+                                        </a> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> 
+
+                </div>
+                <div class="four wide column" style="background:url(resources/image/backgroundImage/88.jpg);">
+                    <div class="image-text">
+                        <div>
+                            <!--<i class="map signs huge icon"></i>-->  
+                            <div>
+                                <br>
+                                <!--                                        <div class="set-btn-wrapper"> 
+                                                                            <svg height="45" width="150" xmlns="#">
+                                                                            <rect id="set_button" height="45" width="150"></rect>
+                                                                            </svg>
+                                
+                                                                            <div id="set_text"> 
+                                                                                <a href="#">         
+                                                                                    医生安排
+                                                                                </a> 
+                                                                            </div>
+                                                                        </div>-->
+                            </div>
+                        </div>
+
+                    </div> 
+
+                </div>
             </div>
-            <div class="ui twelve wide column">
-                <div class="ui divider"></div>
-                <div class="ui green segment">
-                    <h3>科室导航</h3>
-                </div>
-                <div class="ui segment">
-                    <div class="ui grid">
-                        <div class="sixteen wide column">
-                            <div class="ui fluid action input">
-                                <input id="departmentByName" type="text" placeholder="搜索科室">
-                                <button id="departmentByNameBtn" type="button" class="ui icon button">
-                                    <i class="search icon"></i>
-                                </button>
-                            </div>
-                        </div>
+        </div>
 
-                        <div class="six wide column">
-                            <img src="resources/image/backgroundImage/88.jpg" alt="">
-                        </div>
-                        <div class="ten wide column">
-                            <div id="department" class="ui grid">
-
-                                <!--<div class="four wide column">  <a class="ui primary button" href="patient/goToDepartmentInfo/test">test</a></div>-->
-                            </div>
+        <!--</div>-->
+        <div class="ui divider"></div>
+        <div class="ui green segment">
+            <h3>科室导航</h3>
+        </div>
+        <div class="ui segment">
+            <div class="ui fluid action input">
+                <input id="departmentByName" type="text" placeholder="搜索科室">
+                <button id="departmentByNameBtn" type="button" class="ui icon button">
+                    <i class="search icon"></i>
+                </button>
+            </div>
+            <br>
+            <div class="ui grid">
+                <div class="ui row">
+                    <div class="six wide column">
+                        <img src="resources/image/backgroundImage/88.jpg" alt="">
+                    </div>
+                    <div class="ten wide column">
+                        <div id="department" class="ui grid">
+                            <!--<div class="four wide column">  <a class="ui primary button" href="patient/goToDepartmentInfo/test">test</a></div>-->
                         </div>
                     </div>
                 </div>
-
-
 
             </div>
         </div>
 
-
-        <!--        <div class="ui segment">
-        
-                </div>-->
     </div>
 
 </body>

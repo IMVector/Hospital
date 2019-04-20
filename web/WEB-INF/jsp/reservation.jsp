@@ -29,7 +29,7 @@
                         </div>
                         <div class="ui grid">
                             <div class="four wide column">
-                                <img src="resources/image/狗子.jpeg" height="200px;" alt="">
+                                <img src=";${reservationStaff.image.imagePath}" height="200px;" alt="">
                             </div>
                             <div class="five wide column">
                                 <div class="ui fluid segment">
@@ -37,7 +37,7 @@
                                         <div class="item">
                                             <div class="content">
 
-                                                <div class="header"> 姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.staffName}
+                                                <div class="header"> 姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reservationStaff.staffName}
                                                 </div>
                                                 <br>
                                             </div>
@@ -45,7 +45,7 @@
                                         <div class="item">
                                             <div class="content">
 
-                                                <div class="header">职称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${staff.title.titleName}
+                                                <div class="header">职称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${reservationStaff.title.titleName}
                                                 </div>
                                                 <br>
 
@@ -54,19 +54,19 @@
                                         <div class="item">
                                             <div class="content">
 
-                                                <div class="header"> 部门:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${staff.department.departmentName}</div>
+                                                <div class="header"> 部门:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${reservationStaff.department.departmentName}</div>
                                                 <br>
                                             </div>
                                         </div>
                                         <div class="item">
                                             <div class="content">
-                                                <div class="header"> 邮箱:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.email}</div>
+                                                <div class="header"> 邮箱:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reservationStaff.email}</div>
                                                 <br>
                                             </div>
                                         </div>
                                         <div class="item">
                                             <div class="content">
-                                                <div class="header"> 性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.gender}</div>
+                                                <div class="header"> 性别:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${reservationStaff.gender}</div>
                                                 <br>
                                             </div>
                                         </div>
@@ -82,10 +82,10 @@
                                         <div class="item" data-tab="tab-name2">医生擅长领域</div>
                                     </div>
                                     <div class="ui active tab" data-tab="tab-name" style="height: 150px;width: 300px;">
-                                        ${staff.introduction}
+                                        ${reservationStaff.introduction}
                                     </div>
                                     <div class="ui tab" data-tab="tab-name2" style="height: 150px;width: 300px;">
-                                        ${staff.specialty}
+                                        ${reservationStaff.specialty}
                                     </div>
                                 </div>
 
@@ -115,37 +115,37 @@
                                 <td>上午&nbsp;&nbsp;8:00-11:30</td>
                                 <td id="1_1">
                                     <c:if test="${schedule.scheduleList[0]=='true'}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/1_1')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/1_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="2_1">
                                     <c:if test="${'true'==schedule.scheduleList[2]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/2_1')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/2_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="3_1">
                                     <c:if test="${'true'==schedule.scheduleList[4]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/3_1')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/3_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="4_1">
                                     <c:if test="${'true'==schedule.scheduleList[6]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/4_1')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/4_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="5_1">
                                     <c:if test="${'true'==schedule.scheduleList[8]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/5_1')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/5_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="6_1">
                                     <c:if test="${'true'==schedule.scheduleList[10]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/6_1')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/6_1')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="7_1">
                                     <c:if test="${'true'==schedule.scheduleList[12]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/7_1')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/7_1')">预约</a>
                                     </c:if>
                                 </td>
                             </tr>
@@ -153,37 +153,37 @@
                                 <td>下午&nbsp;&nbsp;1:30-6：00</td>
                                 <td id="1_2">
                                     <c:if test="${'true'==schedule.scheduleList[1]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/1_2')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/1_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="2_2">
                                     <c:if test="${'true'==schedule.scheduleList[3]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/2_2')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/2_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="3_2">
                                     <c:if test="${'true'==schedule.scheduleList[5]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/3_2')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/3_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="4_2">
                                     <c:if test="${'true'==schedule.scheduleList[7]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/4_2')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/4_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="5_2">
                                     <c:if test="${'true'==schedule.scheduleList[9]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/5_2')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/5_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="6_2">
                                     <c:if test="${'true'==schedule.scheduleList[11]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/6_2')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/6_2')">预约</a>
                                     </c:if>
                                 </td>
                                 <td id="7_2">
                                     <c:if test="${'true'==schedule.scheduleList[13]}">
-                                        <a href="javascript:reservation('patient/reservation/${staff.staffId}/7_2')">预约</a>
+                                        <a href="javascript:reservation('patient/reservation/${reservationStaff.staffId}/7_2')">预约</a>
                                     </c:if>
                                 </td>
                             </tr>

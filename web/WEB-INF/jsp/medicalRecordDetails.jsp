@@ -10,7 +10,7 @@
     </head>
     <body>
         <jsp:include page="patientHeaderTemplete.jsp"/>
-        <div class="ui container body-under-header">
+        <div class="ui container">
 
             <div class="ui segment">
 

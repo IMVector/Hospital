@@ -48,6 +48,65 @@ public class NextPage {
         return "medicalRecord";
     }
 
+    @RequestMapping(value = "patient/goToReservationList")
+    public String gotoReservationList(HttpSession session) {
+        return "patientReservation";
+    }
+
+    @RequestMapping(value = "patient/unload", method = RequestMethod.GET)
+    public String patientUnload(HttpSession session) {
+        session.removeAttribute("patient");
+        return "patientIndex";
+    }
+
+    @RequestMapping(value = "staff/unload", method = RequestMethod.GET)
+    public String staffUnload(HttpSession session) {
+        session.removeAttribute("staff");
+        return "mainIndex";
+    }
+
+    @RequestMapping(value = "staff/examUnload", method = RequestMethod.GET)
+    public String examUnload(HttpSession session) {
+        session.removeAttribute("examStaff");
+        return "mainIndex";
+    }
+
+    @RequestMapping(value = "staff/manageUnload", method = RequestMethod.GET)
+    public String manageUnload(HttpSession session) {
+        session.removeAttribute("manageStaff");
+        return "mainIndex";
+    }
+
+    @RequestMapping(value = "staff/goToTaskList")
+    public String goToTaskList(HttpSession session) {
+        return "taskList";
+    }
+
+    @RequestMapping(value = "patient/goToCheckRecord")
+    public String goToPatientCheckRecord() {
+        return "patientCheckRecord";
+    }
+
+    @RequestMapping(value = "patient/goToPersonnelCenter")
+    public String goToPersonnelCenter() {
+        return "personnelCenter";
+    }
+
+    @RequestMapping(value = "patient/goToPatientAdvice")
+    public String goToPatientAdvice() {
+        return "patientAdvice";
+    }
+
+    @RequestMapping(value = "patient/goToBill")
+    public String goToBill() {
+        return "bill";
+    }
+
+    @RequestMapping(value = "patient/goToUpdatePatientIngo")
+    public String goToUpdatePatientIngo() {
+        return "patientInfoUpdate";
+    }
+
     @RequestMapping(value = "staff/goToStaffIndex")
     public String goToStaffIndex() {
         return "staffIndex";
@@ -98,78 +157,61 @@ public class NextPage {
         return "staffLogin";
     }
 
-    @RequestMapping(value = "patient/goToReservationList")
-    public String gotoReservationList(HttpSession session) {
-        return "patientReservation";
-    }
-
-    @RequestMapping(value = "patient/unload", method = RequestMethod.GET)
-    public String patientUnload(HttpSession session) {
-        session.removeAttribute("patient");
-        return "patientIndex";
-    }
-
-    @RequestMapping(value = "staff/unload", method = RequestMethod.GET)
-    public String staffUnload(HttpSession session) {
-        session.removeAttribute("staff");
-        return "mainIndex";
-    }
-
-    @RequestMapping(value = "staff/goToTaskList")
-    public String goToTaskList(HttpSession session) {
-        return "taskList";
-    }
-
-    @RequestMapping(value = "patient/goToCheckRecord")
-    public String goToPatientCheckRecord() {
-        return "patientCheckRecord";
-    }
-
-    @RequestMapping(value = "patient/goToPersonnelCenter")
-    public String goToPersonnelCenter() {
-        return "personnelCenter";
-    }
-    @RequestMapping(value = "patient/goToPatientAdvice")
-    public String goToPatientAdvice() {
-        return "patientAdvice";
-    }
-    @RequestMapping(value = "patient/goToBill")
-    public String goToBill() {
-        return "bill";
-    }
-
-    @RequestMapping(value = "patient/goToUpdatePatientIngo")
-    public String goToUpdatePatientIngo() {
-        return "patientInfoUpdate";
-    }
     @RequestMapping(value = "staff/goToStaffDietAdvice")
     public String goToStaffDietAdvice() {
         return "staffDietAdvice";
     }
+
     @RequestMapping(value = "staff/goToStaffPrecautionAdvice")
     public String goToStaffPrecautionAdvice() {
         return "staffPrecautionAdvice";
     }
+
     @RequestMapping(value = "staff/goToStaffReservationList")
     public String goToStaffReservationList() {
         return "staffReservationList";
     }
+
     @RequestMapping(value = "staff/goToStaffPersonnelCenter")
     public String goToStaffPersonnelCenter() {
         return "staffPersonnelCenter";
     }
+
+    @RequestMapping(value = "staff/goToExamStaffPersonnelCenter")
+    public String goToExamStaffPersonnelCenter() {
+        return "examStaffPersonnelCenter";
+    }
+
+    @RequestMapping(value = "staff/goToManageStaffPersonnelCenter")
+    public String goToManageStaffPersonnelCenter() {
+        return "manageStaffPersonnelCenter";
+    }
+
     @RequestMapping(value = "staff/goToStaffInfoUpdate")
     public String goToStaffInfoUpdate() {
         return "staffInfoUpdate";
     }
+
+    @RequestMapping(value = "staff/goToExamStaffInfoUpdate")
+    public String goToExamStaffInfoUpdate() {
+        return "examStaffInfoUpdate";
+    }
+
+    @RequestMapping(value = "staff/goToManageStaffInfoUpdate")
+    public String goToManageStaffInfoUpdate() {
+        return "manageStaffInfoUpdate";
+    }
+
     @RequestMapping(value = "staff/goToManageStaffIndex")
     public String goToManageStaffIndex() {
         return "manageStaffIndex";
     }
+
     @RequestMapping(value = "staff/goToReplyByPatient")
     public String goToReplyByPatient() {
         return "replyByPatient";
     }
+
     @RequestMapping(value = "admin/goToAdminIndex")
     public String goToAdminIndex() {
         return "adminIndex";

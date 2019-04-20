@@ -6,6 +6,17 @@
 
     <head>
         <jsp:include page="resourcesTemplete.jsp" />
+        <title>网站管理</title>
+        <style>
+            #databaseBackpackFileTable th{
+                text-align: center;
+                vertical-align:middle;
+            }
+            #databaseBackpackFileTable td{
+                text-align: center;
+                vertical-align:middle;
+            }
+        </style>
     </head>
 
     <body>
@@ -43,7 +54,8 @@
                                 数据库备份管理
                             </div>
 
-                            <button id="getbackpackFile" class="ui basic button violet">查询所有数据库备份</button>
+                            <button id="getbackpackFile" class="ui button violet">查询所有数据库备份</button>
+                            <br><br>
                             <div class="container-admin-inner">
                                 <table id="databaseBackpackFileTable" class="ui table violet">
 
@@ -92,7 +104,7 @@
                     $("#save_path").empty();
                     $("#environment").append(data["environment"]);
                     $("#save_path").append(data["save_path"]);
-                    
+
                     console.log(data["environment"]);
                     console.log(data["save_path"]);
                 },
@@ -103,7 +115,8 @@
         }
 
         $(document).ready(function () {
-
+            var url = 'databaseBackpackFileList/page_key_word';
+            fillForm("pageButtons_1", "pageText_1", "pageSelecter_1", currentPage = 1, url, showDatabaseBackpackTable, getBackpackFileItemNum);
             $("#getbackpackFile").click(function () {
                 var url = 'databaseBackpackFileList/page_key_word';
                 fillForm("pageButtons_1", "pageText_1", "pageSelecter_1", currentPage = 1, url, showDatabaseBackpackTable, getBackpackFileItemNum);
@@ -131,8 +144,22 @@
             $(this).closest("tr").find(".table-label").each(function (index, element) {
                 if (index === 0) {
                     var id = $(this).html().trim();
+                    console.log(id);
                     var url = "deleteRestore/" + id;
-                    getSomethingByAjax(url, backpackDelete);
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        success: function (data, textStatus, jqXHR) {
+                            if (data === true) {
+                                $("#file" + id).remove();
+                                toastSuccess("删除成功");
+                            } else {
+                                toastError("删除失败,请重试！");
+                            }
+                        }, error: function (jqXHR, textStatus, errorThrown) {
+                            toastError("请求失败,请重试！");
+                        }
+                    });
                 }
             });
         });
@@ -149,9 +176,21 @@
                         if (index === 0) {
                             var id = $(this).html().trim();
                             var url = "deleteRestore/" + id;
-                            getSomethingByAjax(url, backpackDelete);
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                success: function (data, textStatus, jqXHR) {
+                                    if (data === true) {
+                                        $("#file" + id).remove();
+                                        toastSuccess("删除成功");
+                                    } else {
+                                        toastError("删除失败,请重试！");
+                                    }
+                                }, error: function (jqXHR, textStatus, errorThrown) {
+                                    toastError("请求失败,请重试！");
+                                }
+                            });
                         }
-
                     });
                 }
             });
@@ -159,13 +198,14 @@
         ;
         function showDatabaseBackpackTable(data) {
             $("#databaseBackpackFileTable").empty();
-            $("#databaseBackpackFileTable").append(" <thead><tr><th>选择</th><th>文件编号</th><th>文件路径</th><th>备份时间</th><th style=\"padding-left: 10%\" colspan=\"2\">操作</th></tr></thead>");
+            $("#databaseBackpackFileTable").append(" <thead><tr><th>选择</th><th>文件编号</th><th>文件路径</th><th>备份时间</th><th>操作</th></tr></thead>");
             $.each(data, function (index, backpack) {
-                var str = " <tr id=file" + backpack.backpackFileId + "><td><div class=\"ui toggle checkbox\"><input name=\"public\" type=\"checkbox\"><label></label></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" >" + backpack.backpackFileId + "</label>\n\<div class=\"nonevisiual\" ></td><td>\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + backpack.backpackFilePath + "\" data-position=\"right center\">" + backpack.backpackFilePath + "</label><div class=\"nonevisiual\" ></td><td>\n\
-                                     <label class=\"mylabel table-label\" data-content=\"" + formatDateboxDetails(backpack.backpackTime) + "\" data-position=\"right center\">" + formatDateboxDetails(backpack.backpackTime) + "</label><div class=\"nonevisiual\"></td><td>\n\
-                                        <button  class=\"ui button violet restoreBtn\" >还原</button></td><td><button class=\"ui button violet deleteBtn\">删除</button></td></tr>";
+                var str = " <tr id=file" + backpack.backpackFileId + ">\n\
+                <td style='width:80px'><div class='ui toggle checkbox'><input name='public' type='checkbox'><label></label></div></td>\n\
+                <td style='width:60px'><label class='mylabel table-label' >" + backpack.backpackFileId + "</label>\n\<div class='nonevisiual' ></td>\n\
+                <td style='max-width:150px'><label class='mylabel table-label' data-content='" + backpack.backpackFilePath + "' data-position='right center'>" + backpack.backpackFilePath + "</label></td>\n\
+                <td style='max-width:150px'><label class='mylabel table-label' data-content='" + formatDateboxDetails(backpack.backpackTime) + "' data-position='right center'>" + formatDateboxDetails(backpack.backpackTime) + "</label></td>\n\
+                <td style='width:150px'><button class='ui mini button violet restoreBtn'>还原</button><button class='ui mini button violet deleteBtn'>删除</button></tr>";
                 $("#databaseBackpackFileTable").append(str);
             });
         }
@@ -174,9 +214,6 @@
             $(this).popup("show");
         });
 
-        function setting(data) {
-            toastSuccess("设置成功！可以进行还原");
-        }
         function restore(data) {
             if (data === true) {
                 toastSuccess("还原成功");
@@ -186,15 +223,6 @@
 
         }
 
-        function backpackDelete(data) {
-            if (data >= 0) {
-                $("#file" + data).remove();
-                toastSuccess("删除成功");
-
-            } else {
-                toastError("删除失败,请重试！");
-            }
-        }
         function getBackpackFileItemNum() {
             var itemNum = 0;
             $.ajax({

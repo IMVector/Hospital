@@ -20,7 +20,7 @@
     </head>
 
     <body>
-        <jsp:include page="staffHeaderTemplete.jsp" />
+        <jsp:include page="examStaffHeaderTemplete.jsp" />
         <div class="ui container">
             <div class="ui segment">
                 <div class="ui header blue segment">

@@ -16,42 +16,42 @@
         <div class="ui container">
             <jsp:include page="staffHeaderTemplete.jsp"/>
             <div class="ui segment">
-                <div class="ui huge horizontal divided list">
-                    <div class="item">
-                        <!--<img class="ui avatar image" src="/images/avatar/small/helen.jpg">-->
-                        <!--<i class="edit outline huge icon"></i>-->
-                        <i class="stethoscope huge icon"></i>
-                        <div class="content">
-                            <a class="header link-staff" href="staff/goToDiagnosis">诊断</a>
+                <center>
+                    <div class="ui big horizontal divided list">
+                        <div class="item">
+                            <i class="stethoscope huge icon"></i>
+                            <div class="content">
+                                <a class="header link-staff" href="staff/goToDiagnosis">诊断</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="edit outline huge icon"></i>
+                            <div class="content">
+                                <a class="header link-staff" href="staff/goToStaffDietAdvice">饮食建议</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="heartbeat huge icon"></i>
+                            <div class="content">
+                                <a class="header link-staff" href="staff/goToStaffPrecautionAdvice">预防建议</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="calendar alternate outline huge icon"></i>
+                            <div class="content">
+                                <a class="header link-staff" href="staff/goToStaffReservationList">预约信息</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="phone huge  icon"></i>
+                            <div class="content">
+                                <a class="header link-staff" href="staff/goToReplyByPatient">病人回复</a>
+                                <!--<div class="header">查看预约信息</div>-->
+                            </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <!--<img class="ui avatar image" src="/images/avatar/small/christian.jpg">-->
-                        <i class="edit outline huge icon"></i>
-                        <div class="content">
-                            <a class="header link-staff" href="staff/goToStaffDietAdvice">饮食建议</a>
-                            <!--<div class="header">饮食建议</div>-->
-                        </div>
-                    </div>
-                    <div class="item">
-                        <!--<img class="ui avatar image" src="/images/avatar/small/daniel.jpg">-->
-                        <i class="heartbeat huge icon"></i>
-                        <div class="content">
-                            <a class="header link-staff" href="staff/goToStaffPrecautionAdvice">预防建议</a>
-                            <!--<div class="header">预防建议</div>-->
-                        </div>
-                    </div>
-                    <div class="item">
-                        <!--<img class="ui avatar image" src="/images/avatar/small/daniel.jpg">-->
-                        <!--<i class="heartbeat huge icon"></i>-->
-                        <!--<i class="file alternate outline huge icon"></i>-->
-                        <i class="calendar alternate outline huge icon"></i>
-                        <div class="content">
-                            <a class="header link-staff" href="staff/goToStaffReservationList">查看预约信息</a>
-                            <!--<div class="header">查看预约信息</div>-->
-                        </div>
-                    </div>
-                </div>
+                </center>
+
 
                 <div class="twelve wide column">
 
@@ -74,11 +74,13 @@
                                                             3
                                                         </div>
                                                         <div class="label">
-                                                            人  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">详情</a>
+                                                            人  
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="">详情</a>
 
                                         </div>
                                     </div>
@@ -101,11 +103,13 @@
                                                             3
                                                         </div>
                                                         <div class="label">
-                                                            人 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">详情</a>
+                                                            人
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="">详情</a>
                                         </div>
                                     </div>
                                     <!--<br>-->
@@ -130,11 +134,13 @@
                                                             3
                                                         </div>
                                                         <div class="label">
-                                                            个 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">详情</a>
+                                                            个 
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="">详情</a>
                                         </div>
                                     </div>
                                     <br>
@@ -157,11 +163,13 @@
                                                             3
                                                         </div>
                                                         <div class="label">
-                                                            个 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">详情</a>
+                                                            个
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="">详情</a>
                                         </div>
                                     </div>
                                     <br>
