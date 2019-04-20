@@ -98,7 +98,7 @@ public class CheckRecord  implements java.io.Serializable {
         this.resultFile = resultFile;
     }
 
-
+  
 
 
 }

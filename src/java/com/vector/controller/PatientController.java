@@ -303,11 +303,18 @@ public class PatientController {
     @RequestMapping(value = "/billClear", method = RequestMethod.POST)
     @ResponseBody
     public Bill billClear(Integer patientId, HttpSession session) {
-        if (billService.getToPayItem(patientId,session)) {
-            return billService.getLastUnPaidBill(patientId);
+        if (billService.getToPayItem(patientId, session)) {
+            Bill bill = billService.getLastUnPaidBill(patientId);
+            return bill;
         } else {
             return null;
         }
+    }
+
+    @RequestMapping(value = "/getBillInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Map getBillInfo(Integer billId) {
+        return billService.getBillItemInfo(billId);
     }
 
 }

@@ -1,4 +1,5 @@
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -92,17 +93,13 @@
                             <th>数目</th>
                         </tr> 
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                    <tbody id="billContent">
+                        
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>3 People</th>
-                            <th>2 Approved</th>
+                            <th id="num"></th>
+                            <th id="totalAmount"></th>
                             <th></th>
                         </tr>
                     </tfoot>
@@ -113,45 +110,64 @@
                 </h3>        
             </div>
         </div>
-        <!--        <div class="ui segments">
-                    <div class="ui segment">
-                        <p>Top</p>
-                    </div>
-                    <div class="ui segment">
-                        <p>Middle</p>
-                    </div>
-                    <div class="ui segment">
-                        <p>Middle</p>
-                    </div>
-                    <div class="ui segment">
-                        <p>Middle</p>
-                    </div>
-                    <div class="ui segment">
-                        <p>Bottom</p>
-                    </div>
-                </div>-->
     </body>
     <script>
-        
+
         medicalRecord();
         checkRecord();
-        
-        
+
+
         $(document).on("click", "#clear", function () {
             $.ajax({
                 url: "patient/billClear",
                 type: 'POST',
                 data: {"patientId":${patient.patientId}},
                 success: function (data, textStatus, jqXHR) {
-                    console.log(data.totalAmount);
+                    $("#totalAmount").append("总计：" + data.totalAmount + "元");
+//                    console.log(data.totalAmount);
+                    getBillInfo(data.billId);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    
+                    toastError("出现错误，请求失败！");
                 }
             });
-            
+
         });
-        
+
+
+        function getBillInfo(billId) {
+            $.ajax({
+                url: "patient/getBillInfo",
+                type: 'POST',
+                data: {"billId": billId},
+                success: function (data, textStatus, jqXHR) {
+
+                    data['checkRecordLsit'].forEach(checkRecord => {
+                        var str = "\
+                             <tr>\n\
+                                <td>" + checkRecord.checkItem.checkItemName + "</td>\n\
+                                <td>" + checkRecord.checkItem.checkItemPrice + "</td>\n\
+                                <td>1</td>\n\
+                            </tr>";
+                        $("#billContent").append(str);
+                    });
+                    data['medicineList'].forEach(medicine => {
+                        var str = "\
+                             <tr>\n\
+                                <td>" + medicine.medicineName + "</td>\n\
+                                <td>" + medicine.medicinePrice + "</td>\n\
+                                <td>1</td>\n\
+                            </tr>";
+                        $("#billContent").append(str);
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败请重试！");
+                }
+            });
+        }
+
+
         function medicalRecord() {
             $.ajax({
                 url: "patient/getUnPayMedicalRecord",
@@ -167,15 +183,15 @@
                     <td style='max-width:400px;'><label class='mylabel' data-content='" + medicalRecord.symptom + "' data-position='top left'>" + medicalRecord.symptom + "</label></td>\n\
                     <td style='max-width:400px;'><label class='mylabel' data-content='" + medicalRecord.diagnosticDescription + "' data-position='top left'>" + medicalRecord.diagnosticDescription + "</label></td>\n\
                     <td style='width:100px;'> <a class='ui button small blue' href='patient/medicalRecordDetails/" + medicalRecord.medicalRecordId + "'>查看</a> </td>\n\</tr>";
-                        
+
                         $("#medicalRecordTable").append(str);
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    
+
                 }
             });
-            
+
         }
         function checkRecord() {
             $.ajax({
@@ -196,10 +212,10 @@
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    
+
                 }
             });
         }
-        
+
     </script>
 </html>

@@ -4,6 +4,7 @@ import com.vector.dao.BillDao;
 import com.vector.pojo.Bill;
 import com.vector.pojo.CheckRecord;
 import com.vector.pojo.MedicalRecord;
+import com.vector.pojo.Medicine;
 import com.vector.pojo.Patient;
 import com.vector.pojo.Prescription;
 import com.vector.service.BillService;
@@ -12,6 +13,7 @@ import com.vector.service.MedicalRecordService;
 import com.vector.service.MedicineService;
 import com.vector.service.PrescriptionService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 
 /**
  *
@@ -103,17 +106,19 @@ public class BillServiceImpl implements BillService {
             chargeItem = chargeItem + c.getCheckRecordId() + ",";
             alterCheckRecordPaymentStatus(c);//修改支付状态防止下次被重新计算
         }
-        chargeItem += "medicalRecord,";//分割标志头
+        chargeItem += "medicine,";//分割标志头
         for (MedicalRecord m : mList) {
             List<Prescription> list = prescriptionService.getPrescriptionByMedicalRecordId(m.getMedicalRecordId());
             for (Prescription p : list) {
                 String medicineCollections = p.getPrescriptionContent();
                 String array[] = medicineCollections.split(",");
                 for (int i = 0; i < array.length; i++) {
-                    totalAmount += medicineService.getMedicineById(Integer.parseInt(array[i])).getMedicinePrice();
+                    Medicine medicine = medicineService.getMedicineById(Integer.parseInt(array[i]));
+                    totalAmount += medicine.getMedicinePrice();
+                    chargeItem = chargeItem +medicine.getMedicineId() + ",";
                 }
             }
-            chargeItem = chargeItem + m.getMedicalRecordId() + ",";
+
             alterMedicalRecordPaymentStatus(m);//修改支付状态防止下次被重新计算
         }
         Patient p = new Patient();
@@ -141,12 +146,28 @@ public class BillServiceImpl implements BillService {
     @Override
     public Map getBillItemInfo(Serializable billId) {
         Bill bill = billDao.getOneById(billId);
-        //checkRecordId,2,3,4,5,6,7,8,9,10,11,medicalRecord,1,2,3,4,5,6,7,8,11,22,23,
-        String itemArray[] = bill.getChargeItem().split("medicalRecord");
+        ModelMap map = new ModelMap();
+        List<CheckRecord> clist = new ArrayList();
+        List<Medicine> mlist = new ArrayList();
+        //checkRecordId
+        //,2,3,4,5,6,7,8,9,10,11,
+        //medicalRecord
+        //,1,2,3,4,5,6,7,8,11,22,23,
+        String itemArray[] = bill.getChargeItem().trim().split("medicine");
         itemArray[0].replace("checkRecordId", "");
-        String checkRecordItem[]=itemArray[0].split(",");
-        String medicalRecordItem[]=itemArray[1].split(",");
+        String checkRecordItem[] = itemArray[0].split(",");
+        String medicalRecordItem[] = itemArray[1].split(",");
 
-        return null;
+        for (int i = 1; i < checkRecordItem.length; i++) {
+            System.out.println("+" + checkRecordItem[i]);
+            clist.add(checkRecordService.getCheckRecordById(Integer.parseInt(checkRecordItem[i])));
+        }
+        for (int i = 1; i < medicalRecordItem.length; i++) {
+            System.out.println("-" + medicalRecordItem[i]);
+            mlist.add(medicineService.getMedicineById(Integer.parseInt(medicalRecordItem[i])));
+        }
+        map.addAttribute("checkRecordLsit", clist);
+        map.addAttribute("medicineList", mlist);
+        return map;
     }
 }

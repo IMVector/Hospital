@@ -474,7 +474,7 @@
                         var str = "\
                                 <div class=\"ui segments\">\n\
                                     <div class=\"ui segment\">\n\
-                                        <p>检查影像或检查报告文件</p>" + checkRecord.resultFile + "\n\
+                                        <p>检查影像或检查报告文件</p><a href='" + checkRecord.resultFile + "'>文件</a>\n\
                                     </div>\n\
                                     <div class=\"ui segment\">\n\
                                         <p>检查结果描述及分析：</p>" + checkRecord.checkResultDescription + "\n\
