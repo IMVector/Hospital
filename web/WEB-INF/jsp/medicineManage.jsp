@@ -137,22 +137,32 @@
     <script>
 
 
+        var nameFlag = false;
         $(document).ready(function () {
 
             $("#getByName").on("click", function () {
+                nameFlag = true;
                 var name = $("#medicalName").val();
                 var url = "staff/getMedicineByName/" + name;
                 fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineByNameItemNumber);
             });
 
             $("#getAllBtn").click(function () {
+                nameFlag = false;
                 var url = 'staff/medicineList/page_key_word';
                 fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineItemNumber);
             });
 
             $("#pageSelecter").on("change", function () {
-                var url = 'staff/medicineList/page_key_word';
-                goToThPage("PageButtons", "pageText", "pageSelecter", url, medicineTableInfo, getMedicineItemNumber);
+                if (flag) {
+                    var name = $("#medicalName").val();
+                    var url = "staff/getMedicineByName/" + name;
+                    fillForm("PageButtons", "pageText", "pageSelecter", url, medicineTableInfo, getMedicineByNameItemNumber);
+                } else {
+                    var url = 'staff/medicineList/page_key_word';
+                    goToThPage("PageButtons", "pageText", "pageSelecter", url, medicineTableInfo, getMedicineItemNumber);
+                }
+
             });
             //全部更新
             $("#updateAll").on("click", function () {
@@ -164,7 +174,7 @@
                     //发送ajax请求更新全部选中
                     $(".ui.toggle.checkbox").each(function (index, element) {
                         if ($(this).checkbox("is checked")) {
-                            var id, name, instructions, description, price, productionDate, validatePeriod,number;
+                            var id, name, instructions, description, price, productionDate, validatePeriod, number;
                             id = $(this).closest("tr").attr("id");
                             $(this).closest("tr").find(".myInput").each(function (index, element) {
                                 //1、药品名称
@@ -201,7 +211,7 @@
                             $.ajax({
                                 url: "staff/updateMedicine",
                                 type: 'POST',
-                                data: {"medicineId": id, "medicineName": name, "medicineInstructions": instructions, "medicineDescription": description, "productionDate": productionDate, "validityPeriod": validatePeriod, "medicinePrice": price,"medicineNumber":number},
+                                data: {"medicineId": id, "medicineName": name, "medicineInstructions": instructions, "medicineDescription": description, "productionDate": productionDate, "validityPeriod": validatePeriod, "medicinePrice": price, "medicineNumber": number},
                                 success: function (data, textStatus, jqXHR) {
                                     if (data) {
                                         $("#" + id).find(".mylabel").each(function (index, element) {
@@ -322,7 +332,7 @@
 
 
                     //发送ajax请求更新当前
-                    var id, name, instructions, description, price, productionDate, validatePeriod,number;
+                    var id, name, instructions, description, price, productionDate, validatePeriod, number;
                     id = $(this).closest("tr").attr("id");
                     $(this).closest("tr").find(".myInput").each(function (index, element) {
                         //1、药品名称
@@ -359,7 +369,7 @@
                     $.ajax({
                         url: "staff/updateMedicine",
                         type: 'POST',
-                        data: {"medicineId": id, "medicineName": name, "medicineInstructions": instructions, "medicineDescription": description, "productionDate": productionDate, "validityPeriod": validatePeriod, "medicinePrice": price,"medicineNumber":number},
+                        data: {"medicineId": id, "medicineName": name, "medicineInstructions": instructions, "medicineDescription": description, "productionDate": productionDate, "validityPeriod": validatePeriod, "medicinePrice": price, "medicineNumber": number},
                         success: function (data, textStatus, jqXHR) {
                             if (data) {
                                 $("#" + id).find(".mylabel").each(function (index, element) {
@@ -460,19 +470,40 @@
             $("#medicineTable").empty();
             $("#medicineTable").append("<thead><tr><th>选择</th><th>名称</th><th>适用症</th><th>说明</th><th>价格</th><th>生产日期</th><th>有效期</th><th>剩余数量</th><th>操作</th></tr></thead>");
             $.each(data, function (index, metication) {
-                var str = " <tr id=" + metication.medicineId + "><td><div class=\"ui toggle checkbox\"><input name=\"public\" type=\"checkbox\"><label></label></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" data-content=\"" + metication.medicineName + "\" data-position=\"top left\"  >" + metication.medicineName + "</label>\n\
-                                        <div class=\"nonevisiual\" ><input value=" + metication.medicineName + " class=\"myInput\" style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                var str = " <tr id=" + metication.medicineId + ">\n\
+                                <td>\n\
+                                    <div class=\"ui toggle checkbox\"><input name=\"public\" type=\"checkbox\"><label></label></div>\n\
+                                </td>\n\
+                                <td>\n\
+                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicineName + "\" data-position=\"top left\"  >" + metication.medicineName + "</label>\n\
+                                    <div class=\"nonevisiual\" ><input value=" + metication.medicineName + " class=\"myInput\" style=\"width: 80%;\" type=\"text\"></div>\n\
+                                </td>\n\
+                                <td>\n\
                                         <label class=\"mylabel table-label\" data-content=\"" + metication.medicineDescription + "\" data-position=\"top left\" >" + metication.medicineDescription + "</label>\n\
-                                        <div class=\"nonevisiual\" ><input value=" + metication.medicineDescription + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" data-content=\"" + metication.medicineInstructions + "\" data-position=\"top left\"   >" + metication.medicineInstructions + "</label>\n\
-                                        <div class=\"nonevisiual\"><input value=" + metication.medicineInstructions + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" >" + metication.medicinePrice + "元</label><div class=\"nonevisiual\"><input value=" + metication.medicinePrice + "class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                                        <div class=\"nonevisiual\" ><input value=" + metication.medicineDescription + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div>\n\
+                                </td>\n\
+                                <td>\n\
+                                        <label class=\"mylabel table-label\" data-content=\"" + metication.medicineInstructions + "\" data-position=\"top left\">" + metication.medicineInstructions + "</label>\n\
+                                        <div class=\"nonevisiual\"><input value=" + metication.medicineInstructions + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div>\n\
+                                </td>\n\
+                                <td>\n\
+                                        <label class=\"mylabel table-label\" >" + metication.medicinePrice + "元</label><div class=\"nonevisiual\">\n\
+                                        <input value=" + metication.medicinePrice + " class=\"myInput\" style=\"width: 80%;\" type=\"text\"></div>\n\
+                                </td>\n\
+                                <td>\n\
                                         <label class=\"mylabel table-label\" data-content=\"" + formatDatebox(metication.productionDate) + "\" data-position=\"top left\">" + formatDatebox(metication.productionDate) + "</label>\n\
-                                        <div class=\"nonevisiual\"><input value=" + formatDatebox(metication.productionDate) + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" >" + metication.validityPeriod + "</label><div class=\"nonevisiual\"><input value=" + metication.validityPeriod + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td>\n\
-                                        <td><label class=\"mylabel table-label\" >" + metication.medicineNumber + "</label><div class=\"nonevisiual\"><input value=" + metication.medicineNumber + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td>\n\
-                                        <td style='width:150px'><button class=\"ui mini button blue updatebtn\" >修改</button><button class=\"ui mini button blue deleteBtn\">删除</button></td><td></td></tr>";
+                                        <div class=\"nonevisiual\"><input value=" + formatDatebox(metication.productionDate) + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div>\n\
+                                </td>\n\
+                                <td>\n\
+                                        <label class=\"mylabel table-label\" >" + metication.validityPeriod + "</label><div class=\"nonevisiual\"><input value=" + metication.validityPeriod + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div>\n\
+                                </td>\n\
+                                <td>\n\
+                                        <label class=\"mylabel table-label\" >" + metication.medicineNumber + "</label><div class=\"nonevisiual\"><input value=" + metication.medicineNumber + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div>\n\
+                                </td>\n\
+                                <td style='width:150px'>\n\
+                                            <button class=\"ui mini button blue updatebtn\" >修改</button><button class=\"ui mini button blue deleteBtn\">删除</button>\n\
+                                </td>\n\
+                            </tr>";
 
 
                 $("#medicineTable").append(str);
@@ -505,7 +536,7 @@
         function getMedicineByNameItemNumber() {
             var itemNum = 0;
             $.ajax({
-                url: "staff/getMedicineByNameItemNumber/"+$("#medicalName").val(),
+                url: "staff/getMedicineByNameItemNumber/" + $("#medicalName").val(),
                 type: 'POST',
                 async: false,
                 data: {},
@@ -583,7 +614,7 @@
                 medicineNumber: {
                     identifier: 'medicineNumber',
                     rules: [
-                         {
+                        {
                             type: 'empty',
                             prompt: '请输入数量'
                         },

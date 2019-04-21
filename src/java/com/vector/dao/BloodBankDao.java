@@ -6,11 +6,15 @@
 package com.vector.dao;
 
 import com.vector.pojo.Bloodbank;
+import java.util.List;
 
 /**
  *
  * @author Vector
  */
-public interface BloodBankDao extends BaseDao<Bloodbank>,PaginationBaseDao<Bloodbank>{
-    
+public interface BloodBankDao extends BaseDao<Bloodbank>, PaginationBaseDao<Bloodbank> {
+
+    public List<Bloodbank> getListByBloodType(Integer currentPage, String bloodType);
+
+    public Integer getListByBloodTypeItemNumber(String bloodType);
 }

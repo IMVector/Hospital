@@ -216,8 +216,8 @@ public class NextPage {
     public String goToAdminIndex() {
         return "adminIndex";
     }
-    @RequestMapping(value = "404.jsp")
-    public String goToError() {
-        return "404";
+    @RequestMapping(value = "staff/goToBloodbank")
+    public String goToBloodbank() {
+        return "bloodbankManage";
     }
 }

@@ -11,11 +11,15 @@ import com.vector.service.BloodBankService;
 import java.io.Serializable;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Vector
  */
+@Transactional
+@Service
 public class BloodBankServcieImpl implements BloodBankService {
 
     @Autowired
@@ -66,5 +70,12 @@ public class BloodBankServcieImpl implements BloodBankService {
     public List<Bloodbank> getList(Integer currentPage, Object... params) {
         return bloodBankDao.getList(currentPage);
     }
+   public List<Bloodbank> getListByBloodType(Integer currentPage, String bloodType){
+       return bloodBankDao.getListByBloodType(currentPage, bloodType);
+   }
 
+    @Override
+    public Integer getListByBloodTypeItemNumber(String bloodType) {
+        return bloodBankDao.getListByBloodTypeItemNumber(bloodType);
+    }
 }

@@ -5,6 +5,7 @@
  */
 package com.vector.controller;
 
+import com.vector.pojo.Bloodbank;
 import com.vector.pojo.CheckItem;
 import com.vector.pojo.CheckRecord;
 import com.vector.pojo.Department;
@@ -20,6 +21,7 @@ import com.vector.pojo.ScheduleTable;
 import com.vector.pojo.Staff;
 import com.vector.pojo.Task;
 import com.vector.pojo.Title;
+import com.vector.service.BloodBankService;
 import com.vector.service.CheckItemService;
 import com.vector.service.CheckRecordService;
 import com.vector.service.DepartmentService;
@@ -102,6 +104,8 @@ public class StaffController {
 
     @Autowired
     PatientService patientService;
+    @Autowired
+    BloodBankService bloodBankService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -129,6 +133,7 @@ public class StaffController {
     public Integer showDepartmentListItemNumber() {
         return departmentService.getListItemNumber();
     }
+
     @RequestMapping(value = "/getDepartmentByNameItemNumber/{name}", method = RequestMethod.POST)
     @ResponseBody
     public Integer departmentByNameListItemNum(@PathVariable String name) {
@@ -183,6 +188,7 @@ public class StaffController {
     public Integer showTitleListItemNumber() {
         return titleService.getListItemNumber();
     }
+
     @RequestMapping(value = "/getTitleByNameListItemNum/{name}", method = RequestMethod.POST)
     @ResponseBody
     public Integer getTitleByNameListItemNum(@PathVariable String name) {
@@ -231,6 +237,7 @@ public class StaffController {
     public Integer showRoleListItemNumber() {
         return roleService.getListItemNumber();
     }
+
     @RequestMapping(value = "/getRoleListByNameItemNum/{name}", method = RequestMethod.POST)
     @ResponseBody
     public Integer showRoleListItemNumber(@PathVariable String name) {
@@ -416,11 +423,13 @@ public class StaffController {
     public List<CheckItem> getCheckItemByName(@PathVariable String name) {
         return checkItemService.getCheckItemByName(name);
     }
+
     @RequestMapping(value = "/getCheckItemByNameItemNumber/{name}", method = RequestMethod.POST)
     @ResponseBody
     public Integer showCheckItemListItemNumber(@PathVariable String name) {
         return checkItemService.getCheckItemByNameItemNumber(name);
     }
+
     //////////////////////////////////////////////////////药品管理//////////////////////////////////////////////////
     @RequestMapping(value = "/getMedicineList", method = RequestMethod.POST)
     @ResponseBody
@@ -463,11 +472,13 @@ public class StaffController {
     public List<Medicine> getMedicineByName(@PathVariable String name) {
         return medicineService.getMedicineByName(name);
     }
+
     @RequestMapping(value = "/getMedicineByNameItemNumber/{name}", method = RequestMethod.POST)
     @ResponseBody
     public Integer getMedicineByNameItemNumber(@PathVariable String name) {
         return medicineService.getMedicineByNameItemNumber(name);
     }
+
     @RequestMapping(value = "/medicineList/{description}/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
     public List<Medicine> getMedicineList(@PathVariable String description, @PathVariable Integer currentPage) {
@@ -670,5 +681,41 @@ public class StaffController {
     public int getStaffWithImageItemNum() {
         return staffService.getStaffNumWithImage();
     }
+//////////////////////////////////////////////bloodBank//////////////////////////////////
 
+    @RequestMapping(value = "/addBloodbank", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean addBloodbank(Bloodbank bloodbank) {
+        return bloodBankService.insert(bloodbank);
+    }
+
+    @RequestMapping(value = "/bloodbankList/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Bloodbank> getBloodbankList(@PathVariable Integer currentPage) {
+        return bloodBankService.getList(currentPage);
+    }
+
+    @RequestMapping(value = "/bloodbankListItemNumber", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getBloodbankListItemNumber() {
+        return bloodBankService.getListItemNumber();
+    }
+
+    @RequestMapping(value = "/deleteBloodbankItem/{itemId}", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean deleteBloodbankItem(@PathVariable Integer itemId) {
+        return bloodBankService.delete(itemId);
+    }
+
+    @RequestMapping(value = "/getListByBloodType/{bloodType}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Bloodbank> getListByBloodType(@PathVariable Integer currentPage,@PathVariable String bloodType) {
+        return bloodBankService.getListByBloodType(currentPage, bloodType);
+    }
+
+    @RequestMapping(value = "/getListByBloodTypeItemNumber/{bloodType}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getListByBloodTypeItemNumber(@PathVariable String bloodType) {
+        return bloodBankService.getListByBloodTypeItemNumber(bloodType);
+    }
 }

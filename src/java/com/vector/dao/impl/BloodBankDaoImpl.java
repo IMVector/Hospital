@@ -29,4 +29,16 @@ public class BloodBankDaoImpl extends BaseDaoImpl<Bloodbank> implements BloodBan
         return getListPaginationByQuery(hql, currentPage);
     }
 
+    @Override
+    public List<Bloodbank> getListByBloodType(Integer currentPage, String bloodType) {
+        String hql = "from Bloodbank where donorBloodType= ?";
+        return getListPaginationByQuery(hql, currentPage, bloodType);
+    }
+
+    @Override
+    public Integer getListByBloodTypeItemNumber(String bloodType) {
+        String hql="select count(*) from Bloodbank where donorBloodType= ?";
+        return getListSize(hql, bloodType);
+    }
+
 }

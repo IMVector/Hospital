@@ -6,11 +6,14 @@
 package com.vector.service;
 
 import com.vector.pojo.Bloodbank;
+import java.util.List;
 
 /**
  *
  * @author Vector
  */
-public interface BloodBankService extends CUDService<Bloodbank>,PaginationBaseService<Bloodbank> {
-    
+public interface BloodBankService extends CUDService<Bloodbank>, PaginationBaseService<Bloodbank> {
+
+    public List<Bloodbank> getListByBloodType(Integer currentPage, String bloodType);
+    public Integer getListByBloodTypeItemNumber(String bloodType);
 }

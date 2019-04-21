@@ -21,7 +21,7 @@
                 <a class="item" href="staff/goToTitleManage">职称管理</a>
                 <a class="item" href="staff/goToRoleManage">角色管理</a>
                 <a href="staff/goToCheckItemManage" class="item">检查项目管理</a>
-                <a href="staff/goToBloodBank" class="item">血库信息管理 </a>
+                <a href="staff/goToBloodbank" class="item">血库信息管理 </a>
                 <a href="staff/goToMedicineManage" class="item">药品信息管理 </a>
             </div>
 
@@ -59,7 +59,7 @@
                 <a class="item" href="staff/goToTitleManage">职称管理</a>
                 <a class="item" href="staff/goToRoleManage">角色管理</a>
                 <a href="staff/goToCheckItemManage" class="item">检查项目管理</a>
-                <a href="staff/goToBloodBank" class="item">血库信息管理 </a>
+                <a href="staff/goToBloodbank" class="item">血库信息管理 </a>
                 <a href="staff/goToMedicineManage" class="item">药品信息管理 </a>
             </div>
             <div class="item right">
