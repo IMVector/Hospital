@@ -58,10 +58,16 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
 
     @Override
     public List<Staff> getStaffByName(Serializable name) {
-
         String hql = "from Staff where staffName like ?";
         name = "%" + name + "%";
         return getListByQuery(hql, name);
+    }
+
+    @Override
+    public Integer getStaffByNameItemNumber(String name) {
+        String hql = "select count(*) from Staff where staffName like ?";
+        name = "%" + name + "%";
+        return getListSize(hql, name);
     }
 
     @Override
@@ -117,4 +123,5 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
         String hql = "select count(*) from Staff where image.imagePath is not null";
         return getListSize(hql);
     }
+
 }

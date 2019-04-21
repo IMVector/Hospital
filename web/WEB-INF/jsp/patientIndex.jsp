@@ -276,7 +276,7 @@
             <div class="ui grid">
                 <div class="ui row">
                     <div class="six wide column">
-                        <img src="resources/image/backgroundImage/88.jpg" alt="">
+                        <img id="departmentImage" src="resources/image/backgroundImage/88.jpg" alt="">
                     </div>
                     <div class="ten wide column">
                         <div id="department" class="ui grid">
@@ -304,6 +304,9 @@
             type: 'POST',
             success: function (data, textStatus, jqXHR) {
                 $.each(data, function (index, department) {
+                    if (index === 0) {
+                        $("#departmentImage").attr("src", department.image.imagePath);
+                    }
                     if (index < 32) {
                         var str = "<div class=\"four wide column\">  <a class=\"ui primary button\" href=\"patient/goToDepartmentInfo/" + department.departmentId + "\">" + department.departmentName + "</a></div>";
                         $(id).append(str);
@@ -323,6 +326,9 @@
             type: 'POST',
             success: function (data, textStatus, jqXHR) {
                 $.each(data, function (index, department) {
+                    if (index === 0) {
+                        $("#departmentImage").attr("src", department.image.imagePath);
+                    }
                     if (index < 32) {
                         var str = "<div class=\"four wide column\">  <a class=\"ui primary button\" href=\"patient/goToDepartmentInfo/" + department.departmentId + "\">" + department.departmentName + "</a></div>";
                         $("#department").append(str);

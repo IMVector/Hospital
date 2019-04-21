@@ -129,6 +129,11 @@ public class StaffController {
     public Integer showDepartmentListItemNumber() {
         return departmentService.getListItemNumber();
     }
+    @RequestMapping(value = "/getDepartmentByNameItemNumber/{name}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer departmentByNameListItemNum(@PathVariable String name) {
+        return departmentService.getDaprtmentByNameItemNumber(name);
+    }
 
     @RequestMapping(value = "/addDepartment", method = RequestMethod.POST)
     @ResponseBody
@@ -178,6 +183,11 @@ public class StaffController {
     public Integer showTitleListItemNumber() {
         return titleService.getListItemNumber();
     }
+    @RequestMapping(value = "/getTitleByNameListItemNum/{name}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getTitleByNameListItemNum(@PathVariable String name) {
+        return titleService.getTitleByNameItemNum(name);
+    }
 
     @RequestMapping(value = "/addTitle", method = RequestMethod.POST)
     @ResponseBody
@@ -220,6 +230,11 @@ public class StaffController {
     @ResponseBody
     public Integer showRoleListItemNumber() {
         return roleService.getListItemNumber();
+    }
+    @RequestMapping(value = "/getRoleListByNameItemNum/{name}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer showRoleListItemNumber(@PathVariable String name) {
+        return roleService.getRoleByNameItemNumber(name);
     }
 
     @RequestMapping(value = "/addRole", method = RequestMethod.POST)
@@ -289,6 +304,12 @@ public class StaffController {
     @ResponseBody
     public List<Staff> getStaffByName(@PathVariable String name) {
         return staffService.getStaffByName(name);
+    }
+
+    @RequestMapping(value = "/getStaffByNameListItemNum/{name}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getStaffByNameListItemNum(@PathVariable String name) {
+        return staffService.getStaffByNameItemNumber(name);
     }
 
     @RequestMapping(value = "/getStaffByTitle/{titleId}/{currentPage}", method = RequestMethod.POST)
@@ -395,7 +416,11 @@ public class StaffController {
     public List<CheckItem> getCheckItemByName(@PathVariable String name) {
         return checkItemService.getCheckItemByName(name);
     }
-
+    @RequestMapping(value = "/getCheckItemByNameItemNumber/{name}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer showCheckItemListItemNumber(@PathVariable String name) {
+        return checkItemService.getCheckItemByNameItemNumber(name);
+    }
     //////////////////////////////////////////////////////药品管理//////////////////////////////////////////////////
     @RequestMapping(value = "/getMedicineList", method = RequestMethod.POST)
     @ResponseBody
@@ -438,7 +463,11 @@ public class StaffController {
     public List<Medicine> getMedicineByName(@PathVariable String name) {
         return medicineService.getMedicineByName(name);
     }
-
+    @RequestMapping(value = "/getMedicineByNameItemNumber/{name}", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer getMedicineByNameItemNumber(@PathVariable String name) {
+        return medicineService.getMedicineByNameItemNumber(name);
+    }
     @RequestMapping(value = "/medicineList/{description}/{currentPage}", method = RequestMethod.POST)
     @ResponseBody
     public List<Medicine> getMedicineList(@PathVariable String description, @PathVariable Integer currentPage) {

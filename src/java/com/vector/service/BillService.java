@@ -18,7 +18,11 @@ public interface BillService extends CUDService<Bill>, PaginationBaseService<Bil
 
     public Map getBillItemInfo(Serializable billId);
 
+    public Bill getBillById(Serializable billId);
+
     public Bill getLastUnPaidBill(Serializable PatientId);
 
     public boolean getToPayItem(Serializable patientId, HttpSession session);
+
+    public double[] getMedicalVisitsFee(Serializable patientId, Serializable year);
 }

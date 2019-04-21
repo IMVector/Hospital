@@ -17,6 +17,8 @@ public interface StaffDao extends BaseDao<Staff>, PaginationBaseDao<Staff> {
 
     public List<Staff> getStaffByName(Serializable name);
 
+    public Integer getStaffByNameItemNumber(String name);
+
     public List<Staff> getStaffByDepartmentName(Serializable departmentName, Serializable currentPage);
 
     public int getStaffByDepartmentNameItemNum(Serializable departmentName);
@@ -38,4 +40,5 @@ public interface StaffDao extends BaseDao<Staff>, PaginationBaseDao<Staff> {
     public List<Staff> getStaffWithImage(Integer currentPage);
 
     public int getStaffNumWithImage();
+
 }

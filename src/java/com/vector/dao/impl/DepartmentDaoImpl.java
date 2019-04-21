@@ -32,6 +32,13 @@ public class DepartmentDaoImpl extends BaseDaoImpl<Department> implements Depart
     }
 
     @Override
+    public Integer getDaprtmentByNameItemNumber(String name) {
+        String hql = "select count(*) from Department where departmentName like ?";
+        name = "%" + name + "%";
+        return getListSize(hql,name);
+    }
+
+    @Override
     public Integer getListItemNumber(Object... params) {
         String hql = "select count(*) from Department";
         return getListSize(hql);

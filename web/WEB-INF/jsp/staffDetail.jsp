@@ -29,7 +29,7 @@
                         </div>
                         <div class="ui grid">
                             <div class="four wide column">
-                                <img src="${staffDetails.image.imagePath}" height="200px;" alt="">
+                                <img src="${staffDetails.image.imagePath}" height="200px;" alt="图片丢失了">
                             </div>
                             <div class="five wide column">
                                 <div class="ui fluid segment">

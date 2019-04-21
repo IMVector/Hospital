@@ -45,17 +45,11 @@ public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
         return getListByQuery(hql, name);
     }
 
-//    @Override
-//    public Role getRoleByCheckImemId(Serializable checkItemId) {
-//        String hql = "from Role where role.roleWork=?";
-//        List<Role> list = getListByQuery(hql, checkItemId);
-//        if (!list.isEmpty()) {
-//            Random random = new Random();
-//            int index = random.nextInt(list.size());
-//            return list.get(index);
-//        } else {
-//            return null;
-//        }
-//    }
+    @Override
+    public Integer getRoleByNameItemNumber(String name) {
+        String hql = "select count(*) from Role where roleName like ?";
+        name = "%" + name + "%";
+        return getListSize(hql, name);
+    }
 
 }

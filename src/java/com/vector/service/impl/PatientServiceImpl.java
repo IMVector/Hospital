@@ -6,11 +6,8 @@
 package com.vector.service.impl;
 
 import com.vector.dao.PatientDao;
-import com.vector.dao.ReservationDao;
 import com.vector.pojo.Image;
 import com.vector.pojo.Patient;
-import com.vector.pojo.Reservation;
-import com.vector.pojo.Staff;
 import com.vector.service.ImageService;
 import com.vector.service.PatientService;
 import com.vector.utils.Email;
@@ -57,6 +54,10 @@ public class PatientServiceImpl implements PatientService {
 
             if (!imagePath.equals("")) {
                 Image image = imageService.getImageByPath(imagePath);
+                patient.setImage(image);
+            } else {
+                Image image = new Image();
+                image.setImageId(5);
                 patient.setImage(image);
             }
 

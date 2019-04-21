@@ -76,5 +76,10 @@ public class TitleServiceImpl implements TitleService {
     public List<Title> getTitleByName(Serializable name) {
         return titleDao.getTitleByName(name);
     }
+
+    @Override
+    public Integer  getTitleByNameItemNum(String name) {
+        return titleDao.getTitleByNameItemNum(name);
+    }
     
 }

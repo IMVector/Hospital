@@ -5,7 +5,9 @@
  */
 package com.vector.service.impl;
 
+import com.vector.dao.BillDao;
 import com.vector.dao.MedicalRecordDao;
+import com.vector.pojo.Bill;
 import com.vector.pojo.MedicalRecord;
 import com.vector.service.ChartService;
 import java.io.Serializable;
@@ -26,8 +28,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class ChartServiceImpl implements ChartService {
+
     @Autowired
     MedicalRecordDao medicalRecordDao;
+
+    @Autowired
+    BillDao billDao;
 
     @Override
     public int[] getMedicalVisitsNum(Serializable patientId, Serializable year) {
@@ -77,6 +83,15 @@ public class ChartServiceImpl implements ChartService {
 
     @Override
     public double[] getMedicalVisitsFee(Serializable patientId, Serializable year) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        double fee[] = new double[12];
+        for (int i = 0; i < 12; i++) {
+            fee[i] = 0;
+        }
+        List<Bill> list = billDao.getBillOfPatientByYear(patientId, year);
+        for (Bill b : list) {
+            fee[b.getBillDate().getMonth()] += b.getTotalAmount();
+        }
+        return fee;
     }
 }

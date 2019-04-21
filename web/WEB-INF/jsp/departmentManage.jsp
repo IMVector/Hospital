@@ -254,9 +254,7 @@
             $("#getByName").on("click", function () {
                 var name = $("#departmentName").val();
                 var url = "staff/getDepartmentByName/" + name;
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, departmentTableInfo, function () {
-                    return 1;
-                });
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, departmentTableInfo, getDepartmentByNameItemNumber);
             });
 
             $("#getAllBtn").click(function () {
@@ -508,7 +506,7 @@
         //ajax回调函数，显示部门信息
         function departmentTableInfo(data) {
             $("#departmentTable").empty();
-            $("#departmentTable").append("<thead><tr><th>选择</th><th  style='width: 100px;'>部门编号</th><th>部门名称</th><th  style='width:400px;'>部门描述</th><th style='padding-left: 10%;width:100px' colspan='2'>操作</th></tr></thead>");
+            $("#departmentTable").append("<thead><tr><th>选择</th><th>部门编号</th><th>部门名称</th><th>部门描述</th><th>操作</th></tr></thead>");
             $.each(data, function (index, department) {
                 var str = " \n\
                 <tr id=" + department.departmentId + ">\n\
@@ -530,15 +528,15 @@
                             <input value=" + department.departmentName + " class='myInput'  style='width: 80%;' type='text'>\n\
                         </div>\n\
                     </td>\n\
-                    <td  style='width:300px; max-width: 400px;'>\n\
+                    <td  style='width:200px; max-width: 300px;'>\n\
                         <label class='mylabel table-label' data-content='" + department.departmentDescription + "' data-position='top left'>" + department.departmentDescription + "</label>\n\
                         <div class='nonevisiual'>\n\
                             <input value=" + department.departmentDescription + " class='myInput'  style='width: 80%;' type='text'>\n\
                         </div>\n\
                     </td>\n\
-                    <td colspan='2' style='width:100px'>\n\
-                        <button  class='ui button blue updatebtn' >修改</button>\n\
-                        <button class='ui button blue deleteBtn'>删除</button>\n\
+                    <td style='width:150px'>\n\
+                        <button  class='ui mini button blue updatebtn' >修改</button>\n\
+                        <button class='ui mini button blue deleteBtn'>删除</button>\n\
                     </td>\n\
                 </tr>";
 
@@ -558,6 +556,23 @@
                 type: 'POST',
                 async: false,
                 data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败，请重试！");
+                }
+            });
+            return itemNum;
+        }
+        //获取数据库中的总数量
+        function getDepartmentByNameItemNumber() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/getDepartmentByNameItemNumber/" + $("#departmentName").val(),
+                type: 'POST',
+                async: false,
                 success: function (data, textStatus, jqXHR) {
                     //返回List项目总数量
                     itemNum = data;

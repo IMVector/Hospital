@@ -19,4 +19,6 @@ public interface TitleDao extends BaseDao<Title>, PaginationBaseDao<Title> {
     public List<Title> getTitleList();
 
     public List<Title> getTitleByName(Serializable name);
+
+    public Integer getTitleByNameItemNum(String name);
 }

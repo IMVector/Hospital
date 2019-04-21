@@ -39,7 +39,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Department> getDaprtmentByName(Serializable name) {
         return departmentDao.getDepartmentByName(name);
     }
-
+    @Override
+    public Integer getDaprtmentByNameItemNumber(String name) {
+        return departmentDao.getDaprtmentByNameItemNumber(name);
+    }
     @Override
     public boolean insert(Department t, Object... params) {
         if (params.length > 0) {
@@ -91,5 +94,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Department> getDepartmentList() {
         return departmentDao.getDepartmentList();
     }
+
+
 
 }

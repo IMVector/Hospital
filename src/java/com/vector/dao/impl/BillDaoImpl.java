@@ -8,6 +8,9 @@ package com.vector.dao.impl;
 import com.vector.dao.BillDao;
 import com.vector.pojo.Bill;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 
@@ -43,4 +46,22 @@ public class BillDaoImpl extends BaseDaoImpl<Bill> implements BillDao {
 
     }
 
+    @Override
+    public List<Bill> getBillOfPatientByYear(Serializable patientId, Serializable year) {
+
+        String yearStart = year + "-01-01 00:00:00";
+        String yearEnd = year + "-12-31 23:59:59";
+        Date startDate = null;
+        Date endDate = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd hh:mm:ss");
+        try {
+            startDate = sdf.parse(yearStart);
+            endDate = sdf.parse(yearEnd);
+            String hql = "from Bill where patient.patientId=? and billDate between ? and ?";
+            return getListByQuery(hql, patientId, startDate, endDate);
+            
+        } catch (ParseException ex) {
+            return null;
+        }
+    }
 }

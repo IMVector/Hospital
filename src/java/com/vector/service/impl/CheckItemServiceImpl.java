@@ -78,4 +78,9 @@ public class CheckItemServiceImpl implements CheckItemService {
         return checkItemDao.getCheckItemByName(name);
     }
 
+    @Override
+    public Integer getCheckItemByNameItemNumber(String name) {
+        return checkItemDao.getCheckItemByNameItemNumber(name);
+    }
+
 }

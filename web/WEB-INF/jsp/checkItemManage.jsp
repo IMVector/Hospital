@@ -135,19 +135,17 @@
             $("#getByName").on("click", function () {
                 var name = $("#checkItemName").val();
                 var url = "staff/getCheckItemByName/" + name;
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, checkItemTableInfo, function () {
-                    return 1;
-                });
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, checkItemTableInfo, getCheckItemByNameItemNumber);
             });
 
             $("#getAllBtn").click(function () {
                 var url = 'staff/checkItemList/page_key_word';
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, checkItemTableInfo, getMedicationItemNumber);
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, checkItemTableInfo, getCheckItemItemNumber);
             });
 
             $("#pageSelecter").on("change", function () {
                 var url = 'staff/checkItemList/page_key_word';
-                goToThPage("PageButtons", "pageText", "pageSelecter", url, checkItemTableInfo, getMedicationItemNumber);
+                goToThPage("PageButtons", "pageText", "pageSelecter", url, checkItemTableInfo, getCheckItemItemNumber);
             });
 
             //全部更新
@@ -160,7 +158,7 @@
                     //发送ajax请求更新全部选中
                     $(".ui.toggle.checkbox").each(function (index, element) {
                         if ($(this).checkbox("is checked")) {
-                            var id, name, description;
+                            var id, name, description, price;
                             $(this).closest("tr").find(".myInput").each(function (index, element) {
                                 //在这里发送ajax请求    
                                 switch (index) {
@@ -173,12 +171,15 @@
                                     case 2:
                                         description = $(this).val();
                                         break;
+                                    case 3:
+                                        price = $(this).val();
+                                        break;
                                 }
                             });
                             $.ajax({
                                 url: "staff/updateCheckItem",
                                 type: 'POST',
-                                data: {"checkItemId": id, "checkItemName": name, "checkItemDescription": description},
+                                data: {"checkItemId": id, "checkItemName": name, "checkItemDescription": description, "checkItemPrice": price},
                                 success: function (data, textStatus, jqXHR) {
                                     if (data) {
                                         $("#" + id).find(".mylabel").each(function (index, element) {
@@ -191,6 +192,9 @@
                                                     break;
                                                 case 2:
                                                     $(this).html(description);
+                                                    break;
+                                                case 3:
+                                                    $(this).html(price);
                                                     break;
                                             }
                                         });
@@ -282,7 +286,7 @@
                         $(this).closest("tr").find(".nonevisiual").removeClass("ui input");
                     }
                     //发送ajax请求更新当前
-                    var id, name, description;
+                    var id, name, description, price;
                     $(this).closest("tr").find(".myInput").each(function (index, element) {
                         //在这里发送ajax请求    
                         switch (index) {
@@ -295,13 +299,16 @@
                             case 2:
                                 description = $(this).val();
                                 break;
+                            case 3:
+                                price = $(this).val();
+                                break;
 
                         }
                     });
                     $.ajax({
                         url: "staff/updateCheckItem",
                         type: 'POST',
-                        data: {"checkItemId": id, "checkItemName": name, "checkItemDescription": description},
+                        data: {"checkItemId": id, "checkItemName": name, "checkItemDescription": description, "checkItemPrice": price},
                         success: function (data, textStatus, jqXHR) {
                             if (data) {
                                 $("#" + id).find(".mylabel").each(function (index, element) {
@@ -314,6 +321,9 @@
                                             break;
                                         case 2:
                                             $(this).html(description);
+                                            break;
+                                        case 3:
+                                            $(this).html(price);
                                             break;
                                     }
                                 });
@@ -389,7 +399,7 @@
         //ajax回调函数，显示检查项目信息
         function checkItemTableInfo(data) {
             $("#checkItemTable").empty();
-            $("#checkItemTable").append("<thead><tr><th>选择</th><th>编号</th><th>检查项目名称</th><th>检查项目描述</th><th>检查项目价格</th><th style='padding-left: 10%;width:100px' colspan='2'>操作</th></tr></thead>");
+            $("#checkItemTable").append("<thead><tr><th>选择</th><th>编号</th><th>检查项目名称</th><th>检查项目描述</th><th>检查项目价格</th><th style='text-align:center'>操作</th></tr></thead>");
             $.each(data, function (index, checkItem) {
                 var str = " \n\
                 <tr id=" + checkItem.checkItemId + ">\n\
@@ -405,13 +415,13 @@
                             <input value=" + checkItem.checkItemId + " class='myInput' style='width: 50%;' readonly type='text'>\n\
                         </div>\n\
                     </td>\n\
-                    <td>\n\
+                    <td style='max-width: 200px;'>\n\
                         <label class='mylabel table-label' data-content='" + checkItem.checkItemName + "' data-position='top left'>" + checkItem.checkItemName + "</label>\n\
                         <div class='nonevisiual'>\n\
                             <input value=" + checkItem.checkItemName + " class='myInput'  style='width: 80%;' type='text'>\n\
                         </div>\n\
                     </td>\n\
-                    <td  style='max-width: 300px;'>\n\
+                    <td  style='max-width: 200px;'>\n\
                         <label class='mylabel table-label' data-content='" + checkItem.checkItemDescription + "' data-position='top left'>" + checkItem.checkItemDescription + "</label>\n\
                         <div class='nonevisiual'>\n\
                             <input value=" + checkItem.checkItemDescription + " class='myInput'  style='width: 80%;' type='text'>\n\
@@ -423,9 +433,9 @@
                             <input value=" + checkItem.checkItemPrice + " class='myInput'  style='width: 80%;' type='text'>\n\
                         </div>\n\
                     </td>\n\
-                    <td colspan='2' style='width:100px;text-align:center'>\n\
-                        <button  class='ui button blue updatebtn' >修改</button>\n\
-                        <button class='ui button blue deleteBtn'>删除</button>\n\
+                    <td style='width:150px;text-align:center'>\n\
+                        <button  class='ui mini button blue updatebtn'>修改</button>\n\
+                        <button class='ui mini button blue deleteBtn'>删除</button>\n\
                     </td>\n\
                 </tr>";
 
@@ -438,13 +448,29 @@
             $(this).popup("show");
         });
         //获取数据库中的总数量
-        function getMedicationItemNumber() {
+        function getCheckItemItemNumber() {
             var itemNum = 0;
             $.ajax({
                 url: "staff/checkItemListItemNum",
                 type: 'POST',
                 async: false,
-                data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败，请重试！");
+                }
+            });
+            return itemNum;
+        }
+        //获取数据库中的总数量
+        function getCheckItemByNameItemNumber() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/getCheckItemByNameItemNumber/" + $("#checkItemName").val(),
+                type: 'POST',
+                async: false,
                 success: function (data, textStatus, jqXHR) {
                     //返回List项目总数量
                     itemNum = data;

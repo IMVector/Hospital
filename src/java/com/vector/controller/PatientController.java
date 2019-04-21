@@ -201,7 +201,6 @@ public class PatientController {
     @ResponseBody
     public double[] getMedicalFeeOfPatientByYear(@PathVariable Integer patientId, @PathVariable Integer year, Model model) {
         return chartService.getMedicalVisitsFee(patientId, year);
-
     }
 
     @RequestMapping(value = "/medicalRecordYearSet/{patientId}", method = RequestMethod.POST)
@@ -317,4 +316,23 @@ public class PatientController {
         return billService.getBillItemInfo(billId);
     }
 
+    @RequestMapping(value = "/billList/{patientId}/{currentPage}", method = RequestMethod.POST)
+    @ResponseBody
+    public List showBillList(@PathVariable Integer patientId, @PathVariable Integer currentPage) {
+        List<Bill> list = billService.getList(currentPage, patientId);
+        return list;
+    }
+
+    @RequestMapping(value = "/billListItemNumber/{patientId}", method = RequestMethod.POST)
+    @ResponseBody
+    public int showBillListItemNumber(@PathVariable Integer patientId) {
+        return billService.getListItemNumber(patientId);
+    }
+
+    @RequestMapping(value = "/goToBillDetails/{billId}", method = RequestMethod.GET)
+    public String goToBillDetails(@PathVariable Integer billId,ModelMap map) {
+        Bill bill = billService.getBillById(billId);
+        map.addAttribute("bill",bill);
+        return "billDetails";
+    }
 }

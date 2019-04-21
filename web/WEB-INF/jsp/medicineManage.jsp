@@ -4,6 +4,14 @@
 <html>
     <head>
         <jsp:include page="resourcesTemplete.jsp" />
+        <style>
+            #medicineTable th{
+                text-align: center;
+            }
+            #medicineTable td{
+                text-align: center;
+            }
+        </style>
     </head>
 
     <body>
@@ -134,9 +142,7 @@
             $("#getByName").on("click", function () {
                 var name = $("#medicalName").val();
                 var url = "staff/getMedicineByName/" + name;
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, medicineTableInfo, function () {
-                    return 1;
-                });
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineByNameItemNumber);
             });
 
             $("#getAllBtn").click(function () {
@@ -158,7 +164,7 @@
                     //发送ajax请求更新全部选中
                     $(".ui.toggle.checkbox").each(function (index, element) {
                         if ($(this).checkbox("is checked")) {
-                            var id, name, instructions, description, price, productionDate, validatePeriod;
+                            var id, name, instructions, description, price, productionDate, validatePeriod,number;
                             id = $(this).closest("tr").attr("id");
                             $(this).closest("tr").find(".myInput").each(function (index, element) {
                                 //1、药品名称
@@ -187,12 +193,15 @@
                                     case 5:
                                         validatePeriod = $(this).val();
                                         break;
+                                    case 6:
+                                        number = $(this).val();
+                                        break;
                                 }
                             });
                             $.ajax({
                                 url: "staff/updateMedicine",
                                 type: 'POST',
-                                data: {"medicineId": id, "medicineName": name, "medicineInstructions": instructions, "medicineDescription": description, "productionDate": productionDate, "validityPeriod": validatePeriod, "price": price},
+                                data: {"medicineId": id, "medicineName": name, "medicineInstructions": instructions, "medicineDescription": description, "productionDate": productionDate, "validityPeriod": validatePeriod, "medicinePrice": price,"medicineNumber":number},
                                 success: function (data, textStatus, jqXHR) {
                                     if (data) {
                                         $("#" + id).find(".mylabel").each(function (index, element) {
@@ -214,6 +223,9 @@
                                                     break;
                                                 case 5:
                                                     $(this).html(validatePeriod);
+                                                    break;
+                                                case 6:
+                                                    $(this).html(number);
                                                     break;
                                             }
                                         });
@@ -310,7 +322,7 @@
 
 
                     //发送ajax请求更新当前
-                    var id, name, instructions, description, price, productionDate, validatePeriod;
+                    var id, name, instructions, description, price, productionDate, validatePeriod,number;
                     id = $(this).closest("tr").attr("id");
                     $(this).closest("tr").find(".myInput").each(function (index, element) {
                         //1、药品名称
@@ -339,12 +351,15 @@
                             case 5:
                                 validatePeriod = $(this).val();
                                 break;
+                            case 6:
+                                number = $(this).val();
+                                break;
                         }
                     });
                     $.ajax({
                         url: "staff/updateMedicine",
                         type: 'POST',
-                        data: {"medicineId": id, "medicineName": name, "medicineInstructions": instructions, "medicineDescription": description, "productionDate": productionDate, "validityPeriod": validatePeriod, "price": price},
+                        data: {"medicineId": id, "medicineName": name, "medicineInstructions": instructions, "medicineDescription": description, "productionDate": productionDate, "validityPeriod": validatePeriod, "medicinePrice": price,"medicineNumber":number},
                         success: function (data, textStatus, jqXHR) {
                             if (data) {
                                 $("#" + id).find(".mylabel").each(function (index, element) {
@@ -353,10 +368,10 @@
                                             $(this).html(name);
                                             break;
                                         case 1:
-                                            $(this).html(instructions);
+                                            $(this).html(description);
                                             break;
                                         case 2:
-                                            $(this).html(description);
+                                            $(this).html(instructions);
                                             break;
                                         case 3:
                                             $(this).html(price);
@@ -366,6 +381,9 @@
                                             break;
                                         case 5:
                                             $(this).html(validatePeriod);
+                                            break;
+                                        case 6:
+                                            $(this).html(number);
                                             break;
                                     }
                                 });
@@ -440,16 +458,21 @@
 
         function medicineTableInfo(data) {
             $("#medicineTable").empty();
-            $("#medicineTable").append("<thead><tr><th>选择</th><th>名称</th><th>适用症</th><th>说明</th><th>价格</th><th>生产日期</th><th>有效期</th><th style=\"padding-left: 10%\" colspan=\"2\">操作</th></tr></thead>");
+            $("#medicineTable").append("<thead><tr><th>选择</th><th>名称</th><th>适用症</th><th>说明</th><th>价格</th><th>生产日期</th><th>有效期</th><th>剩余数量</th><th>操作</th></tr></thead>");
             $.each(data, function (index, metication) {
                 var str = " <tr id=" + metication.medicineId + "><td><div class=\"ui toggle checkbox\"><input name=\"public\" type=\"checkbox\"><label></label></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" data-content=\"" + metication.medicineName + "\" data-position=\"top left\"  >" + metication.medicineName + "</label>\n\<div class=\"nonevisiual\" ><input value=" + metication.medicineName + " class=\"myInput\" style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + metication.medicineDescription + "\" data-position=\"top left\" >" + metication.medicineDescription + "</label><div class=\"nonevisiual\" ><input value=" + metication.medicineDescription + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                     <label class=\"mylabel table-label\" data-content=\"" + metication.medicineInstructions + "\" data-position=\"top left\"   >" + metication.medicineInstructions + "</label><div class=\"nonevisiual\"><input value=" + metication.medicineInstructions + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" >" + metication.medicinePrice + "元</label><div class=\"nonevisiual\"><input value=" + metication.medicinePrice + "元 class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" data-content=\"" + formatDatebox(metication.productionDate) + "\" data-position=\"top left\">" + formatDatebox(metication.productionDate) + "</label><div class=\"nonevisiual\"><input value=" + formatDatebox(metication.productionDate) + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" >" + metication.validityPeriod + "</label><div class=\"nonevisiual\"><input value=" + metication.validityPeriod + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                        <button  class=\"ui button blue updatebtn\" >修改</button></td><td><button class=\"ui button blue deleteBtn\">删除</button></td></tr>";
+                                        <label class=\"mylabel table-label\" data-content=\"" + metication.medicineName + "\" data-position=\"top left\"  >" + metication.medicineName + "</label>\n\
+                                        <div class=\"nonevisiual\" ><input value=" + metication.medicineName + " class=\"myInput\" style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                                        <label class=\"mylabel table-label\" data-content=\"" + metication.medicineDescription + "\" data-position=\"top left\" >" + metication.medicineDescription + "</label>\n\
+                                        <div class=\"nonevisiual\" ><input value=" + metication.medicineDescription + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                                        <label class=\"mylabel table-label\" data-content=\"" + metication.medicineInstructions + "\" data-position=\"top left\"   >" + metication.medicineInstructions + "</label>\n\
+                                        <div class=\"nonevisiual\"><input value=" + metication.medicineInstructions + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                                        <label class=\"mylabel table-label\" >" + metication.medicinePrice + "元</label><div class=\"nonevisiual\"><input value=" + metication.medicinePrice + "class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                                        <label class=\"mylabel table-label\" data-content=\"" + formatDatebox(metication.productionDate) + "\" data-position=\"top left\">" + formatDatebox(metication.productionDate) + "</label>\n\
+                                        <div class=\"nonevisiual\"><input value=" + formatDatebox(metication.productionDate) + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                                        <label class=\"mylabel table-label\" >" + metication.validityPeriod + "</label><div class=\"nonevisiual\"><input value=" + metication.validityPeriod + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td>\n\
+                                        <td><label class=\"mylabel table-label\" >" + metication.medicineNumber + "</label><div class=\"nonevisiual\"><input value=" + metication.medicineNumber + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td>\n\
+                                        <td style='width:150px'><button class=\"ui mini button blue updatebtn\" >修改</button><button class=\"ui mini button blue deleteBtn\">删除</button></td><td></td></tr>";
 
 
                 $("#medicineTable").append(str);
@@ -466,6 +489,23 @@
             var itemNum = 0;
             $.ajax({
                 url: "staff/medicineListItemNum",
+                type: 'POST',
+                async: false,
+                data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！" + errorThrown);
+                }
+            });
+            return itemNum;
+        }
+        function getMedicineByNameItemNumber() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/getMedicineByNameItemNumber/"+$("#medicalName").val(),
                 type: 'POST',
                 async: false,
                 data: {},

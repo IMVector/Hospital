@@ -38,6 +38,13 @@ public class MedicineDaoImpl extends BaseDaoImpl<Medicine> implements MedicineDa
     }
 
     @Override
+    public Integer getMedicineByNameItemNumber(String name) {
+        String hql = "select count(*) from Medicine where medicineName like ?";
+        name = "%" + name + "%";
+        return getListSize(hql, name);
+    }
+
+    @Override
     public List<Medicine> getMedicineList() {
         String hql = "from Medicine";
         return getListByQuery(hql);

@@ -198,9 +198,7 @@
             $("#getByName").on("click", function () {
                 var name = $("#staffName_").val();
                 var url = "staff/getStaffByName/" + name;
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, staffTableInfo, function () {
-                    return 1;
-                });
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, staffTableInfo, staffByNameItemNum);
             });
             $("#getByTitle").on("click", function () {
                 var title = $("#staffTitle_").val();
@@ -372,6 +370,23 @@
             var itemNum = 0;
             $.ajax({
                 url: "staff/staffListItemNum",
+                type: 'POST',
+                async: false,
+                data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！");
+                }
+            });
+            return itemNum;
+        }
+        function staffByNameItemNum() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/getStaffByNameListItemNum/" + $("#staffName_").val(),
                 type: 'POST',
                 async: false,
                 data: {},

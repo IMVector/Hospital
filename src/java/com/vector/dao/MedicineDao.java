@@ -17,9 +17,12 @@ public interface MedicineDao extends BaseDao<Medicine>, PaginationBaseDao<Medici
 
     public List<Medicine> getMedicineByName(Serializable name);
 
+    public Integer getMedicineByNameItemNumber(String name);
+
     public List<Medicine> getMedicineList();
 
     public List<Medicine> getMedicineByDescription(String description, Integer currentPage);
 
     public Integer getMedicineByDescriptionItemNum(String description);
+
 }

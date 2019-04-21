@@ -43,4 +43,11 @@ public class TitleDaoImpl extends BaseDaoImpl<Title> implements TitleDao {
         return getListByQuery(hql, name);
     }
 
+    @Override
+    public Integer getTitleByNameItemNum(String name) {
+        String hql = "select count(*) from Title where titleName like ?";
+        name = "%" + name + "%";
+        return getListSize(hql, name);
+    }
+
 }

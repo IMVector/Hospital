@@ -7,13 +7,16 @@ package com.vector.dao;
 
 import com.vector.pojo.Bill;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
  * @author Vector
  */
-public interface BillDao extends BaseDao<Bill> ,PaginationBaseDao<Bill>{
+public interface BillDao extends BaseDao<Bill>, PaginationBaseDao<Bill> {
 
     public Bill getLastUnPaidBill(Serializable PatientId);
-    
+
+    public List<Bill> getBillOfPatientByYear(Serializable patientId, Serializable year);
+
 }

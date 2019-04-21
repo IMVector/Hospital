@@ -16,5 +16,8 @@ import java.util.List;
 public interface TitleService extends CUDService<Title>, PaginationBaseService<Title> {
 
     public List<Title> getTitleList();
+
     public List<Title> getTitleByName(Serializable name);
+
+    public Integer getTitleByNameItemNum(String name);
 }

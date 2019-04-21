@@ -42,5 +42,11 @@ public class CheckItemDaoImpl extends BaseDaoImpl<CheckItem> implements CheckIte
         name = "%" + name + "%";
         return getListByQuery(hql, name);
     }
+    @Override
+    public Integer getCheckItemByNameItemNumber(String name) {
+        String hql = "select count(*) from CheckItem where checkItemName like ?";
+        name = "%" + name + "%";
+        return getListSize(hql, name);
+    }
 
 }

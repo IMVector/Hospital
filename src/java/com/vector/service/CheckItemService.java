@@ -19,4 +19,6 @@ public interface CheckItemService extends CUDService<CheckItem>, PaginationBaseS
 
     public List<CheckItem> getCheckItemByName(Serializable name);
 
+    public Integer getCheckItemByNameItemNumber(String name);
+
 }

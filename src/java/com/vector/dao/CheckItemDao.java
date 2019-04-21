@@ -19,4 +19,5 @@ public interface CheckItemDao extends BaseDao<CheckItem>,PaginationBaseDao<Check
 
     public List<CheckItem> getCheckItemByName(Serializable name);
     
+    public Integer getCheckItemByNameItemNumber(String name);
 }

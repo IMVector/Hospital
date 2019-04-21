@@ -103,19 +103,17 @@
             $("#getByName").on("click", function () {
                 var name = $("#titleName").val();
                 var url = "staff/getTitleByName/" + name;
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, titleTableInfo, function () {
-                    return 1;
-                });
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, titleTableInfo, getTitleByNameListItemNum);
             });
 
             $("#getAllBtn").click(function () {
                 var url = 'staff/titleList/page_key_word';
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, titleTableInfo, getMedicationItemNumber);
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, titleTableInfo, titleListItemNum);
             });
 
             $("#pageSelecter").on("change", function () {
                 var url = 'staff/titleList/page_key_word';
-                goToThPage("PageButtons", "pageText", "pageSelecter", url, titleTableInfo, getMedicationItemNumber);
+                goToThPage("PageButtons", "pageText", "pageSelecter", url, titleTableInfo, titleListItemNum);
             });
             //全部更新
             $("#updateAll").on("click", function () {
@@ -378,13 +376,13 @@
 
         function titleTableInfo(data) {
             $("#titleTable").empty();
-            $("#titleTable").append("<thead><tr><th>选择</th><th>职称编号</th><th>职称</th><th>职称说明</th><th style=\"padding-left: 10%\" colspan=\"2\">操作</th></tr></thead>");
+            $("#titleTable").append("<thead><tr><th>选择</th><th>职称编号</th><th>职称</th><th>职称说明</th><th>操作</th></tr></thead>");
             $.each(data, function (index, title) {
                 var str = " <tr id=" + title.titleId + "><td><div class=\"ui toggle checkbox\"><input name=\"public\" type=\"checkbox\"><label></label></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" >" + title.titleId + "</label>\n\<div class=\"nonevisiual\" ><input value=" + title.titleId + " class=\"myInput\" style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + title.titleName + "\" data-position=\"top left\">" + title.titleName + "</label><div class=\"nonevisiual\" ><input value=" + title.titleName + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                     <label class=\"mylabel table-label\"  data-content=\"" + title.titleDescription + "\" data-position=\"top left\">" + title.titleDescription + "</label><div class=\"nonevisiual\"><input value=" + title.titleDescription + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                        <button  class=\"ui button blue updatebtn\" >修改</button></td><td><button class=\"ui button blue deleteBtn\">删除</button></td></tr>";
+                                        <label class=\"mylabel table-label\" >" + title.titleId + "</label>\n\<div class=\"nonevisiual\" ><input readonly value=" + title.titleId + " class=\"myInput\" style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                                        <label class=\"mylabel table-label\" data-content=\"" + title.titleName + "\" data-position=\"top left\">" + title.titleName + "</label><div class=\"nonevisiual\" ><input value=" + title.titleName + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                                     <label class=\"mylabel table-label\"  data-content=\"" + title.titleDescription + "\" data-position=\"top left\">" + title.titleDescription + "</label><div class=\"nonevisiual\"><input value=" + title.titleDescription + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td>\n\
+                                     <td style='width:150px;'><button class=\"ui mini button blue updatebtn\" >修改</button><button class=\"ui mini button blue deleteBtn\">删除</button></td></tr>";
 
 
                 $("#titleTable").append(str);
@@ -394,13 +392,29 @@
             $(this).popup("show");
         });
 
-        function getMedicationItemNumber() {
+        function titleListItemNum() {
             var itemNum = 0;
             $.ajax({
                 url: "staff/titleListItemNum",
                 type: 'POST',
                 async: false,
                 data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！" + errorThrown);
+                }
+            });
+            return itemNum;
+        }
+        function getTitleByNameListItemNum() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/getTitleByNameListItemNum/" + $("#titleName").val(),
+                type: 'POST',
+                async: false,
                 success: function (data, textStatus, jqXHR) {
                     //返回List项目总数量
                     itemNum = data;

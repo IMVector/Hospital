@@ -12,33 +12,58 @@
     <body>
         <jsp:include page="patientHeaderTemplete.jsp" />
         <div class="ui container">
-            <div id="canvasContainer_1" class="ui segment">
-                <canvas id="chart_1" class="block"></canvas>
-                <select id="yearSelecter_1" class="ui dropdown">
-                    <option value="">选择年份</option>
-                    <!--<option value="1">1</option>-->
-                </select>
-                <button id="showMedicalTimesChart" class="ui blue button">查看该年份的就医次数</button>
+            <div class="ui segment">
+                <div class="ui header blue segment">
+                    就医数据可视化
+                </div>
+                <h3 class="ui block header">
+                    就医次数统计
+                </h3>
+                <div id="canvasContainer_1" class="ui segment">
+                    <canvas id="chart_1" style="height:300px;"></canvas>
+                    <br>
+                    <div class="col-offset-11">
+                        <select id="yearSelecter_1" class="ui dropdown">
+                            <option value="">选择年份</option>
+                            <!--<option value="1">1</option>-->
+                        </select>
+                        <button id="showMedicalTimesChart" class="ui blue button">查看该年份的就医次数</button>
+                    </div>
 
+
+                </div>
+                <h3 class="ui block header">
+                    就医花费统计
+                </h3>
+                <div  id="canvasContainer_2" class="ui segment">
+                    <canvas id="chart_2" style="height:300px;"></canvas>
+                    <br>
+                    <div class="col-offset-11">
+                        <select id="yearSelecter_2" class="ui dropdown ">
+                            <option value="">选择年份</option>
+                            <!--<option value="1">1</option>-->
+                        </select>
+                        <button id="showFeeChart" class="ui blue button">查看该年份的就医花费</button>
+                    </div>
+
+                </div>
+                <h3 class="ui block header">
+                    该年份的生病情况统计
+                </h3>
+                <div  id="canvasContainer_3" class="ui segment">
+                    <canvas id="chart_3" style="height:300px;"></canvas>
+                    <br>
+                    <div class="col-offset-11">
+                        <select id="yearSelecter_3" class="ui dropdown ">
+                            <option value="">选择年份</option>
+                            <!--<option value="1">1</option>-->
+                        </select>
+                        <button id="showIllness" class="ui blue button">查看该年份的生病情况</button>
+                    </div>
+
+                </div>
             </div>
 
-            <div  id="canvasContainer_2" class="ui segment">
-                <canvas id="chart_2"></canvas>
-                <select id="yearSelecter_2" class="ui dropdown ">
-                    <option value="">选择年份</option>
-                    <!--<option value="1">1</option>-->
-                </select>
-                <button id="showFeeChart" class="ui blue button">查看该年份的就医花费</button>
-            </div>
-
-            <div  id="canvasContainer_3" class="ui segment">
-                <canvas id="chart_3"></canvas>
-                <select id="yearSelecter_3" class="ui dropdown ">
-                    <option value="">选择年份</option>
-                    <!--<option value="1">1</option>-->
-                </select>
-                <button id="showIllness" class="ui blue button">查看该年份的生病情况</button>
-            </div>
 
         </div>
 

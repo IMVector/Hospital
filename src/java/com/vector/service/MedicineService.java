@@ -21,8 +21,10 @@ public interface MedicineService extends CUDService<Medicine>, PaginationBaseSer
 
     public List<Medicine> getMedicineByName(Serializable name);
 
+    public Integer getMedicineByNameItemNumber(String name);
+
     public List<Medicine> getMedicineList();
-    
+
     public Medicine getMedicineById(Serializable medicineId);
 
 }

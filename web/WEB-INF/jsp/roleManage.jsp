@@ -103,19 +103,17 @@
             $("#getByName").on("click", function () {
                 var name = $("#roleName").val();
                 var url = "staff/getRoleByName/" + name;
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, roleTableInfo, function () {
-                    return 1;
-                });
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, roleTableInfo, getRoleListByNameItemNum);
             });
 
             $("#getAllBtn").click(function () {
                 var url = 'staff/roleList/page_key_word';
-                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, roleTableInfo, getMedicationItemNumber);
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, roleTableInfo, getRoleListItemNum);
             });
 
             $("#pageSelecter").on("change", function () {
                 var url = 'staff/roleList/page_key_word';
-                goToThPage("PageButtons", "pageText", "pageSelecter", url, roleTableInfo, getMedicationItemNumber);
+                goToThPage("PageButtons", "pageText", "pageSelecter", url, roleTableInfo, getRoleListItemNum);
             });
             //全部更新
             $("#updateAll").on("click", function () {
@@ -378,13 +376,13 @@
 
         function roleTableInfo(data) {
             $("#roleTable").empty();
-            $("#roleTable").append("<thead><tr><th>选择</th><th>角色编号</th><th>角色</th><th>角色说明</th><th style=\"padding-left: 10%\" colspan=\"2\">操作</th></tr></thead>");
+            $("#roleTable").append("<thead><tr><th>选择</th><th>角色编号</th><th>角色</th><th>角色说明</th><th>操作</th></tr></thead>");
             $.each(data, function (index, role) {
                 var str = " <tr id=" + role.roleId + "><td><div class=\"ui toggle checkbox\"><input name=\"public\" type=\"checkbox\"><label></label></div></td><td>\n\
-                                        <label class=\"mylabel table-label\" >" + role.roleId + "</label>\n\<div class=\"nonevisiual\" ><input value=" + role.roleId + " class=\"myInput\" style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                    <label class=\"mylabel table-label\" data-content=\"" + role.roleName + "\" data-position=\"top left\">" + role.roleName + "</label><div class=\"nonevisiual\" ><input value=" + role.roleName + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                     <label class=\"mylabel table-label\"  data-content=\"" + role.roleDescription + "\" data-position=\"top left\">" + role.roleDescription + "</label><div class=\"nonevisiual\"><input value=" + role.roleDescription + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
-                                        <button  class=\"ui button blue updatebtn\" >修改</button></td><td><button class=\"ui button blue deleteBtn\">删除</button></td></tr>";
+                                        <label class=\"mylabel table-label\" >" + role.roleId + "</label>\n\<div class=\"nonevisiual\" ><input readonly value=" + role.roleId + " class=\"myInput\" style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                                        <label class=\"mylabel table-label\" data-content=\"" + role.roleName + "\" data-position=\"top left\">" + role.roleName + "</label><div class=\"nonevisiual\" ><input value=" + role.roleName + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td><td>\n\
+                                        <label class=\"mylabel table-label\"  data-content=\"" + role.roleDescription + "\" data-position=\"top left\">" + role.roleDescription + "</label><div class=\"nonevisiual\"><input value=" + role.roleDescription + " class=\"myInput\"  style=\"width: 80%;\" type=\"text\"></div></td>\n\
+                                        <td style='width:150px'><button class=\"ui mini button blue updatebtn\" >修改</button><button class=\"ui mini button blue deleteBtn\">删除</button></td></tr>";
 
 
                 $("#roleTable").append(str);
@@ -394,13 +392,29 @@
             $(this).popup("show");
         });
 
-        function getMedicationItemNumber() {
+        function getRoleListItemNum() {
             var itemNum = 0;
             $.ajax({
                 url: "staff/roleListItemNum",
                 type: 'POST',
                 async: false,
                 data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！" + errorThrown);
+                }
+            });
+            return itemNum;
+        }
+        function getRoleListByNameItemNum() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/getRoleListByNameItemNum/" + $("#roleName").val(),
+                type: 'POST',
+                async: false,
                 success: function (data, textStatus, jqXHR) {
                     //返回List项目总数量
                     itemNum = data;

@@ -29,7 +29,10 @@ public class MedicineServiceImpl implements MedicineService {
     public List<Medicine> getMedicineByName(Serializable name) {
         return medicineDao.getMedicineByName(name);
     }
-
+    @Override
+    public Integer getMedicineByNameItemNumber(String name) {
+        return medicineDao.getMedicineByNameItemNumber(name);
+    }
     @Override
     public Integer getListItemNumber(Object... params) {
         return medicineDao.getListItemNumber();

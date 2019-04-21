@@ -18,4 +18,6 @@ public interface RoleService extends CUDService<Role>, PaginationBaseService<Rol
     public List<Role> getRoleList();
 
     public List<Role> getRoleByName(Serializable name);
+
+    public Integer getRoleByNameItemNumber(String name);
 }

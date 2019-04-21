@@ -36,7 +36,7 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public boolean insert(Staff t, Object... params) {
         Image image = new Image();
-        image.setImageId(4);
+        image.setImageId(6);
         t.setImage(image);
         t.setStaffPassword(MD5Utils.md5("123456"));
         try {
@@ -83,6 +83,11 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public List<Staff> getStaffByName(Serializable name) {
         return staffDao.getStaffByName(name);
+    }
+
+    @Override
+    public Integer getStaffByNameItemNumber(String name) {
+        return staffDao.getStaffByNameItemNumber(name);
     }
 
     @Override

@@ -20,6 +20,8 @@ public interface StaffService extends CUDService<Staff>, PaginationBaseService<S
 
     public List<Staff> getStaffByName(Serializable name);
 
+    public Integer getStaffByNameItemNumber(String name);
+
     public List<Staff> getStaffByDepartmentName(Serializable departmentName, Serializable currentPage);
 
     public int getStaffByDepartmentNameItemNum(Serializable departmentName);
@@ -35,10 +37,11 @@ public interface StaffService extends CUDService<Staff>, PaginationBaseService<S
     public Staff getStaffById(Serializable id);
 
     public Staff getStaffByRoleWork(Serializable roleWork);
-    
+
     public boolean updateStaff(Staff staff);
 
     public List<Staff> getStaffWithImage(Integer currentPage);
 
     public int getStaffNumWithImage();
+
 }

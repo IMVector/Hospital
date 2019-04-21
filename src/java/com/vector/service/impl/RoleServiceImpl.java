@@ -80,4 +80,9 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.getRoleByName(name);
     }
 
+    @Override
+    public Integer getRoleByNameItemNumber(String name) {
+        return roleDao.getRoleByNameItemNumber(name);
+    }
+
 }

@@ -21,4 +21,6 @@ public interface DepartmentService extends CUDService<Department>, PaginationBas
 
     public List<Department> getDaprtmentByName(Serializable name);
 
+    public Integer getDaprtmentByNameItemNumber(String name);
+
 }

@@ -450,7 +450,7 @@
                             $('.ui.basic.modal').modal('show');
                         } else {
                             toastSuccess("病历信息提交成功！");
-                            window.open("staff/goToStaffIndex","_self");
+                            window.open("staff/goToStaffIndex", "_self");
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -584,9 +584,7 @@
             flag = false;
             var name = $("#medicalName").val();
             var url = "staff/getMedicineByName/" + name;
-            fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, function () {
-                return 1;
-            });
+            fillForm("medicineTablePageButtons", "medicineTablePageText", "medicineTablePageSelecter", currentPage = 1, url, medicineTableInfo, getMedicineByNameItemNumber);
         });
         $("#getAllMedicineBtn").click(function () {
             var url = 'staff/medicineList/page_key_word';
@@ -636,6 +634,22 @@
                 type: 'POST',
                 async: false,
                 data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！" + errorThrown);
+                }
+            });
+            return itemNum;
+        }
+        function getMedicineByNameItemNumber() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/medicineByNameListItemNum/" + $("#medicalName").val(),
+                type: 'POST',
+                async: false,
                 success: function (data, textStatus, jqXHR) {
                     //返回List项目总数量
                     itemNum = data;

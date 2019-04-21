@@ -11,17 +11,15 @@
         <jsp:include page="patientHeaderTemplete.jsp" />
         <div class="ui fluid-container">
             <div class="ui centered grid">
-
                 <div class="twelve wide column">
-
                     <div>
                         <div class="ui fluid action input">
                             <input type="text" placeholder="Search...">
-                            <select class="ui compact selection dropdown">
+                            <select id="selectItem" class="ui compact selection dropdown">
                                 <option value="department">科室名称</option>
-                                <option value="Staff">专家姓名</option>
+                                <option value="staff">专家姓名</option>
                             </select>
-                            <div class="ui primary button">查询</div>
+                            <div id="searchDepOrStaff" class="ui primary button">查询</div>
                         </div>
                     </div>
                     <br>
@@ -65,6 +63,18 @@
 
     </body>
     <script>
+
+        $("#searchDepOrStaff").click(function () {
+            var item = $("#selectItem").val();
+            if (item === "staff") {
+
+            } else if (item === "department") {
+
+            }
+
+        });
+
+
         $('.ui.styled.accordion').accordion({
             selector: {
                 trigger: '.title'
@@ -81,7 +91,6 @@
 
             var url = 'staff/departmentList/page_key_word';
             fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, departmentTableInfo, getDepartmentItemNumber);
-
             requestDepartmentList("#departmentList_");
         });
 
@@ -127,7 +136,7 @@
         function departmentTableInfo(data) {
             $("#departmentList").empty();
             $.each(data, function (index, department) {
-                var str = "<div class='two wide column'><a class='ui button'>" + department.departmentName + "</a></div>";
+                var str = "<div class='two wide column'><a class='ui button' href='patient/goToAttendanceToPatient/" + department.departmentId + "'>" + department.departmentName + "</a></div>";
                 $("#departmentList").append(str);
             });
         }
@@ -156,7 +165,7 @@
                 success: function (data, textStatus, jqXHR) {
                     $(id).empty();
                     $.each(data, function (index, department) {
-                        var str = "<div class='two wide column'><a class='ui button'>" + department.departmentName + "</a></div>";
+                        var str = "<div class='two wide column'><a class='ui button' href='patient/goToAttendanceToPatient/" + department.departmentId + "'>" + department.departmentName + "</a></div>";
                         $(id).append(str);
                     });
                 },

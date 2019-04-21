@@ -21,4 +21,6 @@ public interface DepartmentDao extends BaseDao<Department>, PaginationBaseDao<De
 
     public List<Department> getDepartmentByName(Serializable name);
 
+    public Integer getDaprtmentByNameItemNumber(String name);
+
 }

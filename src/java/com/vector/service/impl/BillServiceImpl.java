@@ -115,7 +115,7 @@ public class BillServiceImpl implements BillService {
                 for (int i = 0; i < array.length; i++) {
                     Medicine medicine = medicineService.getMedicineById(Integer.parseInt(array[i]));
                     totalAmount += medicine.getMedicinePrice();
-                    chargeItem = chargeItem +medicine.getMedicineId() + ",";
+                    chargeItem = chargeItem + medicine.getMedicineId() + ",";
                 }
             }
 
@@ -169,5 +169,24 @@ public class BillServiceImpl implements BillService {
         map.addAttribute("checkRecordLsit", clist);
         map.addAttribute("medicineList", mlist);
         return map;
+    }
+
+    @Override
+    public double[] getMedicalVisitsFee(Serializable patientId, Serializable year) {
+
+        double fee[] = new double[12];
+        for (int i = 0; i < 12; i++) {
+            fee[i] = 0;
+        }
+        List<Bill> list = billDao.getBillOfPatientByYear(patientId, year);
+        for (Bill b : list) {
+            fee[b.getBillDate().getMonth()] += b.getTotalAmount();
+        }
+        return fee;
+    }
+
+    @Override
+    public Bill getBillById(Serializable billId) {
+        return billDao.getOneById(billId);
     }
 }
