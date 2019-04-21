@@ -277,26 +277,26 @@
 //                });
 
                 //获取部门列表
-                $.ajax({
-                    url: "departmentList",
-                    type: 'POST',
-                    beforeSend: function () {
-                        $("#departmentLoader").addClass('active');
-                    },
-                    success: function (data, textStatus, jqXHR) {
-                        $("#departmentList").empty();
-                        $.each(data, function (index, department) {
-                            var str = "<a href=\"about\\" + department.departmentName + "\" class=\"ui blue button\">" + department.departmentName + " </a>";
-                            $("#departmentList").append(str);
-                        });
-                    },
-//                    complete: function () {
-//                        $("#departmentLoader").removeClass("active");
+//                $.ajax({
+//                    url: "departmentList",
+//                    type: 'POST',
+//                    beforeSend: function () {
+//                        $("#departmentLoader").addClass('active');
 //                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        toastError("请求失败！" + errorThrown);
-                    }
-                });
+//                    success: function (data, textStatus, jqXHR) {
+//                        $("#departmentList").empty();
+//                        $.each(data, function (index, department) {
+//                            var str = "<a href=\"about\\" + department.departmentName + "\" class=\"ui blue button\">" + department.departmentName + " </a>";
+//                            $("#departmentList").append(str);
+//                        });
+//                    },
+////                    complete: function () {
+////                        $("#departmentLoader").removeClass("active");
+////                    },
+//                    error: function (jqXHR, textStatus, errorThrown) {
+//                        toastError("请求失败！" + errorThrown);
+//                    }
+//                });
 
             });
             $(".ui.item").on("click", function () {

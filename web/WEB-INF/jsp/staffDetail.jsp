@@ -270,7 +270,7 @@
             <div class="content">
                 <div class="ui header blue segment">值班表</div>
                 <form id="scheduleForm">
-                    <input type="text" style="display:none;" name="staffDetails.staffId" value="${staffDetails.staffId}">
+                    <input type="text" style="display:none;" name="staff.staffId" value="${staffDetails.staffId}">
                     <table  id="scheduleTable" style="width: 70%;margin: auto;" class="ui celled table">
                         <thead>
                             <tr>

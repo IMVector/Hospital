@@ -647,7 +647,7 @@
         function getMedicineByNameItemNumber() {
             var itemNum = 0;
             $.ajax({
-                url: "staff/medicineByNameListItemNum/" + $("#medicalName").val(),
+                url: "staff/getMedicineByNameItemNumber/" + $("#medicalName").val(),
                 type: 'POST',
                 async: false,
                 success: function (data, textStatus, jqXHR) {

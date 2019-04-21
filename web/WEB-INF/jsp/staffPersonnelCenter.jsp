@@ -69,26 +69,26 @@
                     </div>
                     <div class="ui divider"></div>
                 </div>
-                <h3 class="ui block header">
-                    Block Header
-                </h3>
-                <div class="ui segments">
-                    <div class="ui segment">
-                        <p>Top</p>
-                    </div>
-                    <div class="ui segment">
-                        <p>Middle</p>
-                    </div>
-                    <div class="ui segment">
-                        <p>Middle</p>
-                    </div>
-                    <div class="ui segment">
-                        <p>Middle</p>
-                    </div>
-                    <div class="ui segment">
-                        <p>Bottom</p>
-                    </div>
-                </div>
+                <!--                <h3 class="ui block header">
+                                    Block Header
+                                </h3>
+                                <div class="ui segments">
+                                    <div class="ui segment">
+                                        <p>Top</p>
+                                    </div>
+                                    <div class="ui segment">
+                                        <p>Middle</p>
+                                    </div>
+                                    <div class="ui segment">
+                                        <p>Middle</p>
+                                    </div>
+                                    <div class="ui segment">
+                                        <p>Middle</p>
+                                    </div>
+                                    <div class="ui segment">
+                                        <p>Bottom</p>
+                                    </div>
+                                </div>-->
             </div>
         </div>
     </body>

@@ -66,7 +66,12 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
             query.setParameter(i, params[i]);
         }
         Long size = (Long) query.uniqueResult();
-        return size.intValue();
+        if (size != null) {
+            return size.intValue();
+        } else {
+            return 0;
+        }
+
     }
 
     /**

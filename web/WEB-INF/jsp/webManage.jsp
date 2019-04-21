@@ -91,7 +91,7 @@
 
         </div>
         <!-- /container -->
-        <jsp:include page="footerTemplete.jsp" />
+        <%--<jsp:include page="footerTemplete.jsp" />--%>
     </body>
     <script>
         created();

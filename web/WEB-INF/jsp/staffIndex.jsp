@@ -16,6 +16,41 @@
         <div class="ui container">
             <jsp:include page="staffHeaderTemplete.jsp"/>
             <div class="ui segment">
+
+                <div class="ui relaxed divided items">
+                    <div class="item">
+                        <div class="ui small image">
+                            <img src="${staff.image.imagePath}">
+                        </div>
+
+                        <div class="content">
+                            <!--<a class="header">内容标题</a>-->
+                            <div class="meta">
+                                <div class="ui label">编号：</div> &nbsp&nbsp${staff.staffId}
+                            </div>
+                            <div class="meta">
+                                <div class="ui label">姓名：</div> &nbsp&nbsp${staff.staffName}
+
+                                <!--<a>姓名：</a>-->
+                            </div>
+                            <div class="meta">
+                                <div class="ui label">职称：</div> &nbsp&nbsp${staff.title.titleName}
+
+                                <!--<a>血型：</a>-->
+                            </div>
+                            <div class="meta">
+                                <div class="ui label">特长：</div> &nbsp&nbsp${staff.specialty}
+                                <!--<a>年龄：</a>-->
+                            </div>
+                            <div class="meta">
+                                <div class="ui label">性别：</div> &nbsp&nbsp${staff.gender}
+                                <!--<a>婚否：</a>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                </div>
+
                 <center>
                     <div class="ui big horizontal divided list">
                         <div class="item">
@@ -52,8 +87,7 @@
                     </div>
                 </center>
 
-
-                <div class="twelve wide column">
+<!--                <div class="twelve wide column">
 
                     <div class="ui divider"></div>
 
@@ -112,7 +146,7 @@
                                             <a href="">详情</a>
                                         </div>
                                     </div>
-                                    <!--<br>-->
+                                    <br>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +156,7 @@
                                 <div class="header">
                                     <div class="ui grid">
                                         <div class="six wide column">
-                                            <!--<i class="blue user circle huge icon"></i>-->
+                                            <i class="blue user circle huge icon"></i>
                                             <i class="orange clipboard check huge icon"></i>
                                         </div>
                                         <div class="ten wide column">
@@ -151,7 +185,7 @@
                                 <div class="header">
                                     <div class="ui grid">
                                         <div class="six wide column">
-                                            <!--<i class="orange user circle outline huge icon"></i>-->
+                                            <i class="orange user circle outline huge icon"></i>
                                             <i class="blue clipboard list huge icon"></i>
                                         </div>
                                         <div class="ten wide column">
@@ -179,7 +213,7 @@
                     </div>
 
 
-                </div>
+                </div>-->
             </div>
 
         </div>

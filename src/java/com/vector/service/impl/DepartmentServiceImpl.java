@@ -39,14 +39,20 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Department> getDaprtmentByName(Serializable name) {
         return departmentDao.getDepartmentByName(name);
     }
+
     @Override
     public Integer getDaprtmentByNameItemNumber(String name) {
         return departmentDao.getDaprtmentByNameItemNumber(name);
     }
+
     @Override
     public boolean insert(Department t, Object... params) {
         if (params.length > 0) {
             Image image = imageService.getImageByPath(params[0].toString());
+            t.setImage(image);
+        } else {
+            Image image = new Image();
+            image.setImageId(1);
             t.setImage(image);
         }
         try {
@@ -60,6 +66,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public boolean update(Department t, Object... params) {
+        if (params.length > 0) {
+            Image image = imageService.getImageByPath(params[0].toString());
+            t.setImage(image);
+        } else {
+            Image image = new Image();
+            image.setImageId(1);
+            t.setImage(image);
+        }
         try {
             departmentDao.update(t);
             return true;
@@ -94,7 +108,5 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Department> getDepartmentList() {
         return departmentDao.getDepartmentList();
     }
-
-
 
 }

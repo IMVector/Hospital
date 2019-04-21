@@ -14,7 +14,7 @@
                 <div class="twelve wide column">
                     <div>
                         <div class="ui fluid action input">
-                            <input type="text" placeholder="Search...">
+                            <input id="searchValue" type="text" placeholder="Search...">
                             <select id="selectItem" class="ui compact selection dropdown">
                                 <option value="department">科室名称</option>
                                 <option value="staff">专家姓名</option>
@@ -66,10 +66,14 @@
 
         $("#searchDepOrStaff").click(function () {
             var item = $("#selectItem").val();
+            var value = $("#searchValue").val();
             if (item === "staff") {
+                var url = "staff/getStaffByName/" + value;
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, staffTableInfo, staffByNameItemNum);
 
             } else if (item === "department") {
-
+                var url = "staff/getDepartmentByName/" + value;
+                fillForm("PageButtons", "pageText", "pageSelecter", currentPage = 1, url, departmentTableInfo, getDepartmentItemNumber);
             }
 
         });
@@ -179,6 +183,40 @@
             var departmentId =${departmentId};
             $.ajax({
                 url: "staff/getStaffByDepartmentItemNum/" + departmentId,
+                type: 'POST',
+                async: false,
+                data: {},
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！");
+                }
+            });
+            return itemNum;
+        }
+        //获取数据库中的总数量
+        function getDepartmentByNameItemNumber() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/getDepartmentByNameItemNumber/" +  $("#searchValue").val(),
+                type: 'POST',
+                async: false,
+                success: function (data, textStatus, jqXHR) {
+                    //返回List项目总数量
+                    itemNum = data;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败，请重试！");
+                }
+            });
+            return itemNum;
+        }
+         function staffByNameItemNum() {
+            var itemNum = 0;
+            $.ajax({
+                url: "staff/getStaffByNameListItemNum/" +  $("#searchValue").val(),
                 type: 'POST',
                 async: false,
                 data: {},

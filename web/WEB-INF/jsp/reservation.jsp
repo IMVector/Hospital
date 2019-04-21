@@ -29,7 +29,7 @@
                         </div>
                         <div class="ui grid">
                             <div class="four wide column">
-                                <img src=";${reservationStaff.image.imagePath}" height="200px;" alt="">
+                                <img src="${reservationStaff.image.imagePath}" height="200px;" alt="">
                             </div>
                             <div class="five wide column">
                                 <div class="ui fluid segment">

@@ -50,8 +50,11 @@ public class WorkScheduleServiceImpl implements WorkScheduleService {
 
     @Override
     public boolean deleteSchedule(Serializable staffId) {
+        List<WorkSchedule> list = workScheduleDao.getScheduleByStaffId(staffId);
         try {
-            workScheduleDao.deleteScheduleByStaffId(staffId);
+            for (WorkSchedule s : list) {
+                workScheduleDao.delete(s.getWorkScheduleId());
+            }
             return true;
         } catch (Exception e) {
             System.out.println(e);
@@ -90,6 +93,7 @@ public class WorkScheduleServiceImpl implements WorkScheduleService {
 
     @Override
     public boolean UpdateSchedule(ScheduleTable table) {
+        System.out.println(table.getStaff().getStaffId());
         deleteSchedule(table.getStaff().getStaffId());
         return addSchedule(table);
     }

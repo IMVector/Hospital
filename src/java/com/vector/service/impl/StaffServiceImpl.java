@@ -50,6 +50,10 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public boolean update(Staff t, Object... params) {
+        Image image = new Image();
+        image.setImageId(6);
+        t.setImage(image);
+        t.setStaffPassword(MD5Utils.md5("123456"));
         try {
             staffDao.update(t);
             return true;
@@ -176,7 +180,7 @@ public class StaffServiceImpl implements StaffService {
             staff.setImage(image);
         } else {
             Image image = new Image();
-            image.setImageId(4);
+            image.setImageId(6);
             staff.setImage(image);
         }
         staff.setStaffPassword(MD5Utils.md5(staff.getStaffPassword()));

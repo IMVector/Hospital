@@ -107,7 +107,10 @@
 
                 <h3 class="ui block header">
                     账单列表
-                </h3>     
+                </h3>
+                <button id="getBillList" class="ui orange button">账单列表</button>
+                <br>
+                <br>
                 <div class="container-inner">
                     <table id="billTable" class="ui orange table">
 
@@ -133,7 +136,10 @@
     </body>
     <script>
 
-
+        $("#getBillList").click(function () {
+            var url = 'patient/billList/${patient.patientId}/page_key_word';
+            fillForm("billButtons", "pageText_3", "pageSelecter_3", currentPage = 1, url, billTableShow, getbillItemNumber);
+        });
 
         $(document).ready(function () {
             medicalRecord();

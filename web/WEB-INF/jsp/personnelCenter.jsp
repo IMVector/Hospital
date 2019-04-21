@@ -69,7 +69,7 @@
                     </div>
                     <div class="ui divider"></div>
                 </div>
-                <h3 class="ui block header">
+<!--                <h3 class="ui block header">
                     Block Header
                 </h3>
                 <div class="ui segments">
@@ -88,7 +88,7 @@
                     <div class="ui segment">
                         <p>Bottom</p>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </body>
