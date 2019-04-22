@@ -276,7 +276,7 @@
             <div class="ui grid">
                 <div class="ui row">
                     <div class="six wide column">
-                        <img id="departmentImage" src="resources/image/backgroundImage/88.jpg" alt="">
+                        <img id="departmentImage" src="resources/image/backgroundImage/88.jpg" alt="图片丢失了">
                     </div>
                     <div class="ten wide column">
                         <div id="department" class="ui grid">

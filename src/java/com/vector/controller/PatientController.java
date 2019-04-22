@@ -122,6 +122,11 @@ public class PatientController {
     public boolean update(Patient patient) {
         return patientService.update(patient);
     }
+    @RequestMapping(value="/resetPassword")
+    @ResponseBody
+    public boolean resetPassword(String email,String resetPassword){
+        return patientService.resetPassword(email,resetPassword);
+    }
 
     @RequestMapping(value = "/goToReservation/{staffId}")
     public String goToReservation(@PathVariable Integer staffId, ModelMap map, HttpSession session) {

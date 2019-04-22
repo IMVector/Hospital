@@ -150,4 +150,16 @@ public class PatientServiceImpl implements PatientService {
         return patientDao.getOneById(patientId);
     }
 
+    @Override
+    public boolean resetPassword(String email, String resetPassword) {
+        Patient p = patientDao.getPatientByEmail(email);
+        if (null != p) {
+            p.setPatientPassword(MD5Utils.md5(resetPassword));
+            patientDao.update(p);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

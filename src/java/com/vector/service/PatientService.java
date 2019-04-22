@@ -26,4 +26,6 @@ public interface PatientService {
     public Patient validatePatientByIdCard(String IdCard);
 
     public boolean update(Patient patient);
+
+    public boolean resetPassword(String email, String resetPassword);
 }
