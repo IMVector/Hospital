@@ -133,7 +133,7 @@
                     <img id="builderMap" src="resources/image/1楼.gif" alt="楼层分布">
                 </div>
             </div>
-            <div  class="ui segment">
+<!--            <div  class="ui segment">
                 <div class="ui header blue segment">医院公告</div>
                 <div id="departmentLoader" class="ui active inverted dimmer">
                     <div class="ui text loader">加载</div>
@@ -142,7 +142,7 @@
 
                 </div>
 
-            </div>
+            </div>-->
 
             <div class="ui segment">
                 <!--<img class="ui fluid image" src="resources/image/bgthird.png">-->
