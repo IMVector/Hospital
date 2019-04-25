@@ -201,6 +201,9 @@
         </div>
     </body>
     <script>
+
+        var today = 0;
+
         $('.ui.pointing.secondary.menu .item').tab();
 
         window.onload = function () {
@@ -218,6 +221,7 @@
         function initDate(tableId) {
             currDT = new Date();
             var dw = currDT.getDay(); //从Date对象返回一周中的某一天(0~6)
+            today = dw;
             var tdDT; //日期
 
             //在表格中显示一周的日期
@@ -260,28 +264,38 @@
 
 
         function reservation(url) {
-            var patientId="${patient.patientId}";
-            if(patientId===""){
-                window.open("patient/goToLogin","_self");
+            var patientId = "${patient.patientId}";
+            if (patientId === "") {
+                window.open("patient/goToLogin", "_self");
             }
             var id_ = url.slice(-3);//截取url后三位
             var reservationDate = $("#" + id_ + "").children("input").val();//预约那天的日期
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: {"reservationDate": reservationDate},
-                success: function (data) {
-                    if (data) {
-                        toastSuccess("预约成功");
-                        $("#message").removeClass("hidden");
-                    } else {
-                        toastError("预约失败");
+
+            var dateIndex = id_.slice(0, 1);
+            console.log(dateIndex);
+            console.log(today);
+            if (dateIndex >= today) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {"reservationDate": reservationDate},
+                    success: function (data) {
+                        if (data) {
+                            toastSuccess("预约成功");
+                            $("#message").removeClass("hidden");
+                        } else {
+                            toastError("预约失败");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        toastError("请求失败,请重试！");
                     }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    toastError("请求失败,请重试！");
-                }
-            });
+                });
+            } else {
+                toastError("预约无效");
+            }
+
+
         }
     </script>
 </html>

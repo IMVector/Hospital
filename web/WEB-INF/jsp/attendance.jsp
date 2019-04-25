@@ -23,7 +23,7 @@
             <div class="ui centered grid">
 
                 <div class="twelve wide column">
-                    <div class="row">
+<!--                    <div class="row">
                         <div>
                             <div class="ui fluid action input">
                                 <input type="text" placeholder="科室名称">
@@ -34,7 +34,7 @@
 
                         <div>
                             <div id="departmentList" class="ui grid">
-                                <!--<div class="two wide column"><button class="ui button">test</button></div>-->
+                                <div class="two wide column"><button class="ui button">test</button></div>
                             </div>
                             <br>
                             <div class="ui styled fluid accordion">
@@ -44,13 +44,13 @@
                                 </div>
                                 <div class="content">
                                     <div id="departmentList_" class="ui grid">
-                                        <!--<div class="two wide column"><button class="ui button">test</button></div>-->
+                                        <div class="two wide column"><button class="ui button">test</button></div>
                                     </div>
                                 </div>
                             </div>
                         </div>            
-                    </div>
-                    <div class="ui divider"></div>
+                    </div>-->
+                    <!--<div class="ui divider"></div>-->
                     <div class="ui header blue segment">
                         出诊信息
                     </div>
@@ -158,6 +158,8 @@
         </div>
     </body>
     <script>
+        var today = 0;
+
         $('.ui.styled.accordion').accordion({
             selector: {
                 trigger: '.title'
@@ -187,7 +189,7 @@
                         $.each(scheduleTable.scheduleList, function (index, flag) {
                             var index_ = (parseInt(index / 2) + 1) + "_" + (index % 2 + 1);
                             if (flag === "true") {
-                                $("#" + index_).append("<p>"+scheduleTable.staff.staffName+"</p>");
+                                $("#" + index_).append("<p>" + scheduleTable.staff.staffName + "</p>");
                             }
 
                             console.log(index_, flag);
@@ -239,6 +241,7 @@
         function initDate(tableId) {
             currDT = new Date();
             var dw = currDT.getDay(); //从Date对象返回一周中的某一天(0~6)
+            today = dw;
             var tdDT; //日期
 
             //在表格中显示一周的日期
@@ -283,22 +286,30 @@
         function reservation(url) {
             var id_ = url.slice(-3);//截取url后三位
             var reservationDate = $("#" + id_ + "").children("input").val();//预约那天的日期
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: {"reservationDate": reservationDate},
-                success: function (data) {
-                    if (data) {
-                        toastSuccess("预约成功");
-                        $("#message").removeClass("hidden");
-                    } else {
-                        toastError("预约失败");
+            var dateIndex = id_.slice(0, 1);
+            console.log(dateIndex);
+            console.log(today);
+
+            if (dateIndex >= today) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {"reservationDate": reservationDate},
+                    success: function (data) {
+                        if (data) {
+                            toastSuccess("预约成功");
+                            $("#message").removeClass("hidden");
+                        } else {
+                            toastError("预约失败");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        toastError("请求失败,请重试！");
                     }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    toastError("请求失败,请重试！");
-                }
-            });
+                });
+            }else{
+                toastError("预约无效");
+            }
         }
 
         function requestDepartmentList(id) {
