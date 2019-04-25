@@ -115,7 +115,10 @@
                     <td>" + staff.specialty + "</td>\n\
                     <td><a href='patient/goToReservation/" + staff.staffId + "'>预约</a></td>\n\
                 </tr>";
-                $("#staffTable tbody").append(str);
+                if (staff.role.roleName === "临床医生") {
+                    $("#staffTable tbody").append(str);
+                }
+
             });
         }
         function staffItemNum() {
@@ -200,7 +203,7 @@
         function getDepartmentByNameItemNumber() {
             var itemNum = 0;
             $.ajax({
-                url: "staff/getDepartmentByNameItemNumber/" +  $("#searchValue").val(),
+                url: "staff/getDepartmentByNameItemNumber/" + $("#searchValue").val(),
                 type: 'POST',
                 async: false,
                 success: function (data, textStatus, jqXHR) {
@@ -213,10 +216,10 @@
             });
             return itemNum;
         }
-         function staffByNameItemNum() {
+        function staffByNameItemNum() {
             var itemNum = 0;
             $.ajax({
-                url: "staff/getStaffByNameListItemNum/" +  $("#searchValue").val(),
+                url: "staff/getStaffByNameListItemNum/" + $("#searchValue").val(),
                 type: 'POST',
                 async: false,
                 data: {},
