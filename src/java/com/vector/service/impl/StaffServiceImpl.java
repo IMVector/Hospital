@@ -130,8 +130,8 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public Staff getStaffByRoleWork(Serializable roleWork) {
-        return staffDao.getStaffByRoleWork(roleWork);
+    public Staff getStaffByStaffWork(Serializable staffWork) {
+        return staffDao.getStaffByStaffWork(staffWork);
     }
 
     @Override

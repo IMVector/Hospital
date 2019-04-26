@@ -83,9 +83,9 @@ public class StaffDaoImpl extends BaseDaoImpl<Staff> implements StaffDao {
     }
 
     @Override
-    public Staff getStaffByRoleWork(Serializable roleWork) {
-        String hql = "from Staff where role.roleWork=?";
-        List<Staff> list = getListByQuery(hql, roleWork);
+    public Staff getStaffByStaffWork(Serializable staffWork) {
+        String hql = "from Staff where staffWork=?";
+        List<Staff> list = getListByQuery(hql, staffWork);
         if (!list.isEmpty()) {
             Random random = new Random();
             int index = random.nextInt(list.size());

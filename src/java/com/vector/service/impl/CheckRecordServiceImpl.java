@@ -42,9 +42,9 @@ public class CheckRecordServiceImpl implements CheckRecordService {
         String resultFile = (String) params[0];
         HttpSession session = (HttpSession) params[1];
 
-        Staff targetStaff = (Staff) session.getAttribute("staff");
+        Staff targetStaff = (Staff) session.getAttribute("examStaff");
         CheckItem item = new CheckItem();
-        item.setCheckItemId(targetStaff.getRole().getRoleWork());//roleWork与checkItemId是逻辑关联
+        item.setCheckItemId(targetStaff.getStaffWork());//staffWork与checkItemId是逻辑关联
 
         t.setResultFile(resultFile);
         t.setStaff(targetStaff);

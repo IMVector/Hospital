@@ -1,5 +1,5 @@
 package com.vector.pojo;
-// Generated 2019-4-4 15:57:02 by Hibernate Tools 4.3.1
+// Generated 2019-4-26 19:11:25 by Hibernate Tools 4.3.1
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,7 +15,6 @@ public class Role  implements java.io.Serializable {
      private Integer roleId;
      private String roleName;
      private String roleDescription;
-     private Integer roleWork;
      @JsonIgnore
      private Set staffs = new HashSet(0);
 
@@ -26,10 +25,9 @@ public class Role  implements java.io.Serializable {
     public Role(String roleName) {
         this.roleName = roleName;
     }
-    public Role(String roleName, String roleDescription, Integer roleWork, Set staffs) {
+    public Role(String roleName, String roleDescription, Set staffs) {
        this.roleName = roleName;
        this.roleDescription = roleDescription;
-       this.roleWork = roleWork;
        this.staffs = staffs;
     }
    
@@ -53,13 +51,6 @@ public class Role  implements java.io.Serializable {
     
     public void setRoleDescription(String roleDescription) {
         this.roleDescription = roleDescription;
-    }
-    public Integer getRoleWork() {
-        return this.roleWork;
-    }
-    
-    public void setRoleWork(Integer roleWork) {
-        this.roleWork = roleWork;
     }
     public Set getStaffs() {
         return this.staffs;

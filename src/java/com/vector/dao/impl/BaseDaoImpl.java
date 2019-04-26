@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -102,4 +103,31 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return query.executeUpdate();
     }
 
+    public List<T> getListBySql(String sql, Serializable currentPage, Object... params) {
+        SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+        for (int i = 0; i < params.length; i++) {
+            query.setParameter(i, params[i]);
+        }
+        query.addEntity(clazz);//设置返回实体类的类型
+        if ((Integer)currentPage > 0) {
+            query.setFirstResult(((int) currentPage - 1) * EVERY_PAGE_NUMBER);
+            query.setMaxResults(EVERY_PAGE_NUMBER);
+        }
+
+        return query.list();
+    }
+
+    public Integer getListSizeBySql(String sql, Object... params) {
+        Query query = sessionFactory.getCurrentSession().createQuery(sql);
+        for (int i = 0; i < params.length; i++) {
+            query.setParameter(i, params[i]);
+        }
+        Long size = (Long) query.uniqueResult();
+        if (size != null) {
+            return size.intValue();
+        } else {
+            return 0;
+        }
+
+    }
 }

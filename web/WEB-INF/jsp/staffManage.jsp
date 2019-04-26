@@ -167,6 +167,12 @@
                                 <textarea id="introduction" placeholder="请输入员工简介" name="introduction"></textarea>
                             </div>
                         </div>
+                        <div class="field">
+                            <label for="">角色负责的检查工作：</label>
+                            <div class="ui input ">
+                                <select id="checkItemId" name="staffWork" class="ui fluid dropdown"></select>
+                            </div>
+                        </div>
                         <button id="resetButton" type="reset" style="display:none;"></button> 
                     </form>
                 </div>
@@ -181,6 +187,8 @@
     </body>
 
     <script>
+
+
         var ajaxCount = 3;
         function isAjaxFinished() {
             ajaxCount--;
@@ -189,6 +197,7 @@
             }
         }
         $(document).ready(function () {
+            requestCheckItmeList("#checkItemId");
 
             $("#optionLoader").addClass('active');
             requestDepartmentList("#staffDepartment_");
@@ -590,7 +599,22 @@
                 }
             }
         });
-
+        function requestCheckItmeList(id) {
+            $.ajax({
+                url: "staff/getCheckItemList",
+                type: 'POST',
+                success: function (data, textStatus, jqXHR) {
+                    $(id).empty();
+                    $.each(data, function (index, checkItem) {
+                        var str = "<option value=" + checkItem.checkItemId + ">" + checkItem.checkItemName + "</option>";
+                        $(id).append(str);
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastError("请求失败,请重试！");
+                }
+            });
+        }
 
     </script>
 </html>

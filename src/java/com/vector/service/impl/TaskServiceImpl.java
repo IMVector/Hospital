@@ -65,7 +65,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     public Staff getTaskTarget(Serializable checkItemId) {
-        return staffDao.getStaffByRoleWork(checkItemId);
+        return staffDao.getStaffByStaffWork(checkItemId);
     }
 
     public Patient getPatientByIdCard(String IdCard) {

@@ -77,12 +77,12 @@
                                 <textarea id="roleDescription" name="roleDescription" placeholder="请输入角色说明" type="text"></textarea>
                             </div>
                         </div>
-                        <div class="field">
+<!--                        <div class="field">
                             <label for="">角色负责的检查工作：</label>
                             <div class="ui input ">
                                 <select id="checkItemId" name="roleWork" class="ui fluid dropdown"></select>
                             </div>
-                        </div>
+                        </div>-->
                         <br/>
                         <div class="field">
                             <label id="result" class="ui header blue"></label>
@@ -106,7 +106,7 @@
 
         $(document).ready(function () {
 
-            requestCheckItmeList("#checkItemId");
+//            requestCheckItmeList("#checkItemId");
 
             $("#getByName").on("click", function () {
                 var name = $("#roleName").val();

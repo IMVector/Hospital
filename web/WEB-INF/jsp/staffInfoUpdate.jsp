@@ -33,6 +33,7 @@
             <div class="ui segment">
                 <div class="ui header blue segment">职工信息</div>
                 <form id="myForm" class="ui form">
+                    <input name="staffWork" type="text" style="display: none" value="${staff.staffWork}">
                     <input type="text" name="staffId" value="${staff.staffId}" style="display:none">
                     <div class="field">
                         <label for="">员工邮箱：</label>

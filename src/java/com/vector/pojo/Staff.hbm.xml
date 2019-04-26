@@ -38,6 +38,9 @@
         <property name="gender" type="string">
             <column name="Gender" length="4" not-null="true" />
         </property>
+        <property name="staffWork" type="java.lang.Integer">
+            <column name="staffWork" />
+        </property>
         <set name="precautionAdvices" table="precaution_advice" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="StaffId" not-null="true" />

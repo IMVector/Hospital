@@ -21,6 +21,7 @@ public class Staff implements java.io.Serializable {
     private String specialty;
     private String introduction;
     private String gender;
+    private Integer staffWork;
     @JsonIgnore
     private Set precautionAdvices = new HashSet(0);
     @JsonIgnore
@@ -55,7 +56,7 @@ public class Staff implements java.io.Serializable {
         this.gender = gender;
     }
 
-    public Staff(Department department, Image image, Role role, Title title, String staffName, String staffPassword, String email, String specialty, String introduction, String gender, Set precautionAdvices, Set medicalRecords, Set dietAdvices, Set checkRecords, Set tasksForTaskSponsor, Set tasksForTaskTarget, Set leaves, Set reservations, Set workSchedules) {
+    public Staff(Department department, Image image, Role role, Title title, String staffName, String staffPassword, String email, String specialty, String introduction, String gender, Integer staffWork, Set checkRecords, Set tasksForTaskSponsor, Set leaves, Set medicalRecords, Set precautionAdvices, Set workSchedules, Set reservations, Set tasksForTaskTarget, Set dietAdvices) {
         this.department = department;
         this.image = image;
         this.role = role;
@@ -66,15 +67,16 @@ public class Staff implements java.io.Serializable {
         this.specialty = specialty;
         this.introduction = introduction;
         this.gender = gender;
-        this.precautionAdvices = precautionAdvices;
-        this.medicalRecords = medicalRecords;
-        this.dietAdvices = dietAdvices;
+        this.staffWork = staffWork;
         this.checkRecords = checkRecords;
         this.tasksForTaskSponsor = tasksForTaskSponsor;
-        this.tasksForTaskTarget = tasksForTaskTarget;
         this.leaves = leaves;
-        this.reservations = reservations;
+        this.medicalRecords = medicalRecords;
+        this.precautionAdvices = precautionAdvices;
         this.workSchedules = workSchedules;
+        this.reservations = reservations;
+        this.tasksForTaskTarget = tasksForTaskTarget;
+        this.dietAdvices = dietAdvices;
     }
 
     public Integer getStaffId() {
@@ -165,28 +167,12 @@ public class Staff implements java.io.Serializable {
         this.gender = gender;
     }
 
-    public Set getPrecautionAdvices() {
-        return this.precautionAdvices;
+    public Integer getStaffWork() {
+        return this.staffWork;
     }
 
-    public void setPrecautionAdvices(Set precautionAdvices) {
-        this.precautionAdvices = precautionAdvices;
-    }
-
-    public Set getMedicalRecords() {
-        return this.medicalRecords;
-    }
-
-    public void setMedicalRecords(Set medicalRecords) {
-        this.medicalRecords = medicalRecords;
-    }
-
-    public Set getDietAdvices() {
-        return this.dietAdvices;
-    }
-
-    public void setDietAdvices(Set dietAdvices) {
-        this.dietAdvices = dietAdvices;
+    public void setStaffWork(Integer staffWork) {
+        this.staffWork = staffWork;
     }
 
     public Set getCheckRecords() {
@@ -205,20 +191,36 @@ public class Staff implements java.io.Serializable {
         this.tasksForTaskSponsor = tasksForTaskSponsor;
     }
 
-    public Set getTasksForTaskTarget() {
-        return this.tasksForTaskTarget;
-    }
-
-    public void setTasksForTaskTarget(Set tasksForTaskTarget) {
-        this.tasksForTaskTarget = tasksForTaskTarget;
-    }
-
     public Set getLeaves() {
         return this.leaves;
     }
 
     public void setLeaves(Set leaves) {
         this.leaves = leaves;
+    }
+
+    public Set getMedicalRecords() {
+        return this.medicalRecords;
+    }
+
+    public void setMedicalRecords(Set medicalRecords) {
+        this.medicalRecords = medicalRecords;
+    }
+
+    public Set getPrecautionAdvices() {
+        return this.precautionAdvices;
+    }
+
+    public void setPrecautionAdvices(Set precautionAdvices) {
+        this.precautionAdvices = precautionAdvices;
+    }
+
+    public Set getWorkSchedules() {
+        return this.workSchedules;
+    }
+
+    public void setWorkSchedules(Set workSchedules) {
+        this.workSchedules = workSchedules;
     }
 
     public Set getReservations() {
@@ -229,12 +231,20 @@ public class Staff implements java.io.Serializable {
         this.reservations = reservations;
     }
 
-    public Set getWorkSchedules() {
-        return this.workSchedules;
+    public Set getTasksForTaskTarget() {
+        return this.tasksForTaskTarget;
     }
 
-    public void setWorkSchedules(Set workSchedules) {
-        this.workSchedules = workSchedules;
+    public void setTasksForTaskTarget(Set tasksForTaskTarget) {
+        this.tasksForTaskTarget = tasksForTaskTarget;
+    }
+
+    public Set getDietAdvices() {
+        return this.dietAdvices;
+    }
+
+    public void setDietAdvices(Set dietAdvices) {
+        this.dietAdvices = dietAdvices;
     }
 
 }

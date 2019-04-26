@@ -81,20 +81,21 @@ public class MedicalRecordDaoImpl extends BaseDaoImpl<MedicalRecord> implements 
 
     @Override
     public List<MedicalRecord> getUnPayMedicalRecord(Serializable patientId) {
-        String hql="from MedicalRecord where patient.patientId=? and paymentStatus='否'";
+        String hql = "from MedicalRecord where patient.patientId=? and paymentStatus='否'";
         return getListByQuery(hql, patientId);
     }
 
     @Override
     public List<MedicalRecord> getMedicalRecordByStaffId(Integer currentPage, Serializable staffId) {
-        String hql="from MedicalRecord where staff.staffId=? group by patient.patientId order by date desc";
-        return getListPaginationByQuery(hql, currentPage, staffId);
+        String sql = " select * from (select * from Medical_Record where DiagnoseStaff=? ORDER BY Date desc) c where c.DiagnoseStaff=? group by c.patientId";
+        return getListBySql(sql, currentPage, staffId,staffId);
     }
 
     @Override
     public Integer getMedicalRecordByStaffIdItemNum(Serializable staffId) {
-        String hql="select count(*) from MedicalRecord where staff.staffId=?  group by patient.patientId order by date desc";
-        return getListSize(hql, staffId);
+        String sql = " select * from (select * from Medical_Record where DiagnoseStaff=? ORDER BY Date desc) c where c.DiagnoseStaff=? group by c.patientId";
+        List list = getListBySql(sql,0, staffId,staffId);//当currentPage设置为0的时候不分页
+        return list.size();
     }
 
 }
