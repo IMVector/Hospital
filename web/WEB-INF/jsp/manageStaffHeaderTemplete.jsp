@@ -34,7 +34,7 @@
 
                 </c:if>
                 <c:if test="${ not empty manageStaff}">
-                    <a href="staff/goToStaffPersonnelCenter">
+                    <a href="staff/goToManageStaffPersonnelCenter">
                         <img class="ui avatar image" src="${manageStaff.image.imagePath}">
                     </a>
                     <a class="ui blue" href="staff/manageUnload">退出</a>
@@ -71,7 +71,7 @@
 
                 </c:if>
                 <c:if test="${ not empty manageStaff}">
-                    <a href="staff/goToStaffPersonnelCenter">
+                    <a href="staff/goToManageStaffPersonnelCenter">
                         <img class="ui avatar image" src="${manageStaff.image.imagePath}">
                     </a>
                     <a class="ui blue" href="staff/manageUnload">退出</a>
