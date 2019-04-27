@@ -95,7 +95,7 @@
                     </div>
                     <div class="ui divider"></div>
                     <div class="ui header blue segment">
-                        预约信息<button class="ui right floated button updateReservation">修改预约信息</button>
+                        值班信息<button class="ui right floated button updateReservation">修改值班信息</button>
                     </div>
                     <table  id="mytable"  class="ui celled table">
                         <thead>
