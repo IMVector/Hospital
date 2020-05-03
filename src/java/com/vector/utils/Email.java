@@ -15,8 +15,8 @@ public class Email {
 
     public static boolean sendEmail(String to, String content) {
         boolean flag = false;
-        String from = "2523511898@qq.com";
-        String password = "qzbettdgvrkjecgb";
+        String from = "@qq.com";
+        String password = "";
 
         //"qzbettdgvrkjecgb"
         // 指定发送邮件的主机为 smtp.qq.com
