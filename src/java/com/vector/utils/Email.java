@@ -18,7 +18,7 @@ public class Email {
         String from = "@qq.com";
         String password = "";
 
-        //"qzbettdgvrkjecgb"
+
         // 指定发送邮件的主机为 smtp.qq.com
         String host = "smtp.qq.com";  //QQ 邮件服务器
         // 获取系统属性
